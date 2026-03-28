@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 2 - Magnitud de los Ataques con Agentes Químicos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fc;
+            color: #1e2a3e;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Encabezado */
+        .header-modulo {
+            background: linear-gradient(135deg, #0b3b3f, #1c5a6a);
+            color: white;
+            padding: 2rem;
+            border-radius: 28px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-modulo h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .header-modulo p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Tarjetas generales */
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #e0e7ed;
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1c5a6a;
+            border-left: 6px solid #e67e22;
+            padding-left: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .card-subtitle {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e4e;
+            margin: 1rem 0 0.8rem 0;
+            padding-bottom: 0.3rem;
+            border-bottom: 2px solid #e0e7ed;
+        }
+
+        /* cuadrícula de temas */
+        .grid-temas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tema-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .tema-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+        }
+
+        .tema-header {
+            background: #eef2f5;
+            padding: 1rem;
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: #1e5a6a;
+            border-bottom: 1px solid #d0dbe6;
+        }
+
+        .tema-body {
+            padding: 1.2rem;
+        }
+
+        /* tablas responsivas */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .tabla-procesos {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .tabla-procesos th, .tabla-procesos td {
+            border: 1px solid #dce5ec;
+            padding: 12px 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .tabla-procesos th {
+            background-color: #1c5a6a;
+            color: white;
+            font-weight: 600;
+        }
+
+        .tabla-procesos tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        /* badges y etiquetas */
+        .badge-ley {
+            background-color: #e67e22;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .icon-text {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+
+        /* fases / timeline */
+        .fases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .fase-item {
+            background: #fef5e8;
+            border-radius: 20px;
+            padding: 1rem;
+            border-left: 6px solid #e67e22;
+        }
+
+        .fase-item h4 {
+            font-weight: 700;
+            color: #a4511c;
+        }
+
+        /* citas */
+        .cita {
+            background: #eef2fa;
+            padding: 1.2rem;
+            border-radius: 20px;
+            font-style: italic;
+            margin: 1rem 0;
+            border-left: 5px solid #2c7a6e;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #5f7d95;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            .card-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- MÓDULO 2 CABECERA -->
+    <div class="header-modulo">
+        <h1>📘 Módulo 2: Magnitud de los Ataques con Agentes Químicos</h1>
+        <p>Imagen: Freepik · Competencia específica: Comprender la dimensión de un ataque con agentes químicos desde lo legal, lo psicológico y lo familiar.</p>
+    </div>
+
+    <!-- TARJETA COMPETENCIA Y TEMAS PRINCIPALES -->
+    <div class="card">
+        <div class="card-title">🎯 Competencia del módulo</div>
+        <p>Se espera que, con los temas abordados en la guía didáctica del módulo 2, el estudiante logre <strong>comprender la dimensión de un ataque con agentes químicos desde lo legal, lo psicológico y lo familiar</strong>.</p>
+        <div style="margin-top: 1rem; background: #eef2f5; border-radius: 16px; padding: 0.8rem 1.2rem;">
+            <strong>📚 Contenidos temáticos:</strong><br>
+            1. Ámbito normativo &nbsp;|&nbsp; 2. Violencias de género &nbsp;|&nbsp; 3. Impactos psicológico y sociofamiliar
+        </div>
+    </div>
+
+    <!-- TEMA 1: ÁMBITO NORMATIVO (cuadros y procesos) -->
+    <div class="card">
+        <div class="card-title">⚖️ 1. Ámbito Normativo – Marco legal integral</div>
+        <p>Los ataques con agentes químicos constituyen un <strong>crimen de género</strong> y se enmarcan en instrumentos internacionales, leyes nacionales y protocolos específicos.</p>
+
+        <!-- Instrumentos internacionales: cuadro -->
+        <div class="card-subtitle">📜 Instrumentos internacionales (prevalencia en el orden interno)</div>
+        <div class="table-wrapper">
+            <table class="tabla-procesos">
+                <thead>
+                    <tr><th>Año / Instrumento</th><th>Contenido / Obligación</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1980 – Programa de Acción (Copenhague)</td><td>Violencia en la familia, mujer maltratada.</td></tr>
+                    <tr><td>Ley 51 de 1981 – CEDAW</td><td>Eliminación de toda forma de discriminación contra la mujer.</td></tr>
+                    <tr><td>1993 – Declaración sobre Eliminación de Violencia contra la Mujer</td><td>Violencia contra la mujer como violación de DDHH.</td></tr>
+                    <tr><td>1995 – Beijing (Plataforma de Acción)</td><td>Bienestar mental, enfoque integrado contra violencia.</td></tr>
+                    <tr><td>Ley 248 de 1995 – Belém do Pará</td><td>Servicios especializados, derecho a una vida libre de violencia.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Normas nacionales destacadas con tarjetas internas -->
+        <div class="card-subtitle">🇨🇴 Marco nacional – Leyes y resoluciones clave</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem;">
+            <div style="flex:1; min-width: 220px; background: #f9f3ea; border-radius: 18px; padding: 1rem;">
+                <div class="badge-ley">Ley 1257 de 2008</div>
+                <p><strong>Vida libre de violencia para las mujeres.</strong> Derechos: atención integral, asesoría jurídica gratuita, medidas de protección y restablecimiento.</p>
+            </div>
+            <div style="flex:1; min-width: 220px; background: #f9f3ea; border-radius: 18px; padding: 1rem;">
+                <div class="badge-ley">Ley 1639 de 2013</div>
+                <p>Fortalecimiento medidas para víctimas de crímenes con ácido. Aumento de penas, control de sustancias, atención gratuita a cargo del Estado.</p>
+            </div>
+            <div style="flex:1; min-width: 220px; background: #f9f3ea; border-radius: 18px; padding: 1rem;">
+                <div class="badge-ley">Resolución 4568 de 2014</div>
+                <p><strong>Protocolo de Atención de Urgencias a Víctimas de Ataques con Agentes Químicos.</strong> Garantiza atención oportuna, reduce daño físico/mental y acceso a justicia.</p>
+            </div>
+        </div>
+
+        <!-- TABLA DE RESPONSABILIDADES (implementación SGSSS) -->
+        <div class="card-subtitle">🏥 Implementación del Protocolo – Responsabilidades en el SGSSS</div>
+        <div class="table-wrapper">
+            <table class="tabla-procesos">
+                <thead><tr><th>Integrante</th><th>Responsabilidades clave</th></tr></thead>
+                <tbody>
+                    <tr><td>Ministerio de Salud</td><td>Rectoría, lineamientos, protocolos integrales.</td></tr>
+                    <tr><td>Superintendencia Nacional de Salud</td><td>Inspección, vigilancia y control a EPS e IPS.</td></tr>
+                    <tr><td>EAPB (EPS)</td><td>Red de urgencias, transporte, garantía de servicios UPC, monitoreo casos, activación ruta intersectorial.</td></tr>
+                    <tr><td>IPS</td><td>Talento humano capacitado, kit de emergencias, referencia a unidades especializadas, notificación SIVIGILA.</td></tr>
+                    <tr><td>Direcciones Territoriales</td><td>Inspección, socialización protocolos, verificación de rutas de atención.</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="cita">
+            📌 “Los ataques con agentes químicos no son un evento aislado sino una de las manifestaciones de las violencias de género ejercidas contra las mujeres como mecanismo de control, venganza o castigo” (Minsalud, 2020).
+        </div>
+    </div>
+
+    <!-- TEMA 2: VIOLENCIAS DE GÉNERO - tarjetas y contexto epidemiológico -->
+    <div class="card">
+        <div class="card-title">🚺 2. Violencias de Género – Conceptualización y cifras</div>
+        <div class="grid-temas">
+            <div class="tema-card">
+                <div class="tema-header">📖 Conceptos básicos</div>
+                <div class="tema-body">
+                    <p><strong>Violencia (OMS):</strong> Uso intencional de la fuerza o poder físico que cause lesiones, muerte o daño psicológico.</p>
+                    <p><strong>Violencia de Género (VG):</strong> Acciones basadas en relaciones asimétricas de poder que subvaloran lo femenino.</p>
+                    <p><strong>Violencia contra las mujeres (VBG):</strong> Ley 1257 – cualquier acción u omisión que cause daño físico, psicológico, sexual o patrimonial por su condición de mujer.</p>
+                </div>
+            </div>
+            <div class="tema-card">
+                <div class="tema-header">📊 Situación epidemiológica</div>
+                <div class="tema-body">
+                    <p>▪ Colombia: entre 2004-2016 más de <strong>1.100 víctimas</strong> por ataques con agentes químicos.</p>
+                    <p>▪ En 2012 primer lugar per cápita mundial. 722 casos solo en 2013-2014.</p>
+                    <p>▪ En 2022 se notificaron al SIVIGILA <strong>140.694 casos sospechosos</strong> de violencia de género e intrafamiliar (promedio semanal 2.706 casos).</p>
+                    <p>▪ Aumento del 20,9% frente a 2021.</p>
+                </div>
+            </div>
+            <div class="tema-card">
+                <div class="tema-header">⚡ Características del ataque</div>
+                <div class="tema-body">
+                    <ul style="margin-left: 1.2rem;">
+                        <li>Víctimas: mujeres jóvenes, baja escolaridad, dependencia económica.</li>
+                        <li>Agresor: pareja o expareja, antecedentes de maltrato.</li>
+                        <li>Intención: desfigurar, mutilar, torturar, castigar.</li>
+                        <li>Atacadas en la calle de forma inesperada, a veces con terceros contratados.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="cita">
+            🔍 “Los ataques con agentes químicos son un mecanismo de tortura. Dejan una marca para que siempre se recuerde el mensaje.” — Chaves, 2017.
+        </div>
+    </div>
+
+    <!-- TEMA 3: IMPACTOS PSICOLÓGICO Y SOCIOFAMILIAR (cuadros procesos emocionales, fases) -->
+    <div class="card">
+        <div class="card-title">🧠 3. Impactos Psicológico y Sociofamiliar</div>
+        <p>Las víctimas enfrentan cambios corporales permanentes, alteración de la imagen corporal, depresión, ideación suicida, aislamiento y estigmatización social.</p>
+
+        <!-- Cuadro de síntomas psicológicos -->
+        <div class="card-subtitle">🔻 Síntomas asociados a la crisis psicológica</div>
+        <div class="table-wrapper">
+            <table class="tabla-procesos">
+                <thead><tr><th>Área</th><th>Síntomas frecuentes</th></tr></thead>
+                <tbody>
+                    <tr><td>Emocional</td><td>Miedo, rabia, tristeza, ansiedad anticipatoria, pánico, depresión, sensación de perder el control.</td></tr>
+                    <tr><td>Cognitiva</td><td>Confusión, bloqueo mental, amnesia, culpa, negación, desorientación tiempo-espacio.</td></tr>
+                    <tr><td>Conductual</td><td>Aislamiento, agresividad, trastornos alimentación y sueño, llanto, abuso de sustancias.</td></tr>
+                    <tr><td>Fisiológica</td><td>Taquicardia, hiperventilación, cefalea, mareos, tensión muscular, temblores.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- FASES DE REACCIÓN (proceso visual) -->
+        <div class="card-subtitle">⏳ Fases de reacción ante el trauma por agresión química</div>
+        <div class="fases-grid">
+            <div class="fase-item"><h4>1. Fase aguda</h4>Inmediata, preocupación por supervivencia, confusión, despersonalización, irritabilidad. Dura semanas.</div>
+            <div class="fase-item"><h4>2. Fase de reacción</h4>Hacia la 6ª semana. Reconoce el daño, sentimientos negados emergen, ansiedad y depresión.</div>
+            <div class="fase-item"><h4>3. Fase de reparación</h4>Últimas semanas hospitalarias y post-alta. Reacciones menos intensas, interés por hechos cotidianos.</div>
+            <div class="fase-item"><h4>4. Fase de reorientación</h4>Recaídas depresivas, asimilación del trauma puede tomar años. Redes de apoyo esenciales.</div>
+        </div>
+
+        <!-- Proceso de duelo -->
+        <div class="card-subtitle">🕊️ Proceso de duelo por pérdida de la integridad corporal</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: space-between; background: #fdf8f0; border-radius: 28px; padding: 1.2rem; margin: 1rem 0;">
+            <span style="background:#fff2e0; padding: 6px 14px; border-radius: 40px;">Negación</span>
+            <span style="background:#fff2e0; padding: 6px 14px; border-radius: 40px;">Enfado</span>
+            <span style="background:#fff2e0; padding: 6px 14px; border-radius: 40px;">Negociación</span>
+            <span style="background:#fff2e0; padding: 6px 14px; border-radius: 40px;">Dolor emocional</span>
+            <span style="background:#fff2e0; padding: 6px 14px; border-radius: 40px;">Aceptación</span>
+        </div>
+
+        <!-- Impacto sociofamiliar (cuadro de condiciones) -->
+        <div class="card-subtitle">🏡 Impacto sociofamiliar – Consecuencias en el entorno</div>
+        <div class="grid-temas">
+            <div class="tema-card">
+                <div class="tema-header">Reestructuración familiar</div>
+                <div class="tema-body">Fragmentación del tejido familiar, sobrecarga de cuidado, ruptura de redes de apoyo. Hijas e hijos se convierten en víctimas indirectas.</div>
+            </div>
+            <div class="tema-card">
+                <div class="tema-header">Dificultades laborales</div>
+                <div class="tema-body">Mujeres atacadas en edad productiva, baja experiencia laboral, inasistencias reiteradas a citas médicas y judiciales, inestabilidad y dependencia económica.</div>
+            </div>
+            <div class="tema-card">
+                <div class="tema-header">Estigmatización social</div>
+                <div class="tema-body">Sobrevivientes enfrentan discriminación, aislamiento y culpabilización. Sus cicatrices generan reacciones constantes de rechazo.</div>
+            </div>
+        </div>
+        <div class="cita">
+            💔 “Las familias de las mujeres víctimas se reestructuran y desintegran dejándolas sin redes de apoyo fortalecidas […] desconexión con hijas e hijos” (Alcaldía Mayor de Bogotá, 2021).
+        </div>
+    </div>
+
+    <!-- CUADRO DE PROCESOS INTEGRAL (resumen ruta de atención) -->
+    <div class="card">
+        <div class="card-title">🔄 Cuadro de procesos clave – Ruta de atención integral</div>
+        <div class="table-wrapper">
+            <table class="tabla-procesos">
+                <thead><tr><th>Proceso</th><th>Objetivo</th><th>Responsable</th><th>Tiempo / prioridad</th></tr></thead>
+                <tbody>
+                    <tr><td>Activación y recepción</td><td>Identificar ataque con agente químico y activar ruta prioritaria.</td><td>Triage, admisiones</td><td>Inmediato</td></tr>
+                    <tr><td>Atención inicial urgencias</td><td>Estabilización, descontaminación, manejo del dolor agudo.</td><td>Urgencias, toxicología</td><td>Primeras 24-72h</td></tr>
+                    <tr><td>Atención especializada</td><td>Valoración por cirugía plástica, salud mental, rehabilitación funcional.</td><td>IPS con nivel III-IV, unidades de quemados</td><td>Durante hospitalización y seguimiento</td></tr>
+                    <tr><td>Salud mental y acompañamiento psicosocial</td><td>Manejo de crisis, duelo, prevención de trastornos mentales.</td><td>Psicología, psiquiatría, trabajo social</td><td>Desde urgencias hasta fase de reorientación</td></tr>
+                    <tr><td>Activación ruta intersectorial</td><td>Acceso a justicia, protección, medidas de seguridad.</td><td>IPS, EPS, comisarías de familia</td><td>Inmediato + seguimiento</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top: 1rem;"><strong>✔️ Garantías según Ley 1257:</strong> atención integral gratuita, información clara, trato confidencial, medidas de protección, estabilización, acceso a la verdad y justicia.</p>
+    </div>
+
+    <!-- CIERRE Y REFLEXIÓN -->
+    <div class="card" style="background: linear-gradient(120deg, #eaf4f0, #ffffff);">
+        <div class="card-title">📌 Reflexión final – Hacia una atención con enfoque integral</div>
+        <p>Los ataques con agentes químicos trascienden lo físico: implican un daño psicosocial profundo, ruptura de proyectos de vida y un mensaje de control hacia todas las mujeres. La implementación del <strong>Protocolo Resolución 4568 de 2014</strong> y la activación oportuna de la <strong>Ruta Intersectorial</strong> son herramientas centrales para garantizar derechos, restablecimiento y no repetición.</p>
+        <div class="icon-text">📎 <strong>Te invitamos a consultar</strong> en tu institución el sistema de referencia y contrarreferencia de servicios de salud mental para víctimas de ataques con agentes químicos: conoce especialidades, duración de la atención y rutas locales.</div>
+        <hr style="margin: 1rem 0;">
+        <p style="font-size: 0.85rem; color: #2c6979;">Fuentes: Resolución 4568 de 2014, Minsalud (2020), Ley 1257/2008, Ley 1639/2013, Instituto Nacional de Salud – SIVIGILA, Alcaldía Mayor de Bogotá (2021).</p>
+    </div>
+
+    <footer>
+        Módulo 2 - Magnitud de los ataques con agentes químicos | Enfoque legal, psicológico y familiar | Imágenes: Freepik
+    </footer>
+</div>
+</body>
+</html>
