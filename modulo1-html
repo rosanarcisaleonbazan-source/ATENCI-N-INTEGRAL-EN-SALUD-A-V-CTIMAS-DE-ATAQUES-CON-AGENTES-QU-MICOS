@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Diplomado Virtual | Atención Integral en Salud a Víctimas de Ataques con Agentes Químicos - Módulo 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f6f9fc;
+            color: #1a2c3e;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .hero-module {
+            background: linear-gradient(135deg, #0b2b3b 0%, #154c5e 100%);
+            color: white;
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-module::before {
+            content: "⚗️";
+            font-size: 12rem;
+            opacity: 0.05;
+            position: absolute;
+            bottom: -2rem;
+            right: -1rem;
+            pointer-events: none;
+        }
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+        .hero-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 700px;
+        }
+        .badge-module {
+            background: rgba(255,255,240,0.2);
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .competencia-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-left: 6px solid #e67e22;
+        }
+        .competencia-card h2 {
+            color: #e67e22;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tabs */
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.7rem 1.3rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 2rem;
+            transition: all 0.2s;
+            color: #4a627a;
+        }
+        .tab-btn i { margin-right: 8px; }
+        .tab-btn:hover {
+            background: #eef2f6;
+        }
+        .tab-btn.active {
+            background: #154c5e;
+            color: white;
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tarjetas de contenido */
+        .card {
+            background: white;
+            border-radius: 1.2rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #e2edf2;
+        }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #154c5e;
+            border-left: 4px solid #e67e22;
+            padding-left: 1rem;
+        }
+
+        /* Tarjetas de agentes: grid de 2 columnas en escritorio */
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .agent-card {
+            background: #fefcf5;
+            border-radius: 1rem;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+        .agent-header {
+            background: #154c5e;
+            color: white;
+            padding: 0.8rem 1rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .agent-header i {
+            font-size: 1.2rem;
+        }
+        .agent-content {
+            padding: 1rem;
+        }
+        .collapsible-section {
+            margin-bottom: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.8rem;
+            background: white;
+        }
+        .collapsible-section summary {
+            padding: 0.8rem 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f8fafc;
+            border-radius: 0.8rem;
+        }
+        .collapsible-section summary::-webkit-details-marker {
+            display: none;
+        }
+        .collapsible-section summary i {
+            transition: transform 0.2s;
+            color: #e67e22;
+        }
+        .collapsible-section[open] summary i {
+            transform: rotate(90deg);
+        }
+        .collapsible-content {
+            padding: 0.8rem 1rem 1rem 2rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        /* Para las lesiones */
+        .lesion-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        /* Simulador drag & drop */
+        .simulator {
+            background: #f8fafc;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+        .drag-items-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+        .drag-item {
+            background: #154c5e;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            cursor: grab;
+            user-select: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .drag-item:active {
+            cursor: grabbing;
+        }
+        .drop-zones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .drop-card {
+            background: white;
+            border: 2px dashed #cbd5e0;
+            border-radius: 1rem;
+            padding: 1rem;
+            transition: background 0.2s;
+        }
+        .drop-card h4 {
+            color: #e67e22;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .drop-card p {
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+            color: #4a627a;
+        }
+        .assigned-list {
+            min-height: 60px;
+            background: #f1f5f9;
+            border-radius: 0.8rem;
+            padding: 0.5rem;
+            font-size: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .assigned-item {
+            background: #e67e22;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+        }
+
+        .sds-card {
+            background: white;
+            border-radius: 1rem;
+            border-left: 5px solid #e67e22;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .sds-card h4 {
+            color: #154c5e;
+            margin-bottom: 0.5rem;
+        }
+        .sds-more {
+            margin-top: 0.8rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .quiz-question {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f9fbfd;
+            border-radius: 1rem;
+        }
+        .btn-primary {
+            background: #154c5e;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover {
+            background: #0e3a48;
+            transform: translateY(-2px);
+        }
+        .feedback {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            border-radius: 0.8rem;
+            background: #eaf7e6;
+        }
+        .notes-area {
+            background: #fff9e8;
+            border: 1px solid #f4b942;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+        textarea {
+            width: 100%;
+            border: 1px solid #cbd5e0;
+            border-radius: 0.8rem;
+            padding: 0.8rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        footer {
+            background: #0a2a36;
+            color: #cfdfe8;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        @media (max-width: 768px) {
+            .agents-grid, .lesion-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero-module">
+    <div class="hero-content">
+        <h1><i class="fas fa-hand-holding-medical"></i> Atención Integral en Salud<br>a Víctimas de Ataques con Agentes Químicos</h1>
+        <p>Diplomado virtual – Módulo 1: Las Quemaduras por Agentes Químicos</p>
+        <div class="badge-module"><i class="fas fa-graduation-cap"></i> Guía didáctica interactiva</div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="competencia-card">
+        <h2><i class="fas fa-bullseye"></i> Competencia específica</h2>
+        <p>Identificar los agentes químicos utilizados en los ataques, para comprender los patrones de las quemaduras por estos, basado en la Resolución 4568 de 2014 y el Protocolo de Vigilancia del INS.</p>
+    </div>
+
+    <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="contenido"><i class="fas fa-book-open"></i> Contenido temático</button>
+        <button class="tab-btn" data-tab="simulador"><i class="fas fa-flask"></i> Simulador: clasificación</button>
+        <button class="tab-btn" data-tab="fichas"><i class="fas fa-file-alt"></i> Fichas de seguridad (SDS)</button>
+        <button class="tab-btn" data-tab="quiz"><i class="fas fa-question-circle"></i> Evaluación formativa</button>
+        <button class="tab-btn" data-tab="notas"><i class="fas fa-pen"></i> Mis notas</button>
+    </div>
+
+    <!-- PANEL 1: CONTENIDO TEMÁTICO con tarjetas de agentes y lesiones -->
+    <div id="contenido" class="tab-pane active">
+        <!-- Tema 1: Clasificación de agentes químicos en tarjetas con dos secciones colapsables -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-vial"></i> Tema 1: Productos químicos utilizados en el ataque</div>
+            <p>Según la <strong>Resolución 4568 de 2014</strong>, los agentes se clasifican en cuatro categorías. Haz clic en cada sección para expandir la información.</p>
+            <div class="agents-grid">
+                <!-- Ácidos -->
+                <div class="agent-card">
+                    <div class="agent-header"><i class="fas fa-flask"></i> Ácidos</div>
+                    <div class="agent-content">
+                        <details class="collapsible-section">
+                            <summary><i class="fas fa-chevron-right"></i> <strong>Mecanismo de acción</strong></summary>
+                            <div class="collapsible-content">
+                                <p>Necrosis de coagulación (pH &lt; 3). Liberan iones H⁺, desnaturalizan proteínas formando una escara seca y adherida que actúa como barrera parcial.</p>
+                                <p><strong>Ejemplos:</strong> Ácido sulfúrico, nítrico, clorhídrico, fluorhídrico.</p>
+                            </div>
+                        </details>
+                        <details class="collapsible-section">
+                            <summary><i class="fas fa-chevron-right"></i> <strong>Características clínicas</strong></summary>
+                            <div class="collapsible-content">
+                                <p>Dolor inmediato, escara blanca, grisácea o negra (según el ácido). La necrosis de coagulación limita la penetración, pero puede haber daño profundo si la concentración es alta.</p>
+                                <p>Ejemplo: Ácido sulfúrico produce escara negra violácea; ácido nítrico tiñe la piel de amarillo.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+                <!-- Bases (álcalis) -->
+                <div class="agent-card">
+                    <div class="agent-header"><i class="fas fa-tint"></i> Bases (álcalis)</div>
+                    <div class="agent-content">
+                        <details class="collapsible-section">
+                            <summary><i class="fas fa-chevron-right"></i> <strong>Mecanismo de acción</strong></summary>
+                            <div class="collapsible-content">
+                                <p>Necrosis de licuefacción (pH &gt; 11.5). Saponifican grasas, disuelven proteínas, permiten penetración profunda.</p>
+                                <p><strong>Ejemplos:</strong> Hidróxido de sodio, hidróxido de potasio, cal.</p>
+                            </div>
+                        </details>
+                        <details class="collapsible-section">
+                            <summary><i class="fas fa-chevron-right"></i> <strong>Características clínicas</strong></summary>
+                            <div class="collapsible-content">
+                                <p>Escara blanda, húmeda, color pardo. Dolor intenso, mayor profundidad, riesgo de daño sistémico. En ojos puede causar opacidad corneal rápida.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+                <!-- Soluciones orgánicas -->
+                <div class="agent-card">
+                    <div class="agent-header"><i class="fas fa-leaf"></i> Soluciones orgánicas</div>
+                    <div class="agent-content">
+                        <details class="collapsible-section">
+                            <summary><i class="fas fa-chevron-right"></i> <strong>Mecanismo de acción</strong></summary>
+                            <div class="collapsible-content">
+                                <p>Disuelven membranas lipídicas y desnaturalizan proteínas. Ejemplos: Fenoles, alcoholes concentrados, solventes.</p>
+                            </div>
+                        </details>
+                        <details class="collapsible-section">
+                            <summary><i class="fas fa-chevron-right"></i> <strong>Características clínicas</strong></summary>
+                            <div class="collapsible-content">
+                                <p>Quemaduras superficiales a profundas según concentración. Pueden generar toxicidad sistémica por absorción (ej. fenol causa necrosis y daño renal).</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+                <!-- Soluciones inorgánicas -->
+                <div class="agent-card">
+                    <div class="agent-header"><i class="fas fa-industry"></i> Soluciones inorgánicas</div>
+                    <div class="agent-content">
+                        <details class="collapsible-section">
+                            <summary><i class="fas fa-chevron-right"></i> <strong>Mecanismo de acción</strong></summary>
+                            <div class="collapsible-content">
+                                <p>Daño por unión directa a tejidos formando sales + exotermia (liberación de calor). Ejemplos: Fósforo blanco, metales pesados en forma iónica.</p>
+                            </div>
+                        </details>
+                        <details class="collapsible-section">
+                            <summary><i class="fas fa-chevron-right"></i> <strong>Características clínicas</strong></summary>
+                            <div class="collapsible-content">
+                                <p>Quemaduras térmicas y químicas combinadas. Necrosis profunda. El fósforo blanco se autoinflama al contacto con aire, causando lesión grave.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tema 2: Fisiopatología con tarjetas para lesiones cutáneas y oculares -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-heartbeat"></i> Tema 2: Fisiopatología de las quemaduras por agentes químicos</div>
+            <p>La severidad depende de: cantidad, concentración, tiempo de contacto, penetración y mecanismo de acción.</p>
+            <div class="lesion-grid">
+                <!-- Lesiones cutáneas -->
+                <div class="agent-card">
+                    <div class="agent-header"><i class="fas fa-hand-holding-heart"></i> Lesiones cutáneas</div>
+                    <div class="agent-content">
+                        <details class="collapsible-section">
+                            <summary><i class="fas fa-chevron-right"></i> <strong>Ácidos → necrosis de coagulación</strong></summary>
+                            <div class="collapsible-content">
+                                <p>Escara seca, adherida, que tiende a limitar la profundidad. Ejemplo: ácido sulfúrico produce escara negra violácea.</p>
+                                <p><strong>Consecuencia:</strong> Menor penetración, pero puede haber daño en profundidad si la concentración es alta.</p>
+                            </div>
+                        </details>
+                        <details class="collapsible-section">
+                            <summary><i class="fas fa-chevron-right"></i> <strong>Álcalis → necrosis de licuefacción</strong></summary>
+                            <div class="collapsible-content">
+                                <p>Escara blanda, húmeda, permite mayor penetración y daño profundo. Ejemplo: hidróxido de sodio causa escara parda y dolor intenso.</p>
+                                <p><strong>Consecuencia:</strong> Mayor riesgo de daño a tejidos subcutáneos y sistémico.</p>
+                            </div>
+                        </details>
+                        <details class="collapsible-section">
+                            <summary><i class="fas fa-chevron-right"></i> <strong>Otros mecanismos</strong></summary>
+                            <div class="collapsible-content">
+                                <p>Solventes orgánicos deshidratan y desnaturalizan; agentes inorgánicos generan calor adicional.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+                <!-- Lesiones oculares -->
+                <div class="agent-card">
+                    <div class="agent-header"><i class="fas fa-eye"></i> Lesiones oculares (grados I a IV)</div>
+                    <div class="agent-content">
+                        <details class="collapsible-section">
+                            <summary><i class="fas fa-chevron-right"></i> <strong>Grado I</strong></summary>
+                            <div class="collapsible-content">
+                                <p>Lesión del epitelio corneal, conjuntiva no isquémica. Pronóstico favorable con lavado inmediato.</p>
+                            </div>
+                        </details>
+                        <details class="collapsible-section">
+                            <summary><i class="fas fa-chevron-right"></i> <strong>Grado II</strong></summary>
+                            <div class="collapsible-content">
+                                <p>Córnea deslustrada, detalles del iris visibles, isquemia del limbo &lt; 33%. Riesgo de cicatrización.</p>
+                            </div>
+                        </details>
+                        <details class="collapsible-section">
+                            <summary><i class="fas fa-chevron-right"></i> <strong>Grado III</strong></summary>
+                            <div class="collapsible-content">
+                                <p>Pérdida epitelial total, estroma borroso, isquemia del limbo 33-50%. Alto riesgo de pérdida visual.</p>
+                            </div>
+                        </details>
+                        <details class="collapsible-section">
+                            <summary><i class="fas fa-chevron-right"></i> <strong>Grado IV</strong></summary>
+                            <div class="collapsible-content">
+                                <p>Opacidad total de córnea, isquemia del limbo &gt;50%. Pérdida de visión irreversible. Puede requerir trasplante de córnea.</p>
+                            </div>
+                        </details>
+                        <details class="collapsible-section">
+                            <summary><i class="fas fa-chevron-right"></i> <strong>Complicaciones generales</strong></summary>
+                            <div class="collapsible-content">
+                                <p>Simbléfaron (adherencia palpebral), entropión, ectropión, catarata, glaucoma secundario.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL 2: SIMULADOR CON TARJETAS DE DESTINO (mejorado) -->
+    <div id="simulador" class="tab-pane">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-puzzle-piece"></i> Simulador: Clasifica el agente químico según su mecanismo de lesión</div>
+            <p>Arrastra cada químico a la tarjeta del mecanismo correcto. Observa la retroalimentación.</p>
+            <div class="simulator">
+                <div class="drag-items-container" id="dragItems">
+                    <div class="drag-item" draggable="true" data-name="Ácido sulfúrico">Ácido sulfúrico</div>
+                    <div class="drag-item" draggable="true" data-name="Hidróxido de sodio">Hidróxido de sodio</div>
+                    <div class="drag-item" draggable="true" data-name="Gas mostaza">Gas mostaza</div>
+                    <div class="drag-item" draggable="true" data-name="Ácido fluorhídrico">Ácido fluorhídrico</div>
+                    <div class="drag-item" draggable="true" data-name="Hidróxido de potasio">Hidróxido de potasio</div>
+                    <div class="drag-item" draggable="true" data-name="Fenol">Fenol</div>
+                </div>
+                <div class="drop-zones" id="dropZones">
+                    <div class="drop-card" data-mechanism="coagulacion">
+                        <h4><i class="fas fa-skull"></i> Necrosis de coagulación (ácidos)</h4>
+                        <p>Escara seca, adherida. Ejemplos: ácido sulfúrico, nítrico.</p>
+                        <div class="assigned-list" id="coagulacion-list"></div>
+                    </div>
+                    <div class="drop-card" data-mechanism="licuefaccion">
+                        <h4><i class="fas fa-tint"></i> Necrosis de licuefacción (álcalis)</h4>
+                        <p>Escara blanda, penetración profunda. Ejemplos: hidróxido de sodio, potasio.</p>
+                        <div class="assigned-list" id="licuefaccion-list"></div>
+                    </div>
+                    <div class="drop-card" data-mechanism="vesicante">
+                        <h4><i class="fas fa-biohazard"></i> Vesicante / Isquemia</h4>
+                        <p>Isquemia, necrosis anóxica. Ejemplo: gas mostaza.</p>
+                        <div class="assigned-list" id="vesicante-list"></div>
+                    </div>
+                    <div class="drop-card" data-mechanism="corrosivo">
+                        <h4><i class="fas fa-fire"></i> Corrosión / Desnaturalización</h4>
+                        <p>Daño por unión directa + exotermia o desnaturalización proteica. Ejemplos: ácido fluorhídrico, fenoles.</p>
+                        <div class="assigned-list" id="corrosivo-list"></div>
+                    </div>
+                </div>
+                <div id="simFeedback" class="feedback"></div>
+                <button id="resetSim" class="btn-primary" style="margin-top:1rem;">Reiniciar simulación</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL 3: FICHAS SDS MEJORADAS -->
+    <div id="fichas" class="tab-pane">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-file-pdf"></i> Fichas de datos de seguridad (SDS) – información toxicológica</div>
+            <div class="grid-2" style="display: grid; grid-template-columns: repeat(2,1fr); gap:1rem;">
+                <div class="sds-card">
+                    <h4><i class="fas fa-flask"></i> Ácido sulfúrico (H₂SO₄)</h4>
+                    <p><strong>Toxicidad:</strong> Corrosivo, necrosis de coagulación. Inhalación: edema pulmonar. Contacto ocular: ceguera. DL50 oral: 2140 mg/kg (rata).</p>
+                    <p><strong>Primeros auxilios:</strong> Lavar con abundante agua durante 30 minutos, no neutralizar. No inducir vómito si ingestión.</p>
+                    <details class="sds-more">
+                        <summary><i class="fas fa-chevron-right"></i> Más información</summary>
+                        <p><strong>Mecanismo adicional:</strong> Efecto desecante, produce calor en contacto con agua. Riesgo de perforación esofágica si se ingiere.</p>
+                    </details>
+                </div>
+                <div class="sds-card">
+                    <h4><i class="fas fa-flask"></i> Hidróxido de sodio (NaOH)</h4>
+                    <p><strong>Toxicidad:</strong> Necrosis de licuefacción, penetración profunda. Quemaduras graves, hipocalcemia si es sistémico.</p>
+                    <p><strong>Primeros auxilios:</strong> Lavado prolongado con agua (mínimo 30 min), evitar inducción de vómito. Evaluar vía aérea.</p>
+                    <details class="sds-more">
+                        <summary><i class="fas fa-chevron-right"></i> Más información</summary>
+                        <p><strong>Mecanismo:</strong> Saponifica grasas, disuelve proteínas. En ojos puede causar opacidad corneal permanente.</p>
+                    </details>
+                </div>
+                <div class="sds-card">
+                    <h4><i class="fas fa-flask"></i> Ácido fluorhídrico (HF)</h4>
+                    <p><strong>Toxicidad:</strong> Descalcificación ósea, hipocalcemia grave, dolor prolongado (hasta 7 días). Quemaduras profundas.</p>
+                    <p><strong>Tratamiento:</strong> Gluconato de calcio tópico o intravenoso. Riesgo de arritmias por hipocalcemia.</p>
+                    <details class="sds-more">
+                        <summary><i class="fas fa-chevron-right"></i> Más información</summary>
+                        <p>Absorción sistémica: puede causar hipocalcemia severa, paro cardíaco. El lavado debe ser inmediato con agua y aplicar gel de gluconato de calcio.</p>
+                    </details>
+                </div>
+                <div class="sds-card">
+                    <h4><i class="fas fa-flask"></i> Gas mostaza (agente vesicante)</h4>
+                    <p><strong>Toxicidad:</strong> Isquemia, necrosis anóxica, daño medular. Efectos tardíos (horas después de la exposición).</p>
+                    <p><strong>Mecanismo:</strong> Alquilante del ADN, causa ampollas, quemaduras de segundo grado, toxicidad sistémica.</p>
+                    <details class="sds-more">
+                        <summary><i class="fas fa-chevron-right"></i> Más información</summary>
+                        <p>No existe antídoto específico. Descontaminación inmediata con hipoclorito de calcio al 0.5% o agua jabonosa.</p>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL 4: QUIZ -->
+    <div id="quiz" class="tab-pane">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-question"></i> Evaluación formativa</div>
+            <div id="quizContainer">
+                <div class="quiz-question">
+                    <p><strong>1.</strong> ¿Cuál de los siguientes agentes produce necrosis de licuefacción?</p>
+                    <div class="quiz-option"><input type="radio" name="q1" value="a"> Ácido sulfúrico</div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="b"> Hidróxido de sodio</div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="c"> Gas mostaza</div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="d"> Fenol</div>
+                </div>
+                <div class="quiz-question">
+                    <p><strong>2.</strong> Según la Resolución 4568 de 2014, los ataques con agentes químicos son una expresión de:</p>
+                    <div class="quiz-option"><input type="radio" name="q2" value="a"> Violencia común</div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="b"> Violencia de género</div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="c"> Accidente laboral</div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="d"> Terrorismo</div>
+                </div>
+                <div class="quiz-question">
+                    <p><strong>3.</strong> ¿Cuál es el mecanismo de lesión del ácido fluorhídrico?</p>
+                    <div class="quiz-option"><input type="radio" name="q3" value="a"> Saponificación de grasas</div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="b"> Formación de ésteres y descalcificación ósea</div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="c"> Necrosis de licuefacción</div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="d"> Disrupción de membrana por solventes</div>
+                </div>
+                <button id="submitQuiz" class="btn-primary">Enviar respuestas</button>
+                <div id="quizResult" class="feedback" style="margin-top:1rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL 5: NOTAS -->
+    <div id="notas" class="tab-pane">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-sticky-note"></i> Mis apuntes del módulo</div>
+            <textarea id="studentNotes" rows="8" placeholder="Escribe aquí tus notas personales, reflexiones o dudas sobre el contenido... Se guardarán automáticamente en tu navegador."></textarea>
+            <button id="saveNotes" class="btn-primary" style="margin-top:0.5rem;">Guardar notas</button>
+            <div id="notesFeedback" class="feedback" style="margin-top:0.5rem;"></div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>Diplomado Virtual – Atención Integral en Salud a Víctimas de Ataques con Agentes Químicos</p>
+    <p>Basado en Resolución 4568 de 2014 (Ministerio de Salud) y Protocolo INS (Código 875).</p>
+</footer>
+
+<script>
+    // Tabs
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panes = document.querySelectorAll('.tab-pane');
+    tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+            tabs.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            panes.forEach(pane => {
+                pane.classList.remove('active');
+                if (pane.id === tabId) pane.classList.add('active');
+            });
+        });
+    });
+
+    // Simulador Drag & Drop
+    let assignments = {
+        coagulacion: [],
+        licuefaccion: [],
+        vesicante: [],
+        corrosivo: []
+    };
+    const correctMapping = {
+        "Ácido sulfúrico": "coagulacion",
+        "Hidróxido de sodio": "licuefaccion",
+        "Hidróxido de potasio": "licuefaccion",
+        "Gas mostaza": "vesicante",
+        "Ácido fluorhídrico": "corrosivo",
+        "Fenol": "corrosivo"
+    };
+
+    function updateDropZonesDisplay() {
+        document.getElementById('coagulacion-list').innerHTML = assignments.coagulacion.map(item => `<span class="assigned-item">${item}</span>`).join('');
+        document.getElementById('licuefaccion-list').innerHTML = assignments.licuefaccion.map(item => `<span class="assigned-item">${item}</span>`).join('');
+        document.getElementById('vesicante-list').innerHTML = assignments.vesicante.map(item => `<span class="assigned-item">${item}</span>`).join('');
+        document.getElementById('corrosivo-list').innerHTML = assignments.corrosivo.map(item => `<span class="assigned-item">${item}</span>`).join('');
+    }
+
+    function checkAllCorrect() {
+        let allCorrect = true;
+        for (let [chem, correctZone] of Object.entries(correctMapping)) {
+            let found = false;
+            for (let [zone, list] of Object.entries(assignments)) {
+                if (list.includes(chem) && zone === correctZone) found = true;
+                if (list.includes(chem) && zone !== correctZone) allCorrect = false;
+            }
+            if (!found) allCorrect = false;
+        }
+        const totalItems = Object.keys(correctMapping).length;
+        const assignedCount = Object.values(assignments).flat().length;
+        const simFeedback = document.getElementById('simFeedback');
+        if (allCorrect && assignedCount === totalItems) {
+            simFeedback.innerHTML = '<i class="fas fa-check-circle"></i> ¡Excelente! Has clasificado todos los agentes correctamente.';
+            simFeedback.style.background = '#d4edda';
+        } else {
+            simFeedback.innerHTML = '<i class="fas fa-lightbulb"></i> Arrastra cada químico a la tarjeta del mecanismo correcto. Si tienes dudas, revisa las tarjetas de contenido.';
+            simFeedback.style.background = '#eef2f6';
+        }
+    }
+
+    function resetSimulation() {
+        assignments = { coagulacion: [], licuefaccion: [], vesicante: [], corrosivo: [] };
+        updateDropZonesDisplay();
+        checkAllCorrect();
+    }
+
+    const dragItems = document.querySelectorAll('.drag-item');
+    const dropCards = document.querySelectorAll('.drop-card');
+
+    dragItems.forEach(item => {
+        item.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', e.target.innerText.trim());
+            e.dataTransfer.effectAllowed = 'copy';
+        });
+    });
+
+    dropCards.forEach(card => {
+        card.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'copy';
+        });
+        card.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const chemical = e.dataTransfer.getData('text/plain');
+            const targetMechanism = card.getAttribute('data-mechanism');
+            for (let zone in assignments) {
+                const index = assignments[zone].indexOf(chemical);
+                if (index !== -1) assignments[zone].splice(index, 1);
+            }
+            assignments[targetMechanism].push(chemical);
+            updateDropZonesDisplay();
+            checkAllCorrect();
+        });
+    });
+
+    document.getElementById('resetSim').addEventListener('click', resetSimulation);
+    updateDropZonesDisplay();
+    checkAllCorrect();
+
+    // Quiz
+    document.getElementById('submitQuiz').addEventListener('click', () => {
+        let q1 = document.querySelector('input[name="q1"]:checked');
+        let q2 = document.querySelector('input[name="q2"]:checked');
+        let q3 = document.querySelector('input[name="q3"]:checked');
+        let score = 0;
+        let feedback = '';
+        if (q1 && q1.value === 'b') score++; else feedback += '❌ 1. La respuesta correcta es Hidróxido de sodio (necrosis de licuefacción).<br>';
+        if (q2 && q2.value === 'b') score++; else feedback += '❌ 2. La respuesta correcta es Violencia de género (Resolución 4568).<br>';
+        if (q3 && q3.value === 'b') score++; else feedback += '❌ 3. El ácido fluorhídrico forma ésteres y causa descalcificación ósea.<br>';
+        if (score === 3) feedback = '✅ ¡Muy bien! Has respondido correctamente todas las preguntas.';
+        else feedback = `📊 Obtuviste ${score}/3. Revisa los conceptos: <br>${feedback}`;
+        document.getElementById('quizResult').innerHTML = feedback;
+    });
+
+    // Notas
+    const notesTextarea = document.getElementById('studentNotes');
+    const savedNotes = localStorage.getItem('modulo1_notas');
+    if (savedNotes) notesTextarea.value = savedNotes;
+    document.getElementById('saveNotes').addEventListener('click', () => {
+        localStorage.setItem('modulo1_notas', notesTextarea.value);
+        document.getElementById('notesFeedback').innerHTML = '<i class="fas fa-check"></i> Notas guardadas correctamente.';
+        setTimeout(() => document.getElementById('notesFeedback').innerHTML = '', 2000);
+    });
+</script>
+</body>
+</html>
