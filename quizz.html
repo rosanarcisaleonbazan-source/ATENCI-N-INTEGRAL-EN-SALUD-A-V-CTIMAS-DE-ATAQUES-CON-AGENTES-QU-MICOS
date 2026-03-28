@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Escape Room | Atención Integral a Víctimas de Ataques con Agentes Químicos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .escape-room {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            border-radius: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+            backdrop-filter: blur(2px);
+            transition: all 0.3s;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a4d, #154c5e);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .progress-area {
+            background: #e9ecef;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        .progress-bar {
+            flex: 1;
+            height: 10px;
+            background: #cbd5e0;
+            border-radius: 5px;
+            margin: 0 1rem;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #e67e22;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .question-container {
+            padding: 2rem;
+        }
+        .question-icon {
+            font-size: 2.5rem;
+            color: #e67e22;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            line-height: 1.4;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+        .option {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 1rem;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .option:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        .option.selected {
+            background: #e67e22;
+            color: white;
+            border-color: #e67e22;
+        }
+        .feedback {
+            background: #f0f4f8;
+            padding: 0.8rem;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        .btn-next {
+            background: #1e466e;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .btn-next:disabled {
+            background: #adb5bd;
+            cursor: not-allowed;
+        }
+        .btn-next:hover:not(:disabled) {
+            background: #0f2f4a;
+            transform: translateY(-2px);
+        }
+        .result-area {
+            text-align: center;
+            padding: 2rem;
+        }
+        .certificate {
+            background: #fef9e6;
+            border: 2px solid #f4b942;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+        .restart-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.8rem;
+            color: #6c757d;
+            background: #f8f9fa;
+        }
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .question-text { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="escape-room" id="escapeRoom">
+    <div class="header">
+        <h1><i class="fas fa-door-open"></i> Escape Room: Atención a Víctimas de Ataques Químicos</h1>
+        <p>Responde las 50 preguntas correctamente para escapar. Sin pistas, solo tu conocimiento.</p>
+    </div>
+    <div class="progress-area">
+        <i class="fas fa-question-circle"></i>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <span id="questionCounter">0 / 50</span>
+    </div>
+    <div id="gameContent">
+        <!-- contenido dinámico -->
+    </div>
+    <footer>Basado en Resolución 4568, Ley 1257, Protocolo de Atención y normativa colombiana</footer>
+</div>
+
+<script>
+    // ---------- BANCO DE PREGUNTAS (50) ----------
+    const preguntas = [
+        // MÓDULO 1: Las Quemaduras por Agentes Químicos (10 preguntas)
+        { icono: "fa-vial", texto: "¿Qué tipo de necrosis producen los ácidos en la piel?", opciones: ["Necrosis de licuefacción", "Necrosis de coagulación", "Necrosis grasa", "Necrosis caseosa"], correcta: 1 },
+        { icono: "fa-tint", texto: "¿Qué pH caracteriza a los álcalis corrosivos peligrosos?", opciones: ["< 3.5", "3.5 - 5.5", "7.0 - 9.0", "≥ 11.5"], correcta: 3 },
+        { icono: "fa-burn", texto: "¿Cuál es el mecanismo de acción del ácido fluorhídrico (HF) que causa daño progresivo?", opciones: ["Liberación de calor", "Fijación de calcio y magnesio", "Desnaturalización por calor", "Saponificación"], correcta: 1 },
+        { icono: "fa-skull", texto: "¿Qué agente produce escara blanda y necrosis de licuefacción?", opciones: ["Ácido sulfúrico", "Ácido nítrico", "Hidróxido de sodio", "Fenol"], correcta: 2 },
+        { icono: "fa-microscope", texto: "¿Qué estructura proteica se destruye irreversiblemente por los ácidos y álcalis?", opciones: ["Estructura primaria", "Estructura secundaria y terciaria", "Enlace peptídico", "Grupo R"], correcta: 1 },
+        { icono: "fa-chart-line", texto: "La severidad de la quemadura química NO depende de:", opciones: ["Concentración del agente", "Tiempo de contacto", "Color del agente", "Mecanismo de acción"], correcta: 2 },
+        { icono: "fa-eye", texto: "¿Qué agente produce opacidad corneal y alopecia temporal en cuero cabelludo?", opciones: ["Ácido crómico", "Hidróxido de sodio", "Fenol", "Gas mostaza"], correcta: 1 },
+        { icono: "fa-flask", texto: "¿Cuál es el agente que produce escara blanca y dolor prolongado hasta 7 días?", opciones: ["Ácido fluorhídrico", "Ácido sulfúrico", "Hidróxido de calcio", "Amoníaco"], correcta: 0 },
+        { icono: "fa-atom", texto: "¿Qué forma iónica del ácido crómico es la más peligrosa por su capacidad de atravesar membranas?", opciones: ["Cr+3", "Cr+6", "Cr metálico", "Cr2O7"], correcta: 1 },
+        { icono: "fa-industry", texto: "¿Qué agente se usa en municiones y se inflama espontáneamente con el aire?", opciones: ["Fósforo blanco", "Cloruro de titanio", "Litio", "Hidróxido de sodio"], correcta: 0 },
+
+        // MÓDULO 2: Magnitud de los Ataques (10 preguntas)
+        { icono: "fa-gavel", texto: "¿Qué ley colombiana adopta el Protocolo de Atención de Urgencias a Víctimas de Ataques con Agentes Químicos?", opciones: ["Ley 1257 de 2008", "Ley 1639 de 2013", "Resolución 4568 de 2014", "Ley 1773 de 2016"], correcta: 2 },
+        { icono: "fa-female", texto: "Según la Resolución 4568, los ataques con agentes químicos son una manifestación de:", opciones: ["Violencia común", "Violencia de género", "Accidente laboral", "Terrorismo"], correcta: 1 },
+        { icono: "fa-hand-holding-heart", texto: "¿Qué instrumento internacional obliga a los Estados a suministrar servicios especializados para mujeres víctimas de violencia?", opciones: ["CEDAW", "Declaración de Viena", "Convención de Belém do Pará", "Protocolo de San Salvador"], correcta: 2 },
+        { icono: "fa-chart-line", texto: "Entre 2004 y 2016, ¿cuántas víctimas de ataques con agentes químicos se reportaron en Colombia?", opciones: ["Menos de 500", "Más de 1100", "Más de 5000", "Más de 10000"], correcta: 1 },
+        { icono: "fa-brain", texto: "En la fase de reacción del trauma, ¿qué suele presentar la víctima?", opciones: ["Negación total", "Reconocimiento del daño, ansiedad y depresión", "Interés exclusivo por lo laboral", "Apatía total"], correcta: 1 },
+        { icono: "fa-users", texto: "¿Cuál es un impacto sociofamiliar frecuente en víctimas de ataques con agentes químicos?", opciones: ["Mayor unión familiar", "Fragmentación y sobrecarga de cuidado", "Independencia económica", "Aumento de redes sociales"], correcta: 1 },
+        { icono: "fa-balance-scale", texto: "¿Qué derecho tienen las víctimas según la Ley 1257 de 2008?", opciones: ["Pagar cuotas moderadoras", "Recibir orientación jurídica gratuita e inmediata", "Ser confrontadas con el agresor en todos los espacios", "No recibir información sobre su caso"], correcta: 1 },
+        { icono: "fa-file-alt", texto: "La Ley 1639 de 2013 aumentó las penas para lesiones con agentes químicos y también regula:", opciones: ["La creación de un fondo de indemnización", "El control de comercialización de estas sustancias", "La obligación de las víctimas de pagar tratamientos", "La exclusión de estos casos del SIVIGILA"], correcta: 1 },
+        { icono: "fa-heart-broken", texto: "¿Cuál es una de las fases del proceso de duelo por pérdida de integridad corporal?", opciones: ["Hiperactividad", "Negación", "Alegría", "Desinterés"], correcta: 1 },
+        { icono: "fa-chart-simple", texto: "En 2022, ¿cuántos casos sospechosos de violencia de género e intrafamiliar se notificaron en Colombia?", opciones: ["50.000", "100.000", "140.694", "200.000"], correcta: 2 },
+
+        // MÓDULO 3: Atención en el Lugar de la Agresión (10 preguntas)
+        { icono: "fa-phone-alt", texto: "¿Cuál es el primer paso del protocolo APA en primeros auxilios?", opciones: ["Proteger", "Atender", "Avise (llamar al 123)", "Lavar con agua"], correcta: 2 },
+        { icono: "fa-shield-alt", texto: "¿Qué debe hacer el primer respondiente para protegerse antes de tocar a la víctima?", opciones: ["Usar guantes de nitrilo, bata y gafas", "Aplicar crema antibiótica", "Soplar la zona", "Frotar con alcohol"], correcta: 0 },
+        { icono: "fa-tint", texto: "¿Cuánto tiempo debe durar la irrigación con agua en una quemadura por álcali?", opciones: ["5-10 minutos", "20-30 minutos", "30-60 minutos", "Hasta que seque"], correcta: 2 },
+        { icono: "fa-tshirt", texto: "Al retirar la ropa contaminada, ¿qué debe hacerse con las prendas?", opciones: ["Desecharlas inmediatamente", "Guardarlas en bolsa negra rotulada para cadena de custodia", "Lavarlas con agua caliente", "Quemarlas"], correcta: 1 },
+        { icono: "fa-eye", texto: "¿Qué prioridad tiene el lavado ocular en una víctima con compromiso ocular?", opciones: ["Se realiza al final", "Se realiza después de lavar todo el cuerpo", "Es prioritario y simultáneo al lavado corporal", "No es necesario"], correcta: 2 },
+        { icono: "fa-smile", texto: "¿Cómo debe presentarse el socorrista ante la víctima?", opciones: ["Con órdenes enérgicas", "Diciendo su nombre, profesión y explicando las acciones", "Sin hablar para no alterarla", "Preguntando detalles del ataque"], correcta: 1 },
+        { icono: "fa-hand-holding-heart", texto: "¿Qué debe evitarse en primeros auxilios psicológicos?", opciones: ["Escuchar activamente", "Preguntar ¿qué hizo para que la atacaran?", "Presentarse con calma", "Avisar a familiares"], correcta: 1 },
+        { icono: "fa-user-shield", texto: "Si el agente químico es un polvo, ¿qué se debe hacer antes de irrigar?", opciones: ["Aplicar agua directamente", "Retirar partículas con cepillado suave", "Frotar con fuerza", "Aplicar aceite"], correcta: 1 },
+        { icono: "fa-ambulance", texto: "¿Qué paso sigue después de la irrigación y antes del traslado?", opciones: ["Cubrir a la víctima con una bata", "Dejar que seque al aire", "Aplicar hielo", "Dar de beber agua"], correcta: 0 },
+        { icono: "fa-comments", texto: "¿Cuál de las siguientes actitudes es recomendada en los primeros auxilios psicológicos?", opciones: ["Juzgar a la víctima", "Mantener comunicación verbal y no verbal respetuosa", "Hacer falsas promesas", "Subestimar su dolor"], correcta: 1 },
+
+        // MÓDULO 4: Atención en el Servicio de Urgencias (10 preguntas)
+        { icono: "fa-stethoscope", texto: "¿Qué debe evaluarse primero en la atención en urgencias según el ABCDE?", opciones: ["Vía aérea", "Circulación", "Discapacidad neurológica", "Exposición"], correcta: 0 },
+        { icono: "fa-clipboard-list", texto: "¿Qué entidad debe notificar los casos de agresión con agentes químicos al SIVIGILA?", opciones: ["EPS", "IPS", "Ministerio de Salud", "Superintendencia de Salud"], correcta: 1 },
+        { icono: "fa-file-invoice", texto: "¿Qué registro deben diligenciar las IPS para la facturación y seguimiento en salud?", opciones: ["SIVIGILA", "RIPS", "CUPS", "UPC"], correcta: 1 },
+        { icono: "fa-balance-scale", texto: "¿Qué debe hacer el personal de salud con las evidencias del hecho punible?", opciones: ["Desecharlas", "Preservarlas y entregarlas a las autoridades", "Guardarlas en el consultorio", "Lavarlas con cloro"], correcta: 1 },
+        { icono: "fa-female", texto: "¿Qué enfoque debe primar en la atención a víctimas de ataques con agentes químicos?", opciones: ["Enfoque punitivo", "Enfoque de derechos, género y diferencial", "Enfoque exclusivamente médico", "Enfoque policial"], correcta: 1 },
+        { icono: "fa-hand-holding-usd", texto: "¿Qué beneficio tienen las víctimas según la Circular 016 de 2014?", opciones: ["Descuento del 50% en tratamientos", "Exención de copagos y cuotas moderadoras", "Financiación total por el Estado", "Atención preferencial"], correcta: 1 },
+        { icono: "fa-chart-line", texto: "¿Qué actor del SGSSS tiene la rectoría sobre el Protocolo de Atención?", opciones: ["IPS", "EPS", "Ministerio de Salud", "Superintendencia Nacional de Salud"], correcta: 2 },
+        { icono: "fa-gavel", texto: "¿Qué ley establece la exención de cuotas moderadoras para víctimas de violencia?", opciones: ["Ley 1257", "Ley 1639", "Circular 016 de 2014", "Resolución 4568"], correcta: 2 },
+        { icono: "fa-hospital-user", texto: "¿Cuál es la responsabilidad de las EPS en la atención?", opciones: ["Realizar la notificación al SIVIGILA", "Garantizar red de urgencias, transporte y servicios integrales", "Hacer la escarectomía", "Activar la ruta intersectorial"], correcta: 1 },
+        { icono: "fa-route", texto: "¿Qué debe activar la IPS para garantizar protección y justicia a la víctima?", opciones: ["La ruta de atención al usuario", "La ruta intersectorial de atención a víctimas de violencias de género", "El plan de beneficios", "El comité de ética"], correcta: 1 },
+
+        // UNIDAD 5: Referencia a Unidad de Quemados (10 preguntas)
+        { icono: "fa-truck-medical", texto: "¿Cuándo debe referirse a una unidad de quemados?", opciones: ["Siempre", "Cuando la lesión lo amerite por profundidad, extensión o ubicación", "Solo si hay lesión ocular", "Después de 30 días"], correcta: 1 },
+        { icono: "fa-hand-holding-heart", texto: "¿Qué tipo de atención ofrece una unidad especializada en quemados?", opciones: ["Solo cirugía reconstructiva", "Manejo integral: críticos, cirugía, rehabilitación", "Solo manejo ambulatorio", "Solo psicología"], correcta: 1 },
+        { icono: "fa-calendar-alt", texto: "¿Qué incluye el manejo ambulatorio posterior al alta?", opciones: ["Solo consulta de control", "Rehabilitación física, terapia ocupacional, apoyo psicológico y seguimiento", "Solo curación de heridas", "Solo medicamentos"], correcta: 1 },
+        { icono: "fa-chart-line", texto: "¿Qué criterio NO es determinante para referir a una unidad de quemados?", opciones: ["Profundidad de la quemadura", "Extensión >10% SCQ", "Ubicación en cara, manos, genitales", "Color de la escara"], correcta: 3 },
+        { icono: "fa-ambulance", texto: "¿Quién debe coordinar el traslado a la unidad de quemados?", opciones: ["La familia", "La EPS con red de ambulancias", "El policía", "La víctima"], correcta: 1 },
+        { icono: "fa-file-signature", texto: "¿Qué documento debe acompañar a la paciente durante la referencia?", opciones: ["Historia clínica, registro de atención inicial y notas de enfermería", "Solo la cédula", "Solo el consentimiento", "Ninguno"], correcta: 0 },
+        { icono: "fa-home", texto: "¿Qué especialidades suelen participar en el manejo ambulatorio multidisciplinario?", opciones: ["Solo cirugía plástica", "Psicología, terapia ocupacional, fisioterapia, cirugía", "Solo psiquiatría", "Solo enfermería"], correcta: 1 },
+        { icono: "fa-clock", texto: "¿Cuál es el tiempo recomendado para la primera consulta ambulatoria después del alta?", opciones: ["1 semana", "2-4 semanas", "6 meses", "1 año"], correcta: 1 },
+        { icono: "fa-hospital-user", texto: "¿Qué institución debe garantizar la continuidad de la atención una vez referida la víctima?", opciones: ["La IPS que refirió", "La EPS", "La unidad de quemados", "El Ministerio de Salud"], correcta: 1 },
+        { icono: "fa-check-circle", texto: "¿Qué es fundamental para la reintegración social de la víctima?", opciones: ["Solo cirugías estéticas", "Acompañamiento psicosocial, apoyo laboral y familiar", "Aislamiento", "Silencio"], correcta: 1 }
+    ];
+
+    // Verificar que sean exactamente 50
+    if(preguntas.length !== 50) console.warn("Faltan preguntas: " + (50 - preguntas.length));
+
+    // Variables de estado
+    let currentIndex = 0;
+    let selectedOption = null;
+    let answerLocked = false;
+    let score = 0;
+
+    // Elementos DOM
+    const gameContent = document.getElementById("gameContent");
+    const progressFill = document.getElementById("progressFill");
+    const questionCounter = document.getElementById("questionCounter");
+
+    function renderQuestion() {
+        if (currentIndex >= preguntas.length) {
+            // Juego completado
+            gameContent.innerHTML = `
+                <div class="result-area">
+                    <i class="fas fa-trophy" style="font-size: 3rem; color: #f4b942;"></i>
+                    <h2>¡Has escapado!</h2>
+                    <p>Respondiste correctamente ${score} de ${preguntas.length} preguntas.</p>
+                    <div class="certificate">
+                        <i class="fas fa-certificate"></i>
+                        <h3>Certificado de superación</h3>
+                        <p>Has demostrado dominio en la atención integral a víctimas de ataques con agentes químicos.</p>
+                    </div>
+                    <button class="restart-btn" id="restartBtn"><i class="fas fa-redo-alt"></i> Reiniciar Escape Room</button>
+                </div>
+            `;
+            document.getElementById("restartBtn")?.addEventListener("click", () => location.reload());
+            return;
+        }
+
+        const q = preguntas[currentIndex];
+        const icono = q.icono;
+        const texto = q.texto;
+        const opciones = q.opciones;
+
+        let optionsHtml = '';
+        opciones.forEach((opt, idx) => {
+            optionsHtml += `
+                <div class="option" data-opt-index="${idx}">
+                    <i class="fas fa-${idx === 0 ? 'a' : idx === 1 ? 'b' : idx === 2 ? 'c' : 'd'}-circle"></i>
+                    ${opt}
+                </div>
+            `;
+        });
+
+        gameContent.innerHTML = `
+            <div class="question-container">
+                <div class="question-icon"><i class="fas ${icono}"></i></div>
+                <div class="question-text">${texto}</div>
+                <div class="options" id="optionsContainer">
+                    ${optionsHtml}
+                </div>
+                <div class="feedback" id="feedbackMsg"></div>
+                <button class="btn-next" id="nextBtn" disabled>Siguiente <i class="fas fa-arrow-right"></i></button>
+            </div>
+        `;
+
+        // Eventos
+        const optionDivs = document.querySelectorAll(".option");
+        const nextBtn = document.getElementById("nextBtn");
+        const feedbackDiv = document.getElementById("feedbackMsg");
+
+        function clearSelection() {
+            optionDivs.forEach(opt => opt.classList.remove("selected"));
+        }
+
+        function checkAnswer(selectedIdx) {
+            if (answerLocked) return;
+            const isCorrect = (selectedIdx === q.correcta);
+            if (isCorrect) {
+                score++;
+                feedbackDiv.innerHTML = `<i class="fas fa-check-circle"></i> ¡Correcto! ${q.opciones[q.correcta]} es la respuesta adecuada.`;
+                feedbackDiv.className = "feedback correct";
+                answerLocked = true;
+                nextBtn.disabled = false;
+            } else {
+                feedbackDiv.innerHTML = `<i class="fas fa-times-circle"></i> Incorrecto. La respuesta correcta es: ${q.opciones[q.correcta]}. Sigue intentando.`;
+                feedbackDiv.className = "feedback incorrect";
+                // No bloqueamos el juego, pero no avanzamos hasta que elija la correcta
+                // Para mantener el desafío, no avanzamos hasta que responda bien
+                answerLocked = false;
+                nextBtn.disabled = true;
+                // Permitir seguir seleccionando
+            }
+            // Resaltar selección
+            clearSelection();
+            optionDivs[selectedIdx].classList.add("selected");
+        }
+
+        optionDivs.forEach(opt => {
+            opt.addEventListener("click", () => {
+                if (answerLocked) return;
+                const idx = parseInt(opt.getAttribute("data-opt-index"));
+                checkAnswer(idx);
+            });
+        });
+
+        nextBtn.addEventListener("click", () => {
+            if (!answerLocked) return;
+            currentIndex++;
+            answerLocked = false;
+            selectedOption = null;
+            // Actualizar progreso
+            const percent = (currentIndex / preguntas.length) * 100;
+            progressFill.style.width = `${percent}%`;
+            questionCounter.innerText = `${currentIndex} / ${preguntas.length}`;
+            renderQuestion();
+        });
+    }
+
+    // Inicializar progreso
+    progressFill.style.width = "0%";
+    questionCounter.innerText = `0 / ${preguntas.length}`;
+    renderQuestion();
+</script>
+</body>
+</html>
