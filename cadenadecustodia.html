@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Cadena de Custodia FPJ-08</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #e9ecef;
+            padding: 2rem 1rem;
+            color: #212529;
+        }
+
+        .form-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #1e466e;
+            border-bottom: 3px solid #1e466e;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 0.3rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 1.2rem;
+            background: #fdfdfd;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e466e;
+            border-left: 5px solid #1e466e;
+            padding-left: 0.8rem;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: flex-end;
+        }
+
+        .field-group {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .field-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+            color: #495057;
+        }
+
+        .field-group input, .field-group select, .field-group textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        .field-group input:focus, .field-group select:focus, .field-group textarea:focus {
+            outline: none;
+            border-color: #1e466e;
+            box-shadow: 0 0 0 2px rgba(30,70,110,0.2);
+        }
+
+        .inline-group {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .inline-group .field-group {
+            flex: 1;
+        }
+
+        /* Tablas dinámicas */
+        .dynamic-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+        }
+
+        .dynamic-table th, .dynamic-table td {
+            border: 1px solid #ced4da;
+            padding: 0.5rem;
+            vertical-align: top;
+        }
+
+        .dynamic-table th {
+            background: #e9ecef;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .dynamic-table td input, .dynamic-table td select {
+            width: 100%;
+            padding: 0.4rem;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .btn-row {
+            margin-top: 0.5rem;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            background: #1e466e;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.2s;
+            margin-left: 0.5rem;
+        }
+
+        .btn:hover {
+            background: #0f2f4a;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+        .btn-danger:hover {
+            background: #b02a37;
+        }
+
+        .print-btn {
+            background: #28a745;
+        }
+        .print-btn:hover {
+            background: #1e7e34;
+        }
+
+        /* Para impresión */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .form-container {
+                max-width: 100%;
+                padding: 0.5rem;
+                box-shadow: none;
+            }
+            .btn, .btn-row, .action-buttons, .add-row-btn {
+                display: none !important;
+            }
+            .dynamic-table td input, .dynamic-table td select {
+                border: none;
+                padding: 0;
+                font-size: 0.8rem;
+            }
+            .section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h1>REGISTRO DE CADENA DE CUSTODIA FPJ -08</h1>
+
+    <!-- 1. CÓDIGO ÚNICO DE CASO -->
+    <div class="section">
+        <div class="section-title">1. CÓDIGO ÚNICO DE CASO</div>
+        <div class="row">
+            <div class="field-group"><label>DPTO</label><input type="text" placeholder="Departamento"></div>
+            <div class="field-group"><label>MUNICIPIO</label><input type="text" placeholder="Municipio"></div>
+            <div class="field-group"><label>ENTIDAD</label><input type="text" placeholder="Entidad"></div>
+            <div class="field-group"><label>UNIDAD</label><input type="text" placeholder="Unidad"></div>
+            <div class="field-group"><label>AÑO</label><input type="text" placeholder="Año"></div>
+            <div class="field-group"><label>CONSECUTIVO</label><input type="text" placeholder="Consecutivo"></div>
+        </div>
+        <div class="row">
+            <div class="field-group"><label>UBICACIÓN NÚMERO DE BODEGA (*)</label><input type="text" placeholder="Número de bodega"></div>
+        </div>
+    </div>
+
+    <!-- 2. HISTORIA CLÍNICA -->
+    <div class="section">
+        <div class="section-title">2. HISTORIA CLÍNICA (**)</div>
+        <div class="field-group"><label>Número de historia clínica</label><input type="text" placeholder="Número de historia clínica"></div>
+        <div class="small-note" style="font-size:0.7rem; color:#6c757d; margin-top:0.3rem;">(**) Para ser diligenciado por la entidad Prestadora de Salud que recolecte el Elemento Material Probatorio o Evidencia Física</div>
+    </div>
+
+    <!-- 3. DOCUMENTACIÓN DEL ELEMENTO MATERIA DE PRUEBA O EVIDENCIA FISICA -->
+    <div class="section">
+        <div class="section-title">3. DOCUMENTACIÓN DEL ELEMENTO MATERIA DE PRUEBA O EVIDENCIA FISICA</div>
+        <table class="dynamic-table" id="tablaDocumentacion">
+            <thead>
+                <tr><th>H/R/E</th><th>NOMBRES Y APELLIDOS</th><th>CÉDULA DE CIUDADANÍA</th><th>ENTIDAD</th><th>CARGO</th><th>FIRMA</th><th style="width:40px"></th></tr>
+            </thead>
+            <tbody id="tbodyDoc">
+                <!-- Filas dinámicas -->
+            </tbody>
+        </table>
+        <div class="btn-row">
+            <button type="button" class="btn btn-secondary" id="addDocRow">+ Añadir persona</button>
+        </div>
+        <div class="small-note" style="font-size:0.7rem;">H= Quien HALLO, R= Quien RECOLECTO, E= Quien EMBALO. Puede marcar una o varias opciones para un mismo nombre.</div>
+    </div>
+
+    <!-- 4. TIPO DE EMBALAJE -->
+    <div class="section">
+        <div class="section-title">4. TIPO DE EMBALAJE</div>
+        <div class="row">
+            <div class="field-group"><label>Cantidad Bolsa Plástica</label><input type="number" min="0" value="0" style="width:80px;"></div>
+            <div class="field-group"><label>Bolsa de papel</label><input type="number" min="0" value="0" style="width:80px;"></div>
+            <div class="field-group"><label>Cantidad Frasco</label><input type="number" min="0" value="0" style="width:80px;"></div>
+            <div class="field-group"><label>Cantidad Caja</label><input type="number" min="0" value="0" style="width:80px;"></div>
+            <div class="field-group"><label>Otro</label><input type="text" placeholder="Especifique otro"></div>
+            <div class="field-group"><label>Cantidad Otro</label><input type="number" min="0" value="0" style="width:80px;"></div>
+        </div>
+    </div>
+
+    <!-- 5. DESCRIPCIÓN DEL ELEMENTO -->
+    <div class="section">
+        <div class="section-title">5. DESCRIPCIÓN DEL ELEMENTO MATERIA DE PRUEBA O EVIDENCIA FISICA</div>
+        <textarea rows="4" placeholder="Describa detalladamente el elemento materia de prueba o evidencia física"></textarea>
+    </div>
+
+    <!-- 6. REGISTRO DE CONTINUIDAD -->
+    <div class="section">
+        <div class="section-title">6. REGISTRO DE CONTINUIDAD DE LOS ELEMENTOS MATERIA DE PRUEBA O EVIDENCIA FISICA</div>
+        <table class="dynamic-table" id="tablaContinuidad">
+            <thead>
+                <tr><th>FECHA</th><th>HORA MILITAR</th><th>PROPÓSITO DEL TRASPASO O TRASLADO</th><th>FIRMA</th><th>OBSERVACIONES AL ESTADO DEL EMBALAJE</th><th>QUIEN RECIBE (Nombres)</th><th>CÉDULA</th><th>ENTIDAD</th><th>CALIDAD (Custodio, Perito, Transportador)</th><th style="width:40px"></th></tr>
+            </thead>
+            <tbody id="tbodyCont">
+                <!-- Filas dinámicas -->
+            </tbody>
+        </table>
+        <div class="btn-row">
+            <button type="button" class="btn btn-secondary" id="addContRow">+ Añadir registro de continuidad</button>
+        </div>
+    </div>
+
+    <!-- 7. PIPH -->
+    <div class="section">
+        <div class="section-title">7. PARA SER DILIGENCIADO POR EL TÉCNICO EN PRUEBA DE IDENTIFICACIÓN PRELIMINAR HOMOLOGADA “PIPH”</div>
+        <div class="row">
+            <div class="field-group">
+                <label>PRACTICO PRUEBA PRELIMINAR</label>
+                <div class="inline-group" style="gap:1rem;">
+                    <label><input type="radio" name="practicoPreliminar" value="SI"> SI</label>
+                    <label><input type="radio" name="practicoPreliminar" value="NO" checked> NO</label>
+                </div>
+            </div>
+            <div class="field-group"><label>CANTIDAD DE MUESTRAS TOMADAS</label><input type="number" min="0" value="0"></div>
+        </div>
+        <div class="row">
+            <div class="field-group"><label>RÓTULOS N°s</label>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    <input type="text" placeholder="Rótulo 1" style="width:100px;"> <input type="text" placeholder="Rótulo 2" style="width:100px;"> <input type="text" placeholder="Rótulo 3" style="width:100px;"> <input type="text" placeholder="Rótulo 4" style="width:100px;">
+                    <input type="text" placeholder="Rótulo 5" style="width:100px;"> <input type="text" placeholder="Rótulo 6" style="width:100px;"> <input type="text" placeholder="Rótulo 7" style="width:100px;"> <input type="text" placeholder="Rótulo 8" style="width:100px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="btn-row action-buttons" style="justify-content: center; gap: 1rem; margin-top: 1rem;">
+        <button type="button" class="btn btn-secondary" id="resetBtn">Limpiar formulario</button>
+        <button type="button" class="btn print-btn" id="printBtn">Imprimir / Guardar PDF</button>
+    </div>
+    <footer>Documento oficial de cadena de custodia. Diligencie todos los campos.</footer>
+</div>
+
+<script>
+    // ---------- FUNCIONES AUXILIARES ----------
+    function createDocRow(hreValue = '', nombres = '', cedula = '', entidad = '', cargo = '', firma = '') {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><input type="text" placeholder="Ej: H, R, E" value="${hreValue}" style="width:70px;"></td>
+            <td><input type="text" placeholder="Nombres y apellidos" value="${nombres}"></td>
+            <td><input type="text" placeholder="Cédula" value="${cedula}"></td>
+            <td><input type="text" placeholder="Entidad" value="${entidad}"></td>
+            <td><input type="text" placeholder="Cargo" value="${cargo}"></td>
+            <td><input type="text" placeholder="Firma" value="${firma}"></td>
+            <td style="text-align:center;"><button type="button" class="btn-danger" style="background:#dc3545; padding:0.2rem 0.5rem; font-size:0.7rem;">X</button></td>
+        `;
+        const delBtn = tr.querySelector('.btn-danger');
+        delBtn.addEventListener('click', () => tr.remove());
+        return tr;
+    }
+
+    function createContRow(fecha = '', hora = '', proposito = '', firma = '', observaciones = '', quienRecibe = '', cedula = '', entidad = '', calidad = '') {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><input type="date" value="${fecha}"></td>
+            <td><input type="text" placeholder="HHMM" value="${hora}"></td>
+            <td><input type="text" placeholder="Propósito" value="${proposito}"></td>
+            <td><input type="text" placeholder="Firma" value="${firma}"></td>
+            <td><input type="text" placeholder="Observaciones" value="${observaciones}"></td>
+            <td><input type="text" placeholder="Nombres" value="${quienRecibe}"></td>
+            <td><input type="text" placeholder="Cédula" value="${cedula}"></td>
+            <td><input type="text" placeholder="Entidad" value="${entidad}"></td>
+            <td><input type="text" placeholder="Calidad" value="${calidad}"></td>
+            <td style="text-align:center;"><button type="button" class="btn-danger" style="background:#dc3545; padding:0.2rem 0.5rem; font-size:0.7rem;">X</button></td>
+        `;
+        const delBtn = tr.querySelector('.btn-danger');
+        delBtn.addEventListener('click', () => tr.remove());
+        return tr;
+    }
+
+    // Inicializar tablas con algunas filas de ejemplo
+    const tbodyDoc = document.getElementById('tbodyDoc');
+    const tbodyCont = document.getElementById('tbodyCont');
+
+    // Agregar filas de ejemplo en documentación (3 filas)
+    for (let i = 0; i < 3; i++) {
+        tbodyDoc.appendChild(createDocRow());
+    }
+    // Agregar filas de ejemplo en continuidad (2 filas)
+    for (let i = 0; i < 2; i++) {
+        tbodyCont.appendChild(createContRow());
+    }
+
+    // Botones para añadir filas
+    document.getElementById('addDocRow').addEventListener('click', () => {
+        tbodyDoc.appendChild(createDocRow());
+    });
+    document.getElementById('addContRow').addEventListener('click', () => {
+        tbodyCont.appendChild(createContRow());
+    });
+
+    // Limpiar formulario (resetear todos los campos)
+    document.getElementById('resetBtn').addEventListener('click', () => {
+        // Limpiar todos los inputs, selects, textareas
+        document.querySelectorAll('input, select, textarea').forEach(el => {
+            if (el.type === 'radio') {
+                if (el.value === 'NO') el.checked = true;
+                else if (el.value === 'SI') el.checked = false;
+            } else if (el.type === 'number') {
+                el.value = '0';
+            } else if (el.type === 'text' || el.tagName === 'TEXTAREA') {
+                el.value = '';
+            } else if (el.tagName === 'SELECT') {
+                el.selectedIndex = 0;
+            }
+        });
+        // Limpiar tablas dinámicas dejando solo las filas iniciales (opcional, reiniciar con 3 de doc y 2 de cont)
+        tbodyDoc.innerHTML = '';
+        tbodyCont.innerHTML = '';
+        for (let i = 0; i < 3; i++) tbodyDoc.appendChild(createDocRow());
+        for (let i = 0; i < 2; i++) tbodyCont.appendChild(createContRow());
+        // Resetear radios específicos
+        document.querySelectorAll('input[name="practicoPreliminar"]').forEach(r => { if(r.value === 'NO') r.checked = true; });
+    });
+
+    // Imprimir
+    document.getElementById('printBtn').addEventListener('click', () => {
+        window.print();
+    });
+</script>
+</body>
+</html>
