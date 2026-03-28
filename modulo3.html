@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Módulo 3 | Atención en el lugar de la agresión | Diplomado Virtual</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f6f9fc;
+            color: #1a2c3e;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .hero-module {
+            background: linear-gradient(135deg, #1e3a4d 0%, #2c5a6e 100%);
+            color: white;
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-module::before {
+            content: "🚑";
+            font-size: 12rem;
+            opacity: 0.05;
+            position: absolute;
+            bottom: -2rem;
+            right: -1rem;
+            pointer-events: none;
+        }
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+        .hero-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 700px;
+        }
+        .badge-module {
+            background: rgba(255,255,240,0.2);
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .competencia-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-left: 6px solid #e67e22;
+        }
+        .competencia-card h2 {
+            color: #e67e22;
+            margin-bottom: 0.5rem;
+        }
+
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.7rem 1.3rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 2rem;
+            transition: all 0.2s;
+            color: #4a627a;
+        }
+        .tab-btn i { margin-right: 8px; }
+        .tab-btn:hover {
+            background: #eef2f6;
+        }
+        .tab-btn.active {
+            background: #154c5e;
+            color: white;
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: white;
+            border-radius: 1.2rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #e2edf2;
+        }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #154c5e;
+            border-left: 4px solid #e67e22;
+            padding-left: 1rem;
+        }
+
+        /* Tarjetas colapsables */
+        .collapsible-card {
+            background: #fefcf5;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        .collapsible-header {
+            padding: 1rem;
+            font-weight: 700;
+            background: #f8fafc;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s;
+        }
+        .collapsible-header:hover {
+            background: #f1f5f9;
+        }
+        .collapsible-header i {
+            transition: transform 0.2s;
+        }
+        .collapsible-content {
+            padding: 1rem;
+            border-top: 1px solid #e2e8f0;
+            display: none;
+        }
+        .collapsible-card.open .collapsible-content {
+            display: block;
+        }
+        .collapsible-card.open .collapsible-header i {
+            transform: rotate(180deg);
+        }
+
+        /* Grid de tarjetas horizontales */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin-top: 0.5rem;
+        }
+        .info-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1rem;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .info-card h4 {
+            color: #e67e22;
+            font-size: 1rem;
+            margin-bottom: 0.6rem;
+            border-left: 3px solid #e67e22;
+            padding-left: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .info-card p {
+            font-size: 0.85rem;
+            color: #2c5a6e;
+            line-height: 1.4;
+        }
+
+        /* Simuladores */
+        .simulator {
+            background: #f8fafc;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+        .btn-sim {
+            background: #154c5e;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin: 0.25rem;
+            transition: transform 0.2s;
+        }
+        .btn-sim:hover {
+            background: #2c5a6e;
+            transform: translateY(-2px);
+        }
+        .sim-progress {
+            background: #e2e8f0;
+            border-radius: 1rem;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            font-weight: 600;
+        }
+        .sim-feedback {
+            background: #eaf7e6;
+            padding: 0.8rem;
+            border-radius: 0.8rem;
+            margin: 1rem 0;
+        }
+        .sim-step-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .quiz-question {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f9fbfd;
+            border-radius: 1rem;
+        }
+        .btn-primary {
+            background: #154c5e;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .feedback {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            border-radius: 0.8rem;
+            background: #eaf7e6;
+        }
+        textarea {
+            width: 100%;
+            border: 1px solid #cbd5e0;
+            border-radius: 0.8rem;
+            padding: 0.8rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        footer {
+            background: #0a2a36;
+            color: #cfdfe8;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        @media (max-width: 900px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .hero-content h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero-module">
+    <div class="hero-content">
+        <h1><i class="fas fa-ambulance"></i> Atención en el lugar de la agresión</h1>
+        <p>Módulo 3 – Diplomado Virtual: Atención Integral en Salud a Víctimas de Ataques con Agentes Químicos</p>
+        <div class="badge-module"><i class="fas fa-hand-holding-heart"></i> Primeros auxilios • Atención prehospitalaria • Primeros auxilios psicológicos</div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="competencia-card">
+        <h2><i class="fas fa-bullseye"></i> Competencia específica</h2>
+        <p>Reconocer aspectos específicos de la intervención inicial del lesionado en el lugar del ataque para la posterior atención por urgencias, con base en la Resolución 4568 de 2014 y el Protocolo de Atención.</p>
+    </div>
+
+    <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="contenido"><i class="fas fa-book-open"></i> Contenido temático</button>
+        <button class="tab-btn" data-tab="simulador"><i class="fas fa-flask"></i> Simulador de primeros auxilios</button>
+        <button class="tab-btn" data-tab="quiz"><i class="fas fa-question-circle"></i> Evaluación formativa</button>
+        <button class="tab-btn" data-tab="notas"><i class="fas fa-pen"></i> Mis notas</button>
+    </div>
+
+    <!-- PANEL 1: CONTENIDO TEMÁTICO (igual que antes, extenso) -->
+    <div id="contenido" class="tab-pane active">
+        <!-- Tema 1: Primeros auxilios -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-first-aid"></i> Tema 1: Primeros auxilios</div>
+            <p>La atención inicial en el lugar del ataque es vital para reducir daños. El protocolo APA (Avise, Proteja, Atienda) guía la acción comunitaria.</p>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <h4><i class="fas fa-phone-alt"></i> Avise</h4>
+                    <p><strong>Llamar al 123</strong> o línea de emergencias local. Informar sitio, situación, número de afectados y estado. Seguir instrucciones del operador.</p>
+                </div>
+                <div class="info-card">
+                    <h4><i class="fas fa-shield-alt"></i> Proteja</h4>
+                    <p><strong>Evaluar seguridad</strong> antes de intervenir. Usar guantes de nitrilo, bata, gafas si están disponibles. No tocar superficies ni el cuerpo sin protección.</p>
+                </div>
+                <div class="info-card">
+                    <h4><i class="fas fa-hands-helping"></i> Atienda</h4>
+                    <p>Realizado por personal idóneo. Presentarse, tranquilizar, retirar objetos metálicos y ropa (excepto adherida). Lavar con abundante agua limpia, cubrir con prenda limpia para traslado.</p>
+                </div>
+            </div>
+            <div class="highlight-box" style="background:#eaf7e6; margin-top:1rem;">
+                <i class="fas fa-water"></i> <strong>Prioridad:</strong> Irrigación copiosa con agua durante 20-30 minutos. Diluye, remueve el químico y atenúa la reacción química.
+            </div>
+        </div>
+
+        <!-- Tema 2: Atención prehospitalaria -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-truck-medical"></i> Tema 2: Atención prehospitalaria</div>
+            <p>La atención prehospitalaria involucra acciones desde la recepción hasta el traslado. A continuación, los 10 pasos del protocolo (Resolución 4568 de 2014).</p>
+            <div class="collapsible-card">
+                <div class="collapsible-header">
+                    <span><i class="fas fa-list-ol"></i> 10 pasos de atención prehospitalaria</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="collapsible-content">
+                    <div class="cards-grid">
+                        <div class="info-card"><h4><i class="fas fa-stethoscope"></i> 1. Evaluación inicial</h4><p>ABCDE. Verificar vía aérea, identificar lesiones que pongan en riesgo la vida.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-tint"></i> 2. Fuente de agua</h4><p>Disponer de llave o ducha con agua potable. Si no, activar bomberos para asegurar volumen constante.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-smile"></i> 3. Presentarse y tranquilizar</h4><p>Decir nombre, institución. Actuar con calma. Verificar lesiones graves (ojos, cara, cuello, manos, genitales).</p></div>
+                        <div class="info-card"><h4><i class="fas fa-user-shield"></i> 4. Protegerse</h4><p>Guantes de nitrilo, bata, gafas. No tocar sin protección.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-towel"></i> 5. Secar</h4><p>Secar rápidamente con toallas absorbentes sin esparcir el químico a zonas no afectadas.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-tshirt"></i> 6. Retirar ropa</h4><p>Cortar y retirar ropa contaminada, anillos, aretes. Guardar en bolsa negra rotulada para cadena de custodia.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-shower"></i> 7. Irrigar y lavar</h4><p>Irrigar con agua tibia 20-30 min. Si posible, aplicar jabón (clorhexidina 0.2%) por 20 min y enjuagar. No sumergir en tinas.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-eye"></i> 8. Lavado ocular</h4><p>Prioritario si hay compromiso ocular. Usar lactato de Ringer o agua, lavado continuo simultáneo.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-blanket"></i> 9. Cubrir</h4><p>Cubrir con bata al finalizar lavado continuo o al llegar ambulancia. No dejar desnuda.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-hospital"></i> 10. Traslado</h4><p>Trasladar al hospital más cercano; si requiere especialización, referir a unidad de quemados.</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="collapsible-card">
+                <div class="collapsible-header">
+                    <span><i class="fas fa-exclamation-triangle"></i> Aspectos importantes según el tipo de químico</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="collapsible-content">
+                    <div class="cards-grid">
+                        <div class="info-card"><h4><i class="fas fa-lungs"></i> Inhalación</h4><p>Oxígeno húmedo al 100% en ambulancia.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-utensils"></i> Ingesta</h4><p>No inducir vómito, no dar agua. Lavado bucal con jabón y agua sin deglutir, repetir 20 min.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-dust"></i> Químico en polvo</h4><p>Retirar partículas con cepillado suave antes de lavar (evitar reacción exotérmica).</p></div>
+                        <div class="info-card"><h4><i class="fas fa-gloves"></i> Sin bioseguridad</h4><p>Indicar a la víctima que se retire la ropa y se seque sin frotar; iniciar irrigación de manos.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tema 3: Primeros auxilios psicológicos (PAP) -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-brain"></i> Tema 3: Primeros auxilios psicológicos (PAP)</div>
+            <p>El trauma psicológico requiere intervención inmediata. Los PAP buscan estabilizar emocionalmente a la víctima.</p>
+            <div class="collapsible-card">
+                <div class="collapsible-header">
+                    <span><i class="fas fa-list-check"></i> Elementos clave en la atención de la víctima</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="collapsible-content">
+                    <div class="cards-grid">
+                        <div class="info-card"><h4><i class="fas fa-heart"></i> Actuar con serenidad</h4><p>Transmitir calma. La persona está en estrés agudo.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-door-closed"></i> Generar privacidad</h4><p>Alejar curiosos, cubrir a la víctima, crear confianza.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-user-md"></i> Saludar y presentarse</h4><p>Decir nombre, profesión y explicar acciones. “Vamos a lavar con agua…”</p></div>
+                        <div class="info-card"><h4><i class="fas fa-question"></i> Identificar afectación</h4><p>Preguntar qué la afecta más: dolor, miedo, etc.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-handshake"></i> Buscar solución consensuada</h4><p>Analgésico, llamar a familiares, acuerdos sobre pasos a seguir.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-smile"></i> Ser amable</h4><p>Hablar con delicadeza reconociendo el estrés.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-comments"></i> Ganar confianza</h4><p>Tono de voz, actitud, proximidad física para que descargue angustia.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-microphone-alt"></i> Mantener comunicación</h4><p>Verbal y no verbal, adaptada a cultura y edad.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-ban"></i> No revictimizar</h4><p>Evitar preguntas como “¿qué hizo para que la atacaran?” o frases minimizadoras.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-ear-listen"></i> Escuchar y observar</h4><p>No forzar a hablar. Observar respuesta emocional.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-users"></i> Buscar compañía</h4><p>Permitir acompañamiento de familiar si la víctima lo desea.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-link"></i> Servir de enlace</h4><p>Conectar con personal de emergencias, familiares, policía.</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="collapsible-card">
+                <div class="collapsible-header">
+                    <span><i class="fas fa-hand-sparkles"></i> Componentes de los PAP</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="collapsible-content">
+                    <div class="cards-grid">
+                        <div class="info-card"><h4><i class="fas fa-phone"></i> 1. Contacto psicológico</h4><p>Establecer una conexión empática, respetuosa.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-clipboard-list"></i> 2. Evaluación</h4><p>Identificar necesidades inmediatas, nivel de angustia.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-lightbulb"></i> 3. Posibles soluciones</h4><p>Identificar recursos y opciones prácticas.</p></div>
+                        <div class="info-card"><h4><i class="fas fa-shoe-prints"></i> 4. Ayuda para la acción</h4><p>Facilitar los primeros pasos concretos (llamadas, acompañamiento).</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="collapsible-card">
+                <div class="collapsible-header">
+                    <span><i class="fas fa-ban"></i> Lo que se debe evitar en la atención psicológica</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="collapsible-content">
+                    <div class="cards-grid">
+                        <div class="info-card"><h4>❌ No subestimar su situación</h4><p>Evitar frases como “no fue nada”.</p></div>
+                        <div class="info-card"><h4>❌ No hacer falsas promesas</h4><p>No garantizar cosas que no se pueden cumplir.</p></div>
+                        <div class="info-card"><h4>❌ No indagar por qué ocurrió</h4><p>No preguntar detalles del ataque.</p></div>
+                        <div class="info-card"><h4>❌ No obligar a hablar</h4><p>Respetar si no quiere hablar.</p></div>
+                        <div class="info-card"><h4>❌ No comentar con otras personas</h4><p>Confidencialidad.</p></div>
+                        <div class="info-card"><h4>❌ No juzgar</h4><p>No emitir juicios sobre acciones o sentimientos.</p></div>
+                        <div class="info-card"><h4>❌ No utilizar términos peyorativos</h4><p>Lenguaje respetuoso.</p></div>
+                        <div class="info-card"><h4>❌ No hacer gestos que inquieten</h4><p>Controlar expresiones no verbales.</p></div>
+                        <div class="info-card"><h4>❌ No creer que es responsable de todo</h4><p>Reconocer límites del rol.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Derechos en salud -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-gavel"></i> Derechos en salud de las víctimas</div>
+            <div class="cards-grid">
+                <div class="info-card"><h4><i class="fas fa-clock"></i> Atención de urgencias</h4><p>Conforme al Protocolo (Resolución 4568).</p></div>
+                <div class="info-card"><h4><i class="fas fa-stethoscope"></i> Atención física y mental</h4><p>Servicios financiados con UPC.</p></div>
+                <div class="info-card"><h4><i class="fas fa-syringe"></i> Restitución de fisionomía</h4><p>Financiado con presupuestos máximos (Res. 205).</p></div>
+                <div class="info-card"><h4><i class="fas fa-hand-holding-usd"></i> Exención de cuotas</h4><p>Copagos y cuotas moderadoras (Circular 016).</p></div>
+                <div class="info-card"><h4><i class="fas fa-balance-scale"></i> Acceso a justicia</h4><p>Informe a autoridades, preservación de evidencias, declaración en sitio.</p></div>
+                <div class="info-card"><h4><i class="fas fa-female"></i> Enfoque de género y diferencial</h4><p>Derecho a ser atendida con enfoque de derechos.</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL 2: SIMULADOR (dos secciones: preguntas opción múltiple + secuencial) -->
+    <div id="simulador" class="tab-pane">
+        <!-- Primer simulador: 3 preguntas originales (opción múltiple) -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-question-circle"></i> Simulador 1: Pon a prueba tus conocimientos</div>
+            <div class="simulator" id="simuladorMultiple">
+                <div id="multiStepContainer">
+                    <div class="sim-step" id="multiStep1">
+                        <div class="step-num" style="display:inline-block; width:30px; height:30px; background:#154c5e; color:white; border-radius:50%; text-align:center; line-height:30px; margin-right:10px;">1</div>
+                        <span>Has presenciado un ataque con un químico. ¿Qué haces primero?</span><br>
+                        <button class="btn-sim" onclick="checkMultiAnswer(1, 'avise')">Llamar al 123</button>
+                        <button class="btn-sim" onclick="checkMultiAnswer(1, 'proteja')">Correr a ayudar sin protección</button>
+                        <button class="btn-sim" onclick="checkMultiAnswer(1, 'atender')">Empezar a lavar inmediatamente</button>
+                    </div>
+                    <div id="multiStep2" style="display:none;">
+                        <div class="step-num" style="display:inline-block; width:30px; height:30px; background:#154c5e; color:white; border-radius:50%; text-align:center; line-height:30px; margin-right:10px;">2</div>
+                        <span>La víctima tiene el químico en la piel. ¿Qué debes hacer antes de tocar?</span><br>
+                        <button class="btn-sim" onclick="checkMultiAnswer(2, 'protegerse')">Usar guantes de nitrilo</button>
+                        <button class="btn-sim" onclick="checkMultiAnswer(2, 'crema')">Aplicar crema</button>
+                        <button class="btn-sim" onclick="checkMultiAnswer(2, 'soplar')">Soplar</button>
+                        <button class="btn-sim" onclick="checkMultiAnswer(2, 'frotar')">Frotar con una toalla</button>
+                    </div>
+                    <div id="multiStep3" style="display:none;">
+                        <div class="step-num" style="display:inline-block; width:30px; height:30px; background:#154c5e; color:white; border-radius:50%; text-align:center; line-height:30px; margin-right:10px;">3</div>
+                        <span>¿Cuál es la prioridad en el lavado?</span><br>
+                        <button class="btn-sim" onclick="checkMultiAnswer(3, 'poca')">Lavar con poca agua</button>
+                        <button class="btn-sim" onclick="checkMultiAnswer(3, 'copiosa')">Irrigar copiosamente con agua durante 20-30 min</button>
+                        <button class="btn-sim" onclick="checkMultiAnswer(3, 'alcohol')">Usar alcohol</button>
+                        <button class="btn-sim" onclick="checkMultiAnswer(3, 'hielo')">Aplicar hielo</button>
+                    </div>
+                </div>
+                <div id="multiFeedback" class="sim-feedback">Selecciona una opción para comenzar.</div>
+                <button id="resetMulti" class="btn-primary" style="margin-top:1rem;">Reiniciar simulador múltiple</button>
+            </div>
+        </div>
+
+        <!-- Segundo simulador: secuencial de 8 pasos -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-arrow-right-to-bracket"></i> Simulador 2: Secuencia obligatoria (ordena los pasos)</div>
+            <p>Realiza los pasos en el orden correcto según el protocolo. Cada paso debe completarse secuencialmente.</p>
+            <div class="simulator">
+                <div class="sim-progress" id="progresoSimulador">Progreso: 0/8 pasos completados.</div>
+                <div class="sim-feedback" id="feedbackSimulador">🔄 Simulador listo. Sigue los pasos en orden (1 al 8). Haz clic en cada botón secuencialmente.</div>
+                <div class="sim-step-buttons" id="botonesSimulador">
+                    <button class="btn-sim" data-paso="1">1. Avise (llamar al 123)</button>
+                    <button class="btn-sim" data-paso="2">2. Protéjase (bioseguridad)</button>
+                    <button class="btn-sim" data-paso="3">3. Busque fuente de agua</button>
+                    <button class="btn-sim" data-paso="4">4. Retire ropa contaminada</button>
+                    <button class="btn-sim" data-paso="5">5. Irrigación copiosa (20-30 min)</button>
+                    <button class="btn-sim" data-paso="6">6. Lavado ocular</button>
+                    <button class="btn-sim" data-paso="7">7. Primeros auxilios psicológicos</button>
+                    <button class="btn-sim" data-paso="8">8. Traslado a centro asistencial</button>
+                </div>
+                <div><strong>Paso actual requerido:</strong> <span id="pasoActualTexto">1 de 8</span></div>
+                <button id="reiniciarSimulador" class="btn-primary" style="margin-top:1rem;">Reiniciar simulador secuencial</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL 3: EVALUACIÓN FORMATIVA -->
+    <div id="quiz" class="tab-pane">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-question"></i> Evaluación formativa – Módulo 3</div>
+            <div id="quizContainer">
+                <div class="quiz-question">
+                    <p><strong>1.</strong> ¿Cuál es el primer paso del protocolo APA en primeros auxilios?</p>
+                    <div class="quiz-option"><input type="radio" name="q1" value="a"> Atender</div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="b"> Proteger</div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="c"> Avise (llamar al 123)</div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="d"> Lavar con agua</div>
+                </div>
+                <div class="quiz-question">
+                    <p><strong>2.</strong> Durante la atención prehospitalaria, ¿cuánto tiempo debe durar la irrigación con agua?</p>
+                    <div class="quiz-option"><input type="radio" name="q2" value="a"> 5-10 minutos</div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="b"> 20-30 minutos</div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="c"> 1 hora</div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="d"> Hasta que seque</div>
+                </div>
+                <div class="quiz-question">
+                    <p><strong>3.</strong> En primeros auxilios psicológicos, ¿qué debe evitarse?</p>
+                    <div class="quiz-option"><input type="radio" name="q3" value="a"> Escuchar activamente</div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="b"> Preguntar “¿qué hizo para que la atacaran?”</div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="c"> Presentarse con nombre</div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="d"> Avisar a familiares</div>
+                </div>
+                <div class="quiz-question">
+                    <p><strong>4.</strong> Si el agente químico es un polvo, antes de lavar se debe:</p>
+                    <div class="quiz-option"><input type="radio" name="q4" value="a"> Frotar con fuerza</div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="b"> Aplicar aceite</div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="c"> Retirar partículas con cepillado suave</div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="d"> Sumergir en agua caliente</div>
+                </div>
+                <div class="quiz-question">
+                    <p><strong>5.</strong> ¿Qué derecho en salud tienen las víctimas según la Circular 016 de 2014?</p>
+                    <div class="quiz-option"><input type="radio" name="q5" value="a"> Pagar cuotas moderadoras</div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="b"> Exención de copagos y cuotas moderadoras</div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="c"> Elegir su propio médico forense</div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="d"> No ser informada sobre sus derechos</div>
+                </div>
+                <button id="submitQuiz" class="btn-primary">Enviar respuestas</button>
+                <div id="quizResult" class="feedback" style="margin-top:1rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL 4: NOTAS PERSONALES -->
+    <div id="notas" class="tab-pane">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-sticky-note"></i> Mis apuntes del módulo 3</div>
+            <textarea id="studentNotes3" rows="8" placeholder="Escribe aquí tus notas personales, reflexiones o dudas sobre el contenido... Se guardarán automáticamente en tu navegador."></textarea>
+            <button id="saveNotes3" class="btn-primary" style="margin-top:0.5rem;">Guardar notas</button>
+            <div id="notesFeedback3" class="feedback" style="margin-top:0.5rem;"></div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>Diplomado Virtual – Atención Integral en Salud a Víctimas de Ataques con Agentes Químicos</p>
+    <p>Basado en Resolución 4568 de 2014, Guías de Atención Prehospitalaria, y normativa colombiana.</p>
+</footer>
+
+<script>
+    // ---------- TABS ----------
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panes = document.querySelectorAll('.tab-pane');
+    tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+            tabs.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            panes.forEach(pane => {
+                pane.classList.remove('active');
+                if (pane.id === tabId) pane.classList.add('active');
+            });
+        });
+    });
+
+    // ---------- COLLAPSIBLES ----------
+    document.querySelectorAll('.collapsible-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const card = header.closest('.collapsible-card');
+            card.classList.toggle('open');
+        });
+    });
+
+    // ==================== SIMULADOR MÚLTIPLE (3 preguntas) ====================
+    let multiCurrentStep = 1;
+    const multiSteps = [1,2,3];
+    const multiAnswers = {
+        1: { correct: 'avise', feedback: 'Correcto. El primer paso es AVISAR llamando al 123 para activar los servicios de emergencia.' },
+        2: { correct: 'protegerse', feedback: 'Correcto. Protégete con guantes de nitrilo, bata y gafas antes de intervenir.' },
+        3: { correct: 'copiosa', feedback: 'Correcto. La irrigación copiosa con agua durante 20-30 minutos es la acción más importante para diluir y remover el químico.' }
+    };
+
+    function showMultiStep(step) {
+        for (let i = 1; i <= 3; i++) {
+            const el = document.getElementById(`multiStep${i}`);
+            if (el) el.style.display = (i === step) ? 'block' : 'none';
+        }
+    }
+
+    window.checkMultiAnswer = function(step, selected) {
+        const correctAnswer = multiAnswers[step].correct;
+        if (selected === correctAnswer) {
+            document.getElementById('multiFeedback').innerHTML = `<i class="fas fa-check-circle"></i> ${multiAnswers[step].feedback}`;
+            document.getElementById('multiFeedback').style.background = "#d4efdf";
+            if (step < 3) {
+                multiCurrentStep++;
+                showMultiStep(multiCurrentStep);
+            } else {
+                document.getElementById('multiFeedback').innerHTML += '<br>🎉 ¡Felicidades! Completaste las tres preguntas. Reinicia para practicar de nuevo.';
+            }
+        } else {
+            let incorrectMsg = '';
+            if (step === 1) incorrectMsg = 'Incorrecto. Debes llamar primero al 123 para activar la emergencia.';
+            else if (step === 2) incorrectMsg = 'Incorrecto. Siempre debes usar guantes de nitrilo y medidas de bioseguridad.';
+            else incorrectMsg = 'Incorrecto. La irrigación copiosa con agua por 20-30 minutos es prioritaria.';
+            document.getElementById('multiFeedback').innerHTML = `<i class="fas fa-times-circle"></i> ${incorrectMsg}`;
+            document.getElementById('multiFeedback').style.background = "#ffe0e0";
+        }
+    };
+
+    document.getElementById('resetMulti').addEventListener('click', () => {
+        multiCurrentStep = 1;
+        showMultiStep(1);
+        document.getElementById('multiFeedback').innerHTML = 'Selecciona una opción para comenzar.';
+        document.getElementById('multiFeedback').style.background = "#eaf7e6";
+    });
+    showMultiStep(1);
+
+    // ==================== SIMULADOR SECUENCIAL (8 pasos) ====================
+    let pasosCompletados = new Array(9).fill(false);
+    let pasoEsperado = 1;
+    const totalPasos = 8;
+    const feedbackSim = document.getElementById('feedbackSimulador');
+    const progresoDiv = document.getElementById('progresoSimulador');
+    const pasoActualSpan = document.getElementById('pasoActualTexto');
+
+    function actualizarUIProgreso() {
+        let completados = pasosCompletados.slice(1).filter(v => v === true).length;
+        progresoDiv.innerText = `Progreso: ${completados}/${totalPasos} pasos completados.`;
+        if(completados === totalPasos) {
+            pasoActualSpan.innerText = '🎉 ¡Atención exitosa! Víctima estabilizada y trasladada.';
+            feedbackSim.innerHTML = '✅ EXCELENTE. Has seguido el protocolo completo: avisaste, protegiste, lavaste, retiraste ropa, irrigaste, lavado ocular, PAP y traslado. ¡Has salvado vidas!';
+            feedbackSim.style.background = "#d4efdf";
+        } else {
+            pasoActualSpan.innerText = `Paso actual requerido: ${pasoEsperado} de ${totalPasos}`;
+        }
+    }
+
+    function reiniciarSimuladorSec() {
+        pasosCompletados = new Array(9).fill(false);
+        pasoEsperado = 1;
+        feedbackSim.innerHTML = '🔄 Simulador reiniciado. Sigue los pasos en orden (1 al 8). Haz clic en cada botón secuencialmente.';
+        feedbackSim.style.background = "#e2f0e6";
+        actualizarUIProgreso();
+    }
+
+    function intentarCompletarPaso(pasoNum) {
+        if(pasosCompletados[pasoNum]) {
+            feedbackSim.innerHTML = `⚠️ El paso ${pasoNum} ya lo completaste. Continúa con el paso ${pasoEsperado}.`;
+            feedbackSim.style.background = "#fff0e0";
+            return false;
+        }
+        if(pasoNum !== pasoEsperado) {
+            feedbackSim.innerHTML = `❌ Orden incorrecto. Debes completar primero el paso ${pasoEsperado}. Sigue la secuencia lógica del protocolo.`;
+            feedbackSim.style.background = "#ffe0e0";
+            return false;
+        }
+        pasosCompletados[pasoNum] = true;
+        let mensajes = {
+            1: "✅ Correcto: Llamaste a la línea 123, informaste la emergencia. ¡Activaste la respuesta!",
+            2: "✅ Bien: Usaste guantes y medidas de bioseguridad, protegiste la escena. No te contaminaste.",
+            3: "✅ Excelente: Buscaste una fuente de agua e iniciaste el lavado inmediato. Fundamental para diluir el químico.",
+            4: "✅ Cortaste la ropa contaminada sin esparcir el agente. Preservaste evidencias.",
+            5: "✅ Irrigación copiosa por 20-30 min con agua y jabón suave. Detienes la acción corrosiva.",
+            6: "✅ Lavado ocular prioritario: salvaste la visión, usaste agua o solución salina.",
+            7: "✅ Aplicaste primeros auxilios psicológicos: calma, presentación, evitaste revictimización. Contención emocional clave.",
+            8: "✅ Traslado oportuno al servicio de urgencias. Coordinaste con ambulancia. ¡Proceso completo!"
+        };
+        feedbackSim.innerHTML = mensajes[pasoNum];
+        feedbackSim.style.background = "#d4efdf";
+        pasoEsperado++;
+        while(pasoEsperado <= totalPasos && pasosCompletados[pasoEsperado]) pasoEsperado++;
+        actualizarUIProgreso();
+        return true;
+    }
+
+    const botonesSim = document.querySelectorAll('#botonesSimulador .btn-sim');
+    botonesSim.forEach(btn => {
+        const pasoVal = parseInt(btn.getAttribute('data-paso'));
+        btn.addEventListener('click', () => {
+            if(pasoVal >=1 && pasoVal <= totalPasos) {
+                intentarCompletarPaso(pasoVal);
+            } else {
+                feedbackSim.innerHTML = 'Paso no válido.';
+            }
+        });
+    });
+    document.getElementById('reiniciarSimulador').addEventListener('click', reiniciarSimuladorSec);
+    actualizarUIProgreso();
+
+    // ==================== QUIZ ====================
+    document.getElementById('submitQuiz').addEventListener('click', () => {
+        const answers = {
+            q1: 'c', q2: 'b', q3: 'b', q4: 'c', q5: 'b'
+        };
+        let score = 0;
+        let feedback = '';
+        for (let i = 1; i <= 5; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            if (selected && selected.value === answers[`q${i}`]) score++;
+            else {
+                switch(i) {
+                    case 1: feedback += '❌ 1. La respuesta correcta es Avise (llamar al 123).<br>'; break;
+                    case 2: feedback += '❌ 2. La irrigación debe ser de 20 a 30 minutos.<br>'; break;
+                    case 3: feedback += '❌ 3. Evitar preguntas revictimizantes como “¿qué hizo?”.<br>'; break;
+                    case 4: feedback += '❌ 4. Para polvos, retirar partículas con cepillado suave antes de lavar.<br>'; break;
+                    case 5: feedback += '❌ 5. Circular 016 exime de copagos y cuotas moderadoras.<br>'; break;
+                }
+            }
+        }
+        if (score === 5) feedback = '✅ ¡Excelente! Has comprendido los principios de atención inicial.';
+        else feedback = `📊 Obtuviste ${score}/5. Revisa los conceptos: <br>${feedback}`;
+        document.getElementById('quizResult').innerHTML = feedback;
+    });
+
+    // ==================== NOTAS ====================
+    const notesTextarea = document.getElementById('studentNotes3');
+    const savedNotes = localStorage.getItem('modulo3_notas');
+    if (savedNotes) notesTextarea.value = savedNotes;
+    document.getElementById('saveNotes3').addEventListener('click', () => {
+        localStorage.setItem('modulo3_notas', notesTextarea.value);
+        document.getElementById('notesFeedback3').innerHTML = '<i class="fas fa-check"></i> Notas guardadas correctamente.';
+        setTimeout(() => document.getElementById('notesFeedback3').innerHTML = '', 2000);
+    });
+</script>
+</body>
+</html>
