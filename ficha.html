@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>SIVIGILA - Ficha Notificación Violencias Género INS 875</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            background: #e9ecef;
+            padding: 2rem 1rem;
+            color: #1e2f3a;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header-ins {
+            background: #003366;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 16px 16px 0 0;
+            text-align: center;
+        }
+
+        .header-ins h1 {
+            font-size: 1.4rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .header-ins h2 {
+            font-size: 1.1rem;
+            font-weight: normal;
+            margin: 0.5rem 0;
+        }
+
+        .header-ins .codigo {
+            background: #ff9900;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        .confidencialidad {
+            background: #f8f9fa;
+            border-left: 5px solid #dc3545;
+            padding: 0.8rem;
+            font-size: 0.8rem;
+            color: #495057;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .ficha-card {
+            background: white;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .seccion {
+            padding: 1.5rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .seccion:last-child {
+            border-bottom: none;
+        }
+
+        .seccion h3 {
+            background: #e7f1f5;
+            padding: 0.5rem 1rem;
+            margin: -1.5rem -1.5rem 1rem -1.5rem;
+            color: #003366;
+            font-size: 1.1rem;
+            border-left: 4px solid #ff9900;
+        }
+
+        .grid-2cols {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .campo {
+            margin-bottom: 1rem;
+        }
+
+        .campo label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: block;
+            margin-bottom: 0.3rem;
+            color: #2c4b5c;
+        }
+
+        .campo input, .campo select {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            border: 1px solid #ced4da;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        .campo input:focus, .campo select:focus {
+            outline: none;
+            border-color: #ff9900;
+            box-shadow: 0 0 0 2px rgba(255,153,0,0.2);
+        }
+
+        .grupo-opciones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.3rem;
+        }
+
+        .opcion-radio, .opcion-check {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.85rem;
+        }
+
+        .opcion-radio input, .opcion-check input {
+            width: auto;
+            margin: 0;
+        }
+
+        .subtitulo {
+            font-weight: 600;
+            margin: 0.8rem 0 0.5rem 0;
+            color: #0056b3;
+            font-size: 0.9rem;
+        }
+
+        .instructivo {
+            margin-top: 2rem;
+            background: #fef9e6;
+            border: 1px solid #ffdf9e;
+            border-radius: 20px;
+            overflow-x: auto;
+        }
+
+        .instructivo h3 {
+            background: #ff9900;
+            color: white;
+            padding: 0.8rem 1.2rem;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .instructivo .subheader {
+            background: #fff2df;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border-bottom: 1px solid #ffdf9e;
+        }
+
+        .tabla-instructivo {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+        }
+
+        .tabla-instructivo th, .tabla-instructivo td {
+            border: 1px solid #dee2e6;
+            padding: 0.7rem;
+            vertical-align: top;
+            background: white;
+        }
+
+        .tabla-instructivo th {
+            background: #e9ecef;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .oblig-badge {
+            background: #dc3545;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .variable-nombre {
+            font-weight: 700;
+            color: #003366;
+        }
+
+        .botones {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .btn-primary {
+            background: #003366;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #ff9900;
+            color: #1e2f3a;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            color: #6c757d;
+        }
+
+        @media (max-width: 700px) {
+            .seccion {
+                padding: 1rem;
+            }
+            .grupo-opciones {
+                gap: 0.5rem;
+            }
+            .tabla-instructivo {
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header-ins">
+        <h1>SISTEMA NACIONAL DE VIGILANCIA EN SALUD PÚBLICA</h1>
+        <h2>Subsistema de información SIVIGILA<br>Ficha de notificación</h2>
+        <div class="codigo">Vigilancia en salud pública de las violencias de género<br>CÓDIGO INS: 875</div>
+    </div>
+    <div class="confidencialidad">
+        🔒 La ficha de notificación es para fines de vigilancia en salud pública y todas las entidades que participen en el proceso deben garantizar la confidencialidad de la información.<br>
+        <strong>LEY 1273/09 y 1266/09</strong> | FOR-R02.0000-053 V:02 AÑO 2015
+    </div>
+
+    <div class="ficha-card">
+        <!-- RELACIÓN CON DATOS BÁSICOS -->
+        <div class="seccion">
+            <h3>📋 RELACIÓN CON DATOS BÁSICOS</h3>
+            <div class="grid-2cols">
+                <div class="campo">
+                    <label>A. Nombres y apellidos del paciente</label>
+                    <input type="text" id="nombres" placeholder="Nombres completos">
+                </div>
+                <div class="campo">
+                    <label>B. Tipo de ID</label>
+                    <select id="tipoId">
+                        <option value="RC">RC - Registro Civil</option>
+                        <option value="TI">TI - Tarjeta Identidad</option>
+                        <option value="CC">CC - Cédula Ciudadanía</option>
+                        <option value="CE">CE - Cédula Extranjería</option>
+                        <option value="PA">PA - Pasaporte</option>
+                        <option value="MS">MS - Menor sin ID</option>
+                        <option value="AS">AS - Adulto sin ID</option>
+                    </select>
+                </div>
+                <div class="campo">
+                    <label>C. Número de identificación</label>
+                    <input type="text" id="numId" placeholder="Número de documento">
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. MODALIDAD DE LA VIOLENCIA -->
+        <div class="seccion">
+            <h3>5. MODALIDAD DE LA VIOLENCIA</h3>
+            <div class="grupo-opciones" id="modalidadViolencia">
+                <label class="opcion-check"><input type="checkbox" value="Violencia física"> Violencia física</label>
+                <label class="opcion-check"><input type="checkbox" value="Violencia psicológica"> Violencia psicológica</label>
+                <label class="opcion-check"><input type="checkbox" value="Negligencia y abandono"> Negligencia y abandono</label>
+                <label class="opcion-check"><input type="checkbox" value="Abuso sexual"> Abuso sexual</label>
+                <label class="opcion-check"><input type="checkbox" value="Acoso sexual"> Acoso sexual</label>
+                <label class="opcion-check"><input type="checkbox" value="Violación"> Violación</label>
+                <label class="opcion-check"><input type="checkbox" value="Explotación sexual comercial de niños niñas y adolescentes"> Explotación sexual comercial NNA</label>
+                <label class="opcion-check"><input type="checkbox" value="Trata de personas para explotación sexual"> Trata de personas explotación sexual</label>
+                <label class="opcion-check"><input type="checkbox" value="Violencia sexual en conflicto armado"> Violencia sexual conflicto armado</label>
+                <label class="opcion-check"><input type="checkbox" value="Actos sexuales violentos"> Actos sexuales violentos</label>
+            </div>
+        </div>
+
+        <!-- 6. DATOS DE LA VÍCTIMA -->
+        <div class="seccion">
+            <h3>6. DATOS DE LA VÍCTIMA - Situación o condición de vulnerabilidad</h3>
+            <div class="campo">
+                <label>6.1 Actividad</label>
+                <div class="grupo-opciones" id="actividadVictima">
+                    <label class="opcion-check"><input type="checkbox" value="Reciclador(a)"> Reciclador(a)</label>
+                    <label class="opcion-check"><input type="checkbox" value="Líderes(as) cívicos"> Líderes(as) cívicos</label>
+                    <label class="opcion-check"><input type="checkbox" value="Maestro(a)"> Maestro(a)</label>
+                    <label class="opcion-check"><input type="checkbox" value="Servidor(a) público"> Servidor(a) público</label>
+                    <label class="opcion-check"><input type="checkbox" value="Fuerza pública"> Fuerza pública</label>
+                    <label class="opcion-check"><input type="checkbox" value="Estudiante"> Estudiante</label>
+                    <label class="opcion-check"><input type="checkbox" value="Otro"> Otro</label>
+                    <label class="opcion-check"><input type="checkbox" value="Trabajadora doméstica"> Trabajadora doméstica</label>
+                </div>
+            </div>
+            <div class="subtitulo">Condiciones específicas (marque Sí/No):</div>
+            <div class="grid-2cols" id="condicionesVictima">
+                <div class="campo"><label>6.2 Población LGTB</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="lgbt" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="lgbt" value="No"> No</label></div></div>
+                <div class="campo"><label>6.3 Consumo de SPA</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="spa" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="spa" value="No"> No</label></div></div>
+                <div class="campo"><label>6.4 Trabajo sexual</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="trabajoSex" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="trabajoSex" value="No"> No</label></div></div>
+                <div class="campo"><label>6.5 Desmovilizado</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="desmov" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="desmov" value="No"> No</label></div></div>
+                <div class="campo"><label>6.6 Campesino(a)</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="campesino" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="campesino" value="No"> No</label></div></div>
+                <div class="campo"><label>6.7 Mujer cabeza de familia</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="mujerCabeza" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="mujerCabeza" value="No"> No</label></div></div>
+                <div class="campo"><label>6.8 Ama de casa</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="amaCasa" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="amaCasa" value="No"> No</label></div></div>
+                <div class="campo"><label>6.9 NNA SNBF</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="nna" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="nna" value="No"> No</label></div></div>
+                <div class="campo"><label>6.10 Privad. libertad</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="privLib" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="privLib" value="No"> No</label></div></div>
+                <div class="campo"><label>6.11 Víctima del conflicto armado</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="victConflicto" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="victConflicto" value="No"> No</label></div></div>
+                <div class="campo"><label>6.12 Otro</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="otroCond" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="otroCond" value="No"> No</label></div></div>
+                <div class="campo"><label>6.13 Reincidencia</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="reincidencia" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="reincidencia" value="No"> No</label></div></div>
+                <div class="campo"><label>6.14 Alcohol víctima</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="alcoholVictima" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="alcoholVictima" value="No"> No</label></div></div>
+            </div>
+        </div>
+
+        <!-- 7. DATOS DEL AGRESOR -->
+        <div class="seccion">
+            <h3>7. DATOS DEL AGRESOR</h3>
+            <div class="grid-2cols">
+                <div class="campo"><label>7.1 Edad aparente</label><input type="number" id="edadAgresor" placeholder="Edad en años"></div>
+                <div class="campo"><label>7.2 Sexo</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="sexoAgresor" value="Hombre"> Hombre</label><label class="opcion-radio"><input type="radio" name="sexoAgresor" value="Mujer"> Mujer</label><label class="opcion-radio"><input type="radio" name="sexoAgresor" value="Sin información"> Sin información</label></div></div>
+            </div>
+            <div class="campo"><label>7.3 Parentesco con víctima</label><div class="grupo-opciones" id="parentesco" style="display: flex; flex-wrap: wrap; gap:0.5rem">
+                <label class="opcion-check"><input type="checkbox" value="Esposo(a)"> Esposo(a)</label><label class="opcion-check"><input type="checkbox" value="Compañero(a) permanente"> Compañero(a) perm</label>
+                <label class="opcion-check"><input type="checkbox" value="Novio(a)"> Novio(a)</label><label class="opcion-check"><input type="checkbox" value="Amante"> Amante</label>
+                <label class="opcion-check"><input type="checkbox" value="Ex-esposo(a)"> Ex-esposo(a)</label><label class="opcion-check"><input type="checkbox" value="Ex-compañero(a) permanente"> Ex-compañero(a)</label>
+                <label class="opcion-check"><input type="checkbox" value="Ex-novio(a)"> Ex-novio(a)</label><label class="opcion-check"><input type="checkbox" value="Ex-amante"> Ex-amante</label>
+                <label class="opcion-check"><input type="checkbox" value="Padre"> Padre</label><label class="opcion-check"><input type="checkbox" value="Madre"> Madre</label>
+                <label class="opcion-check"><input type="checkbox" value="Hijo"> Hijo</label><label class="opcion-check"><input type="checkbox" value="Encargado(a) del NNA/Adulto mayor"> Encargado NNA</label>
+                <label class="opcion-check"><input type="checkbox" value="Hermano(a)"> Hermano(a)</label><label class="opcion-check"><input type="checkbox" value="Abuelo(a)"> Abuelo(a)</label>
+                <label class="opcion-check"><input type="checkbox" value="Padrastro"> Padrastro</label><label class="opcion-check"><input type="checkbox" value="Madrastra"> Madrastra</label>
+                <label class="opcion-check"><input type="checkbox" value="Tío(a)"> Tío(a)</label><label class="opcion-check"><input type="checkbox" value="Primo(a)"> Primo(a)</label>
+                <label class="opcion-check"><input type="checkbox" value="Cuñado(a)"> Cuñado(a)</label><label class="opcion-check"><input type="checkbox" value="Suegro(a)"> Suegro(a)</label>
+                <label class="opcion-check"><input type="checkbox" value="Otros"> Otros</label>
+            </div></div>
+            <div class="campo"><label>7.4 Convive con el agresor(a)</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="convive" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="convive" value="No"> No</label></div></div>
+            <div class="campo"><label>7.5 No familiar (agresor)</label><div class="grupo-opciones" id="noFamiliar">
+                <label class="opcion-check"><input type="checkbox" value="Profesor(a)"> Profesor(a)</label><label class="opcion-check"><input type="checkbox" value="Amigo(a)"> Amigo(a)</label>
+                <label class="opcion-check"><input type="checkbox" value="Compañero(a) de trabajo"> Compañero trabajo</label><label class="opcion-check"><input type="checkbox" value="Compañero(a) de estudio"> Compañero estudio</label>
+                <label class="opcion-check"><input type="checkbox" value="Desconocido(a)"> Desconocido(a)</label><label class="opcion-check"><input type="checkbox" value="Vecino(a)"> Vecino(a)</label>
+                <label class="opcion-check"><input type="checkbox" value="Conocido(a) sin ningún trato"> Conocido sin trato</label><label class="opcion-check"><input type="checkbox" value="Sin información"> Sin información</label>
+                <label class="opcion-check"><input type="checkbox" value="Otro"> Otro</label><label class="opcion-check"><input type="checkbox" value="Guerrillero(a)"> Guerrillero(a)</label>
+                <label class="opcion-check"><input type="checkbox" value="Jefe"> Jefe</label><label class="opcion-check"><input type="checkbox" value="Sacerdote/pastor"> Sacerdote/pastor</label>
+                <label class="opcion-check"><input type="checkbox" value="Servidor(a) público"> Servidor público</label>
+            </div></div>
+            <div class="campo"><label>7.6 Grupo perpetrador de la violencia</label><div class="grupo-opciones" id="grupoPerpetrador">
+                <label class="opcion-check"><input type="checkbox" value="Ejército"> Ejército</label><label class="opcion-check"><input type="checkbox" value="Fuerza Aérea"> Fuerza Aérea</label>
+                <label class="opcion-check"><input type="checkbox" value="Armada"> Armada</label><label class="opcion-check"><input type="checkbox" value="Policía"> Policía</label>
+                <label class="opcion-check"><input type="checkbox" value="Narcotráfico"> Narcotráfico</label><label class="opcion-check"><input type="checkbox" value="Bandas criminales"> Bandas criminales</label>
+                <label class="opcion-check"><input type="checkbox" value="Pandillas"> Pandillas</label><label class="opcion-check"><input type="checkbox" value="Paramilitar o autodefensas"> Paramilitar</label>
+                <label class="opcion-check"><input type="checkbox" value="No sabe"> No sabe</label>
+            </div></div>
+            <div class="campo"><label>7.7 ¿Presencia de alcohol en agresor?</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="alcoholAgresor" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="alcoholAgresor" value="No"> No</label></div></div>
+        </div>
+
+        <!-- 8. DATOS DEL HECHO -->
+        <div class="seccion">
+            <h3>8. DATOS DEL HECHO</h3>
+            <div class="campo"><label>8.1 Armas y otros mecanismos utilizados para la agresión</label><div class="grupo-opciones" id="mecanismo">
+                <label class="opcion-check"><input type="checkbox" value="Ahogamiento / estrangulamiento / sofocación"> Ahogamiento/estrangulamiento</label>
+                <label class="opcion-check"><input type="checkbox" value="Caídas"> Caídas</label>
+                <label class="opcion-check"><input type="checkbox" value="Contundente / cortocontundente"> Contundente / cortocontundente</label>
+                <label class="opcion-check"><input type="checkbox" value="Cortante / cortopunzante / punzante"> Cortante / cortopunzante</label>
+                <label class="opcion-check"><input type="checkbox" value="Proyectil arma de fuego"> Proyectil arma fuego</label>
+                <label class="opcion-check quemaduraOpt" value="Quemadura por fuego o llama"><input type="checkbox" value="Quemadura por fuego o llama"> Quemadura por fuego/llama</label>
+                <label class="opcion-check quemaduraOpt" value="Quemadura por ácido, álcalis o sustancias corrosivas"><input type="checkbox" value="Quemadura por ácido, álcalis o sustancias corrosivas"> Quemadura por ácido/cáustico</label>
+                <label class="opcion-check quemaduraOpt" value="Quemadura con líquido hirviente"><input type="checkbox" value="Quemadura con líquido hirviente"> Quemadura con líquido hirviente</label>
+                <label class="opcion-check"><input type="checkbox" value="Otros mecanismos"> Otros mecanismos</label>
+            </div></div>
+            <div id="seccionQuemaduras" style="display:none; background:#fef2e0; padding:1rem; border-radius:12px; margin-top:0.8rem;">
+                <div class="campo"><label>8.2 Sitio anatómico comprometido por la quemadura (marque con X las opciones según correspondan)</label><div class="grupo-opciones" id="sitioQuemadura">
+                    <label class="opcion-check"><input type="checkbox" value="Cara"> Cara</label><label class="opcion-check"><input type="checkbox" value="Cuello"> Cuello</label>
+                    <label class="opcion-check"><input type="checkbox" value="Mano"> Mano</label><label class="opcion-check"><input type="checkbox" value="Pies"> Pies</label>
+                    <label class="opcion-check"><input type="checkbox" value="Genitales"> Genitales</label><label class="opcion-check"><input type="checkbox" value="Miembro superior"> Miembro superior</label>
+                    <label class="opcion-check"><input type="checkbox" value="Miembro inferior"> Miembro inferior</label><label class="opcion-check"><input type="checkbox" value="Tronco"> Tronco</label>
+                    <label class="opcion-check"><input type="checkbox" value="Pliegues"> Pliegues</label>
+                </div></div>
+                <div class="campo"><label>8.3 Clasificación Grado (según sitio anatómico más comprometido)</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="gradoQuem" value="Primer grado"> Primer grado</label><label class="opcion-radio"><input type="radio" name="gradoQuem" value="Segundo grado"> Segundo grado</label><label class="opcion-radio"><input type="radio" name="gradoQuem" value="Tercer grado"> Tercer grado</label></div></div>
+                <div class="campo"><label>8.4 Extensión</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="extension" value="Menor o igual al 5%"> Menor o igual al 5%</label><label class="opcion-radio"><input type="radio" name="extension" value="Del 6% al 14%"> Del 6% al 14%</label><label class="opcion-radio"><input type="radio" name="extension" value="Mayor o igual al 15%"> Mayor o igual al 15%</label></div></div>
+            </div>
+            <div class="grid-2cols">
+                <div class="campo"><label>8.5 Fecha del hecho (dd/mm/aaaa)</label><input type="date" id="fechaHecho"></div>
+                <div class="campo"><label>8.5.1 Hora del hecho (formato militar HH:MM)</label><input type="time" id="horaHecho"></div>
+            </div>
+            <div class="campo"><label>8.6 Escenario</label><select id="escenario">
+                <option value="">Seleccione</option>
+                <option>Vía pública</option><option>Vivienda</option><option>Centro educativo</option>
+                <option>Oficina o edificio de oficinas</option><option>Otro</option>
+                <option>Establecimiento comercial (tienda, centro comercial, etc.)</option>
+                <option>Espacios terrestres al aire libre (bosque, potreros, etc.)</option>
+                <option>Lugares de esparcimiento con expendio de alcohol</option>
+            </select></div>
+            <div class="campo"><label>8.7 ¿Hecho violento en el marco del conflicto armado?</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="conflictoArmado" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="conflictoArmado" value="No"> No</label></div></div>
+        </div>
+
+        <!-- 9. ATENCIÓN EN SALUD -->
+        <div class="seccion">
+            <h3>9. ATENCIÓN EN SALUD</h3>
+            <div class="grid-2cols" id="atencionSalud">
+                <div><label>Profilaxis VIH</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="profilaxisVIH" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="profilaxisVIH" value="No"> No</label></div></div>
+                <div><label>Profilaxis Hep B</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="profilaxisHepB" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="profilaxisHepB" value="No"> No</label></div></div>
+                <div><label>Otras profilaxis</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="otrasProfilaxis" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="otrasProfilaxis" value="No"> No</label></div></div>
+                <div><label>Anticoncepción de emergencia</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="anticoncepcion" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="anticoncepcion" value="No"> No</label></div></div>
+                <div><label>Orientación IVE</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="orientacionIVE" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="orientacionIVE" value="No"> No</label></div></div>
+                <div><label>Salud Mental</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="saludMental" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="saludMental" value="No"> No</label></div></div>
+                <div><label>Remisión a protección</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="remisionProteccion" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="remisionProteccion" value="No"> No</label></div></div>
+                <div><label>Aviso/denuncia a policía judicial (URI, CTI, fiscalía, policía nacional)</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="denuncia" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="denuncia" value="No"> No</label></div></div>
+                <div><label>Recolección de evidencia médico legal</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="evidenciaLegal" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="evidenciaLegal" value="No"> No</label></div></div>
+                <div><label>Informe PAC</label><div class="grupo-opciones"><label class="opcion-radio"><input type="radio" name="informePAC" value="Sí"> Sí</label><label class="opcion-radio"><input type="radio" name="informePAC" value="No"> No</label></div></div>
+            </div>
+        </div>
+
+        <div class="botones">
+            <button class="btn btn-primary" id="btnExportarJSON">📥 Exportar JSON</button>
+            <button class="btn btn-secondary" id="btnLimpiar">🧹 Limpiar formulario</button>
+            <button class="btn btn-warning" id="btnImprimir">🖨️ Imprimir reporte</button>
+        </div>
+    </div>
+
+    <!-- INSTRUCTIVO DILIGENCIAMIENTO COMPLETO - TODAS LAS VARIABLES CON SÍ -->
+    <div class="instructivo">
+        <h3>📘 INSTRUCTIVO DILIGENCIAMIENTO - FICHAS DE NOTIFICACIÓN DATOS COMPLEMENTARIOS</h3>
+        <div class="subheader">Violencias de género código INS 875</div>
+        <table class="tabla-instructivo">
+            <thead>
+                <tr><th style="width:25%">VARIABLE</th><th style="width:45%">CATEGORÍAS Y DEFINICIÓN</th><th style="width:20%">CRITERIOS SISTEMATIZACIÓN</th><th style="width:10%">OBLIG.</th></tr>
+            </thead>
+            <tbody>
+                <tr><td class="variable-nombre">A. Nombres y apellidos del paciente</td><td>Se relaciona con el nombre completo del paciente que está siendo notificado.</td><td>El nombre debe coincidir con la información ingresada en la ficha de datos básicos.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">B. Tipo de ID</td><td>Se relaciona con el tipo de documento de identidad que tiene el paciente que está siendo notificado. Diligencie una sola opción en esta variable.</td><td>El tipo de documento debe ser coincidente con la edad del paciente. Debe coincidir con la información ingresada en la ficha de datos básicos.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">C. Número de identificación</td><td>Número de documento de identidad del paciente.</td><td>Debe coincidir con la información ingresada en la ficha de datos básicos.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">5. Modalidad de la violencia</td><td>Marque con una X la opción según corresponda.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">6.1 Actividad</td><td>Marque con una X la opción según corresponda.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">6.2 Población LGTB</td><td>Marque con una X según corresponda. La pregunta se relaciona con el grupo poblacional al que pertenece la víctima.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">6.3 Consumo de SPA</td><td>Marque con una X según corresponda. La pregunta se relaciona con el grupo poblacional al que pertenece la víctima.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">6.4 Trabajo sexual</td><td>Marque con una X según corresponda. La pregunta se relaciona con el grupo poblacional al que pertenece la víctima.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">6.5 Desmovilizado</td><td>Marque con una X según corresponda. La pregunta se relaciona con el grupo poblacional al que pertenece la víctima.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">6.6 Campesino(a)</td><td>Marque con una X según corresponda. La pregunta se relaciona con el grupo poblacional al que pertenece la víctima.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">6.7 Mujer cabeza de familia</td><td>Marque con una X según corresponda. La pregunta se relaciona con el grupo poblacional al que pertenece la víctima.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">6.8 Ama de casa</td><td>Marque con una X según corresponda. La pregunta se relaciona con el grupo poblacional al que pertenece la víctima.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">6.9 NNA SNBF</td><td>Marque con una X según corresponda. La pregunta se relaciona con el grupo poblacional al que pertenece la víctima.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">6.10 Privad. libertad</td><td>Marque con una X según corresponda. La pregunta se relaciona con el grupo poblacional al que pertenece la víctima.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">6.11 Víctima del conflicto armado</td><td>Marque con una X según corresponda. La pregunta se relaciona con el grupo poblacional al que pertenece la víctima.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">6.12 Otro</td><td>Marque con una X según corresponda. La pregunta se relaciona con el grupo poblacional al que pertenece la víctima.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">6.13 Reincidencia</td><td>Marque con una X según corresponda. La pregunta se relaciona con el grupo poblacional al que pertenece la víctima.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">6.14 Alcohol víctima</td><td>Marque con una X según corresponda. La pregunta se relaciona con el grupo poblacional al que pertenece la víctima.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">7.1 Edad aparente del agresor</td><td>Ingrese la información solicitada sobre el agresor. De ser desconocida deje el espacio en blanco.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">7.2 Sexo del agresor</td><td>Ingrese la información solicitada sobre el agresor. De ser desconocida deje el espacio en blanco.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">7.3 Parentesco con víctima</td><td>Marque con una X la opción según corresponda. Indique si el agresor tiene algún vínculo con la víctima bien sea por consanguinidad (padre, madre, abuelos, etc.), afinidad (cuñado, etc.) o civil.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">7.4 Convive con el agresor</td><td>Marque con una X la opción según corresponda.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">7.5 No familiar (agresor)</td><td>Marque con una X la opción según corresponda. Tenga en cuenta que cuando el agresor es no familiar, debe marcar la relación que tiene la víctima con el agresor.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">7.6 Grupo</td><td>Marque con una X la opción según corresponda. Tenga en cuenta si el agresor pertenece a alguno de los grupos que se mencionan en la lista.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">7.7 ¿Presencia de alcohol en agresor?</td><td>Marque con una X la opción según corresponda.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">8.1 Armas y otros mecanismos utilizados para la agresión</td><td>Marque con una X la opción según corresponda.</td><td>Si se diligencian las opciones 12, 13 o 14 (selección única), se activa el 8.2 que es sitio anatómico comprometido por la quemadura, 8.3 Clasificación grado y 8.4 Extensión.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">8.2 Sitio anatómico comprometido por la quemadura</td><td>Marque con una X las opciones según correspondan.</td><td>Depende de la respuesta en la variable 8.1 "quemaduras" en las opciones 12, 13, 14 y 15 de selección única.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">8.3 Clasificación Grado</td><td>Marque con una X la opción según corresponda. Tenga en cuenta que la clasificación dependerá del sitio anatómico más comprometido.</td><td>Depende de la respuesta en la variable 8.1 "quemaduras" en las opciones 12, 13, 14 y 15 de selección única.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">8.4 Extensión</td><td>Marque con una X la opción según corresponda. Tenga en cuenta que la clasificación dependerá del sitio anatómico más comprometido.</td><td>Depende de la respuesta en la variable 8.1 "quemaduras" en las opciones 12, 13, 14 y 15 de selección única.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">8.5 Fecha del hecho</td><td>Formato día-mes-año</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">8.5.1 Hora del hecho</td><td>Hora en formato militar</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">8.6 Escenario</td><td>Marque con una X la opción según corresponda.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">8.7 ¿Hecho violento en el marco del conflicto armado?</td><td>Marque con una X la opción según corresponda.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">9. Profilaxis VIH</td><td>Marque con una X la opción según corresponda en cada una de las variables establecidas.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">9. Profilaxis Hep B</td><td>Marque con una X la opción según corresponda en cada una de las variables establecidas.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">9. Otras profilaxis</td><td>Marque con una X la opción según corresponda en cada una de las variables establecidas.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">9. Anticoncepción de emergencia</td><td>Marque con una X la opción según corresponda en cada una de las variables establecidas.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">9. Orientación IVE</td><td>Marque con una X la opción según corresponda en cada una de las variables establecidas.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">9. Salud Mental</td><td>Marque con una X la opción según corresponda en cada una de las variables establecidas.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">9. Remisión a protección</td><td>Marque con una X la opción según corresponda en cada una de las variables establecidas.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">9. Aviso/denuncia a policía judicial</td><td>Marque con una X la opción según corresponda en cada una de las variables establecidas.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">9. Recolección de evidencia médico legal</td><td>Marque con una X la opción según corresponda en cada una de las variables establecidas.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+                <tr><td class="variable-nombre">9. Informe PAC</td><td>Marque con una X la opción según corresponda en cada una de las variables establecidas.</td><td>Diligencie la variable, de lo contrario el sistema no permitirá continuar con el ingreso de la información.</td><td class="oblig-badge">SÍ</td></tr>
+            </tbody>
+        </table>
+        <div style="padding:0.8rem; font-size:0.7rem; text-align:center; background:#fef2e0;">📧 Correos: sivigila@ins.gov.co | ins.sivigila@gmail.com</div>
+    </div>
+    <footer>Ficha técnica basada en el formato oficial INS Código 875 - Violencias de género. La información aquí diligenciada es confidencial y de uso exclusivo para vigilancia epidemiológica.</footer>
+</div>
+
+<script>
+    const quemaduraCheckboxes = document.querySelectorAll('.quemaduraOpt input');
+    const seccionQuem = document.getElementById('seccionQuemaduras');
+    function toggleQuemaduras() {
+        let anyChecked = false;
+        quemaduraCheckboxes.forEach(cb => { if(cb.checked) anyChecked = true; });
+        seccionQuem.style.display = anyChecked ? 'block' : 'none';
+    }
+    quemaduraCheckboxes.forEach(cb => cb.addEventListener('change', toggleQuemaduras));
+    toggleQuemaduras();
+
+    document.getElementById('btnExportarJSON').addEventListener('click', () => {
+        const formData = {
+            nombres: document.getElementById('nombres').value,
+            tipoId: document.getElementById('tipoId').value,
+            numId: document.getElementById('numId').value,
+            modalidadViolencia: [...document.querySelectorAll('#modalidadViolencia input:checked')].map(cb => cb.value),
+            actividadVictima: [...document.querySelectorAll('#actividadVictima input:checked')].map(cb => cb.value),
+            condiciones: {
+                lgbt: document.querySelector('input[name="lgbt"]:checked')?.value,
+                spa: document.querySelector('input[name="spa"]:checked')?.value,
+                trabajoSex: document.querySelector('input[name="trabajoSex"]:checked')?.value,
+                desmov: document.querySelector('input[name="desmov"]:checked')?.value,
+                campesino: document.querySelector('input[name="campesino"]:checked')?.value,
+                mujerCabeza: document.querySelector('input[name="mujerCabeza"]:checked')?.value,
+                amaCasa: document.querySelector('input[name="amaCasa"]:checked')?.value,
+                nna: document.querySelector('input[name="nna"]:checked')?.value,
+                privLib: document.querySelector('input[name="privLib"]:checked')?.value,
+                victConflicto: document.querySelector('input[name="victConflicto"]:checked')?.value,
+                otroCond: document.querySelector('input[name="otroCond"]:checked')?.value,
+                reincidencia: document.querySelector('input[name="reincidencia"]:checked')?.value,
+                alcoholVictima: document.querySelector('input[name="alcoholVictima"]:checked')?.value
+            },
+            agresor: {
+                edad: document.getElementById('edadAgresor').value,
+                sexo: document.querySelector('input[name="sexoAgresor"]:checked')?.value,
+                parentesco: [...document.querySelectorAll('#parentesco input:checked')].map(cb => cb.value),
+                convive: document.querySelector('input[name="convive"]:checked')?.value,
+                noFamiliar: [...document.querySelectorAll('#noFamiliar input:checked')].map(cb => cb.value),
+                grupoPerpetrador: [...document.querySelectorAll('#grupoPerpetrador input:checked')].map(cb => cb.value),
+                alcoholAgresor: document.querySelector('input[name="alcoholAgresor"]:checked')?.value
+            },
+            hecho: {
+                mecanismo: [...document.querySelectorAll('#mecanismo input:checked')].map(cb => cb.value),
+                sitioQuemadura: [...document.querySelectorAll('#sitioQuemadura input:checked')].map(cb => cb.value),
+                gradoQuemadura: document.querySelector('input[name="gradoQuem"]:checked')?.value,
+                extensionQuemadura: document.querySelector('input[name="extension"]:checked')?.value,
+                fecha: document.getElementById('fechaHecho').value,
+                hora: document.getElementById('horaHecho').value,
+                escenario: document.getElementById('escenario').value,
+                conflictoArmado: document.querySelector('input[name="conflictoArmado"]:checked')?.value
+            },
+            atencionSalud: {
+                profilaxisVIH: document.querySelector('input[name="profilaxisVIH"]:checked')?.value,
+                profilaxisHepB: document.querySelector('input[name="profilaxisHepB"]:checked')?.value,
+                otrasProfilaxis: document.querySelector('input[name="otrasProfilaxis"]:checked')?.value,
+                anticoncepcion: document.querySelector('input[name="anticoncepcion"]:checked')?.value,
+                orientacionIVE: document.querySelector('input[name="orientacionIVE"]:checked')?.value,
+                saludMental: document.querySelector('input[name="saludMental"]:checked')?.value,
+                remisionProteccion: document.querySelector('input[name="remisionProteccion"]:checked')?.value,
+                denuncia: document.querySelector('input[name="denuncia"]:checked')?.value,
+                evidenciaLegal: document.querySelector('input[name="evidenciaLegal"]:checked')?.value,
+                informePAC: document.querySelector('input[name="informePAC"]:checked')?.value
+            }
+        };
+        const blob = new Blob([JSON.stringify(formData, null, 2)], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `ficha_sivigila_875_${new Date().toISOString().slice(0,19)}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        alert("✅ Reporte JSON generado correctamente");
+    });
+
+    document.getElementById('btnLimpiar').addEventListener('click', () => {
+        document.querySelectorAll('input, select, textarea').forEach(el => { 
+            if(el.type !== 'radio' && el.type !== 'checkbox') el.value = ''; 
+        });
+        document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(cb => cb.checked = false);
+        toggleQuemaduras();
+    });
+    
+    document.getElementById('btnImprimir').addEventListener('click', () => window.print());
+</script>
+</body>
+</html>
