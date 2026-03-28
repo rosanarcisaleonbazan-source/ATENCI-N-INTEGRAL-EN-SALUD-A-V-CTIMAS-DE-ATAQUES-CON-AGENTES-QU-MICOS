@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Simulador de Emergencia | Ataques con Agentes Químicos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .game-container {
+            max-width: 850px;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            border-radius: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .game-header {
+            background: linear-gradient(135deg, #1e3a4d, #154c5e);
+            color: white;
+            padding: 1.2rem;
+            text-align: center;
+        }
+        .game-header h1 {
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .game-header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .stats {
+            background: #e9ecef;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        .score, .lives {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .lives i {
+            color: #dc3545;
+        }
+        .progress-bar {
+            flex: 1;
+            height: 10px;
+            background: #cbd5e0;
+            border-radius: 5px;
+            margin: 0 1rem;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #e67e22;
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .game-content {
+            padding: 2rem;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+        }
+        .scene {
+            text-align: center;
+        }
+        .scene-icon {
+            font-size: 3rem;
+            color: #e67e22;
+            margin-bottom: 1rem;
+        }
+        .scene-description {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+        .option {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 1rem;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+        }
+        .option:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        .option.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        .feedback {
+            background: #f0f4f8;
+            padding: 0.8rem;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        .feedback.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        .next-btn, .restart-btn {
+            background: #1e466e;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+        .next-btn:disabled, .restart-btn:disabled {
+            background: #adb5bd;
+            cursor: not-allowed;
+        }
+        .next-btn:hover:not(:disabled), .restart-btn:hover:not(:disabled) {
+            background: #0f2f4a;
+            transform: translateY(-2px);
+        }
+        .game-over {
+            text-align: center;
+            padding: 2rem;
+        }
+        .game-over i {
+            font-size: 3rem;
+            color: #dc3545;
+        }
+        .restart-btn {
+            background: #28a745;
+            margin-top: 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.8rem;
+            color: #6c757d;
+            background: #f8f9fa;
+        }
+        @media (max-width: 600px) {
+            .game-container { margin: 0; }
+            .scene-description { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="game-container" id="gameContainer">
+    <div class="game-header">
+        <h1><i class="fas fa-ambulance"></i> Simulador de Emergencia</h1>
+        <p>Eres el primer respondiente ante un ataque con agente químico. ¡Toma las decisiones correctas!</p>
+    </div>
+    <div class="stats">
+        <div class="score"><i class="fas fa-star"></i> <span id="scoreValue">0</span> puntos</div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="lives"><i class="fas fa-heart"></i> <span id="livesValue">3</span> vidas</div>
+    </div>
+    <div class="game-content" id="gameContent">
+        <!-- contenido dinámico -->
+    </div>
+    <footer>Basado en Resolución 4568, Protocolo de Atención y normativa colombiana</footer>
+</div>
+
+<script>
+    // ---------- ESCENARIOS DEL JUEGO ----------
+    const escenarios = [
+        { // 0
+            icono: "fa-phone-alt",
+            descripcion: "Llegas al lugar del ataque. Ves a una mujer gritando con una sustancia en su rostro y brazos. ¿Cuál es tu PRIORIDAD inmediata?",
+            opciones: [
+                "Correr a ayudarla sin protección",
+                "Llamar al 123 y activar emergencias (Avise)",
+                "Empezar a lavar con agua directamente",
+                "Pedirle que se retire la ropa"
+            ],
+            correcta: 1,
+            explicacion: "Correcto: El primer paso del protocolo APA es AVISAR llamando al 123 para activar los servicios de emergencia.",
+            puntos: 10
+        },
+        { // 1
+            icono: "fa-user-shield",
+            descripcion: "Mientras esperas la ambulancia, ¿cómo te proteges antes de tocar a la víctima?",
+            opciones: [
+                "Usas tus manos desnudas para no perder tiempo",
+                "Te pones guantes de nitrilo, bata y gafas (si están disponibles)",
+                "Aplicas alcohol en tus manos",
+                "Le pides a la víctima que se proteja sola"
+            ],
+            correcta: 1,
+            explicacion: "Debes protegerte con barreras físicas para evitar contaminación. Usa guantes, bata y gafas.",
+            puntos: 10
+        },
+        { // 2
+            icono: "fa-tint",
+            descripcion: "El agente es un líquido corrosivo. ¿Cuál es la primera acción de limpieza?",
+            opciones: [
+                "Aplicar un antídoto químico",
+                "Irrigar con abundante agua durante 20-30 minutos",
+                "Frotar con alcohol",
+                "Cubrir con una crema antibiótica"
+            ],
+            correcta: 1,
+            explicacion: "La irrigación copiosa con agua diluye y remueve el químico. Es la acción más importante.",
+            puntos: 10
+        },
+        { // 3
+            icono: "fa-tshirt",
+            descripcion: "La víctima tiene ropa empapada con el químico. ¿Qué haces?",
+            opciones: [
+                "Le ayudas a quitarse la ropa tirando de las mangas",
+                "Cortas la ropa con tijeras, la retiras con cuidado y la guardas para cadena de custodia",
+                "Dejas la ropa puesta para no lastimarla",
+                "Le echas más agua sobre la ropa"
+            ],
+            correcta: 1,
+            explicacion: "Cortar la ropa evita esparcir el químico. Debes preservar las prendas como evidencia.",
+            puntos: 10
+        },
+        { // 4
+            icono: "fa-eye",
+            descripcion: "La víctima se queja de ardor intenso en los ojos y no puede abrirlos. ¿Qué priorizas?",
+            opciones: [
+                "Lavar primero las heridas del brazo",
+                "Lavar los ojos de inmediato, de forma continua y simultánea al lavado corporal",
+                "Aplicar gotas antibióticas",
+                "Esperar a que llegue el oftalmólogo"
+            ],
+            correcta: 1,
+            explicacion: "El lavado ocular es prioritario para evitar daño irreversible. Debe realizarse con abundante agua o solución salina.",
+            puntos: 10
+        },
+        { // 5
+            icono: "fa-hand-holding-heart",
+            descripcion: "La víctima está muy alterada, llora y no quiere que la toquen. ¿Cómo actúas?",
+            opciones: [
+                "Le gritas que se calme",
+                "Te presentas con calma, le explicas que vas a ayudarla y respetas su espacio",
+                "La sujetas para que no se mueva",
+                "Le preguntas por qué la atacaron"
+            ],
+            correcta: 1,
+            explicacion: "Los primeros auxilios psicológicos requieren calma, presentación, respeto y evitar preguntas revictimizantes.",
+            puntos: 10
+        },
+        { // 6
+            icono: "fa-chart-line",
+            descripcion: "¿Cuánto tiempo debe durar la irrigación continua si el agente es un álcali (pH > 11.5)?",
+            opciones: [
+                "5 minutos",
+                "15 minutos",
+                "30-60 minutos",
+                "Hasta que seque"
+            ],
+            correcta: 2,
+            explicacion: "Los álcalis penetran profundamente; se recomienda irrigación de 30 a 60 minutos.",
+            puntos: 10
+        },
+        { // 7
+            icono: "fa-file-alt",
+            descripcion: "En la urgencia, debes notificar el caso al sistema de vigilancia. ¿Qué entidad es responsable de la notificación al SIVIGILA?",
+            opciones: [
+                "La EPS",
+                "La IPS",
+                "La Policía",
+                "La víctima"
+            ],
+            correcta: 1,
+            explicacion: "La IPS debe notificar los casos de violencia de género e ataques con agentes químicos al SIVIGILA.",
+            puntos: 10
+        },
+        { // 8
+            icono: "fa-balance-scale",
+            descripcion: "¿Qué derecho tienen las víctimas según la Circular 016 de 2014?",
+            opciones: [
+                "Descuento del 30% en tratamientos",
+                "Exención de copagos y cuotas moderadoras",
+                "Atención prioritaria",
+                "Traslado gratuito en taxi"
+            ],
+            correcta: 1,
+            explicacion: "La Circular 016 exime de copagos y cuotas moderadoras a víctimas de violencia.",
+            puntos: 10
+        },
+        { // 9
+            icono: "fa-truck-medical",
+            descripcion: "La víctima tiene quemaduras profundas en cara, manos y tórax (15% SCQ). ¿Cuál es la conducta adecuada?",
+            opciones: [
+                "Dar de alta con analgésicos",
+                "Referir a una unidad especializada en quemados para manejo integral",
+                "Realizar injertos en urgencias",
+                "Aplicar hielo y esperar"
+            ],
+            correcta: 1,
+            explicacion: "Las quemaduras extensas y en áreas críticas requieren referencia a una unidad de quemados para tratamiento multidisciplinario.",
+            puntos: 10
+        }
+    ];
+
+    // Variables de estado
+    let currentScene = 0;
+    let score = 0;
+    let lives = 3;
+    let waitingForNext = false;
+    let selectedOptionIndex = -1;
+    let gameCompleted = false;
+
+    // Elementos
+    const gameContentDiv = document.getElementById("gameContent");
+    const scoreSpan = document.getElementById("scoreValue");
+    const livesSpan = document.getElementById("livesValue");
+    const progressFill = document.getElementById("progressFill");
+
+    function updateUI() {
+        scoreSpan.innerText = score;
+        livesSpan.innerText = lives;
+        const progressPercent = (currentScene / escenarios.length) * 100;
+        progressFill.style.width = `${progressPercent}%`;
+    }
+
+    function showGameOver() {
+        gameContentDiv.innerHTML = `
+            <div class="game-over">
+                <i class="fas fa-skull"></i>
+                <h2>¡Has perdido todas las vidas!</h2>
+                <p>Revisa los protocolos y vuelve a intentarlo.</p>
+                <button class="restart-btn" id="gameRestartBtn"><i class="fas fa-redo-alt"></i> Reiniciar juego</button>
+            </div>
+        `;
+        document.getElementById("gameRestartBtn")?.addEventListener("click", () => location.reload());
+    }
+
+    function showWin() {
+        gameContentDiv.innerHTML = `
+            <div class="game-over">
+                <i class="fas fa-trophy" style="color: #f4b942;"></i>
+                <h2>¡Excelente! Has completado la misión.</h2>
+                <p>Puntaje final: ${score} / ${escenarios.length * 10}</p>
+                <div style="background: #fef9e6; border-radius:1rem; padding:1rem; margin-top:1rem;">
+                    <i class="fas fa-certificate"></i>
+                    <h3>Certificado de profesional en atención a víctimas de ataques con agentes químicos</h3>
+                    <p>Has demostrado dominio de los protocolos de atención inicial, prehospitalaria, PAP y normativa.</p>
+                </div>
+                <button class="restart-btn" id="winRestartBtn"><i class="fas fa-redo-alt"></i> Jugar de nuevo</button>
+            </div>
+        `;
+        document.getElementById("winRestartBtn")?.addEventListener("click", () => location.reload());
+    }
+
+    function renderScene() {
+        if (gameCompleted) return;
+        if (currentScene >= escenarios.length) {
+            gameCompleted = true;
+            showWin();
+            return;
+        }
+        if (lives <= 0) {
+            showGameOver();
+            return;
+        }
+
+        const scene = escenarios[currentScene];
+        const icono = scene.icono;
+        const desc = scene.descripcion;
+        const opciones = scene.opciones;
+
+        let optionsHtml = '';
+        opciones.forEach((opt, idx) => {
+            optionsHtml += `
+                <div class="option" data-opt-index="${idx}">
+                    <i class="fas fa-${idx === 0 ? 'a' : idx === 1 ? 'b' : idx === 2 ? 'c' : 'd'}-circle"></i>
+                    ${opt}
+                </div>
+            `;
+        });
+
+        gameContentDiv.innerHTML = `
+            <div class="scene">
+                <div class="scene-icon"><i class="fas ${icono}"></i></div>
+                <div class="scene-description">${desc}</div>
+                <div class="options" id="optionsContainer">
+                    ${optionsHtml}
+                </div>
+                <div class="feedback" id="feedbackMsg"></div>
+                <button class="next-btn" id="nextBtn" disabled>Siguiente escena <i class="fas fa-arrow-right"></i></button>
+            </div>
+        `;
+
+        const optionDivs = document.querySelectorAll(".option");
+        const nextBtn = document.getElementById("nextBtn");
+        const feedbackDiv = document.getElementById("feedbackMsg");
+
+        function disableOptions(disabled) {
+            optionDivs.forEach(opt => {
+                if (disabled) opt.classList.add("disabled");
+                else opt.classList.remove("disabled");
+            });
+        }
+
+        function handleAnswer(selectedIdx) {
+            if (waitingForNext) return;
+            const isCorrect = (selectedIdx === scene.correcta);
+            if (isCorrect) {
+                // Sumar puntos
+                const puntos = scene.puntos;
+                score += puntos;
+                feedbackDiv.innerHTML = `<i class="fas fa-check-circle"></i> ¡Correcto! ${scene.explicacion} (+${puntos} puntos)`;
+                feedbackDiv.className = "feedback correct";
+                waitingForNext = true;
+                nextBtn.disabled = false;
+                disableOptions(true);
+                // Marcar opción seleccionada visualmente
+                optionDivs[selectedIdx].style.background = "#d4edda";
+                optionDivs[selectedIdx].style.borderColor = "#28a745";
+            } else {
+                // Perder una vida
+                lives--;
+                feedbackDiv.innerHTML = `<i class="fas fa-times-circle"></i> Incorrecto. ${scene.explicacion} Pierdes una vida. Te quedan ${lives} vidas.`;
+                feedbackDiv.className = "feedback incorrect";
+                updateUI();
+                optionDivs[selectedIdx].style.background = "#f8d7da";
+                optionDivs[selectedIdx].style.borderColor = "#dc3545";
+                if (lives <= 0) {
+                    disableOptions(true);
+                    nextBtn.disabled = true;
+                    setTimeout(() => showGameOver(), 1000);
+                } else {
+                    // Permitir seguir intentando la misma pregunta
+                    waitingForNext = false;
+                    nextBtn.disabled = true;
+                    // Después de 1.5s, limpiar estilos pero mantener el feedback?
+                    setTimeout(() => {
+                        optionDivs[selectedIdx].style.background = "";
+                        optionDivs[selectedIdx].style.borderColor = "";
+                    }, 1500);
+                }
+            }
+            updateUI();
+            // resaltar la correcta visualmente? No es necesario
+        }
+
+        optionDivs.forEach(opt => {
+            opt.addEventListener("click", () => {
+                if (waitingForNext) return;
+                const idx = parseInt(opt.getAttribute("data-opt-index"));
+                handleAnswer(idx);
+            });
+        });
+
+        nextBtn.addEventListener("click", () => {
+            if (!waitingForNext) return;
+            currentScene++;
+            waitingForNext = false;
+            renderScene();
+        });
+    }
+
+    updateUI();
+    renderScene();
+</script>
+</body>
+</html>
