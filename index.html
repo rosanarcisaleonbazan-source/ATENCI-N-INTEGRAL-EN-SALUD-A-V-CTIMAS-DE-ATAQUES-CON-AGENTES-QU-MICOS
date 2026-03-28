@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Curso: Atención Integral en Salud - Ataques Químicos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9edf2 100%);
+            color: #1a2a3a;
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Header con barra de navegación interactiva */
+        .main-header {
+            background: #0b3b4f;
+            color: white;
+            padding: 2rem 1.5rem 1rem 1.5rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+            border-left: 5px solid #ff9f4a;
+            padding-left: 1rem;
+        }
+
+        .tagline {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        /* Botones principales (Quiz, Videojuego, Infografía) */
+        .nav-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        .btn-principal {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-principal:hover {
+            background: #ff9f4a;
+            border-color: #ff9f4a;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+            color: #1e2f3a;
+        }
+
+        /* Presentación del curso */
+        .presentacion {
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .card-bienvenida {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.05);
+            border-left: 10px solid #e67e22;
+            transition: transform 0.2s;
+        }
+
+        .card-bienvenida h2 {
+            color: #0b3b4f;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .card-bienvenida p {
+            font-size: 1.05rem;
+            color: #2c3e44;
+        }
+
+        /* Grid de módulos */
+        .modulos-grid {
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .modulo-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e0e7ed;
+        }
+
+        .modulo-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.2);
+        }
+
+        .modulo-header {
+            background: #1e5a6e;
+            color: white;
+            padding: 1.2rem 1.5rem;
+        }
+
+        .modulo-header h3 {
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+        }
+
+        .modulo-contenido {
+            padding: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .modulo-contenido ul {
+            list-style-type: none;
+            margin: 1rem 0;
+        }
+
+        .modulo-contenido li {
+            margin-bottom: 0.6rem;
+            padding-left: 1.3rem;
+            position: relative;
+            font-weight: 500;
+            color: #2c3e44;
+        }
+
+        .modulo-contenido li::before {
+            content: "✓";
+            color: #e67e22;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .btn-ver {
+            background: #0b3b4f;
+            border: none;
+            color: white;
+            padding: 0.7rem 1.2rem;
+            margin-top: 1rem;
+            width: 100%;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-ver:hover {
+            background: #e67e22;
+            transform: scale(1.01);
+        }
+
+        /* Footer */
+        .footer {
+            background: #0b2a33;
+            color: #bcd0d9;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 680px) {
+            h1 {
+                font-size: 1.4rem;
+            }
+            .btn-principal {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.85rem;
+            }
+            .modulo-header h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="main-header">
+    <div class="header-container">
+        <h1>🧪 ATENCIÓN INTEGRAL EN SALUD<br>A VÍCTIMAS DE ATAQUES QUÍMICOS</h1>
+        <div class="tagline">Curso especializado para profesionales de la salud y primeros respondedores</div>
+        
+        <!-- Ventana principal: botones que abren en nueva pestaña -->
+        <div class="nav-buttons">
+            <a href="quizz.html" class="btn-principal" target="_blank">📝 QUIZZ</a>
+            <a href="juego.html" class="btn-principal" target="_blank">🎮 VIDEOJUEGO</a>
+            <a href="infografia.html" class="btn-principal" target="_blank">📊 INFOGRAFÍA</a>
+        </div>
+    </div>
+</header>
+
+<!-- Presentación del curso -->
+<section class="presentacion">
+    <div class="card-bienvenida">
+        <h2>📘 Presentación del curso</h2>
+        <p>Este curso integral aborda la atención en salud de víctimas de ataques con agentes químicos desde el lugar de la agresión hasta la referencia a unidades especializadas. Con enfoque en derechos humanos, perspectiva de género y evidencia clínica. A través de módulos interactivos, fortalecerás competencias en primeros auxilios, manejo de urgencias, aspectos legales y apoyo psicosocial.</p>
+    </div>
+</section>
+
+<!-- Módulos -->
+<div class="modulos-grid">
+    <!-- Módulo 1 -->
+    <div class="modulo-card">
+        <div class="modulo-header">
+            <h3>Módulo 1<br>Las Quemaduras por Agentes Químicos</h3>
+        </div>
+        <div class="modulo-contenido">
+            <ul>
+                <li>Productos químicos utilizados en el ataque</li>
+                <li>Fisiopatología de las quemaduras por agentes químicos</li>
+            </ul>
+            <a href="modulo1.html" class="btn-ver" target="_blank">🔍 Ver contenido →</a>
+        </div>
+    </div>
+
+    <!-- Módulo 2 -->
+    <div class="modulo-card">
+        <div class="modulo-header">
+            <h3>Módulo 2<br>Magnitud de los Ataques con Agentes Químicos</h3>
+        </div>
+        <div class="modulo-contenido">
+            <ul>
+                <li>Ámbito normativo</li>
+                <li>Violencias de género</li>
+                <li>Impactos psicológico y sociofamiliar</li>
+            </ul>
+            <a href="modulo2.html" class="btn-ver" target="_blank">🔍 Ver contenido →</a>
+        </div>
+    </div>
+
+    <!-- Módulo 3 -->
+    <div class="modulo-card">
+        <div class="modulo-header">
+            <h3>Módulo 3<br>Atención en el Lugar de la Agresión</h3>
+        </div>
+        <div class="modulo-contenido">
+            <ul>
+                <li>Primeros auxilios</li>
+                <li>Atención prehospitalaria</li>
+                <li>Primeros auxilios psicológicos (PAP)</li>
+            </ul>
+            <a href="modulo3.html" class="btn-ver" target="_blank">🔍 Ver contenido →</a>
+        </div>
+    </div>
+
+    <!-- Módulo 4 -->
+    <div class="modulo-card">
+        <div class="modulo-header">
+            <h3>Módulo 4<br>Atención en el Servicio de Urgencias</h3>
+        </div>
+        <div class="modulo-contenido">
+            <ul>
+                <li>Asistencia al lesionado</li>
+                <li>Recolección de evidencia forense</li>
+                <li>Reporte SIVIGILA y registro RIPS</li>
+            </ul>
+            <a href="modulo4.html" class="btn-ver" target="_blank">🔍 Ver contenido →</a>
+        </div>
+    </div>
+
+    <!-- Módulo 5 / Unidad 5 -->
+    <div class="modulo-card">
+        <div class="modulo-header">
+            <h3>Unidad 5<br>Referencia a Unidad de Quemados</h3>
+        </div>
+        <div class="modulo-contenido">
+            <ul>
+                <li>Protocolo de referencia</li>
+                <li>Unidad de quemados</li>
+                <li>Manejo ambulatorio</li>
+            </ul>
+            <a href="modulo5.html" class="btn-ver" target="_blank">🔍 Ver contenido →</a>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>Curso interactivo para la atención integral en salud a víctimas de ataques químicos | Contenido basado en lineamientos nacionales e internacionales</p>
+    <p style="margin-top: 10px;">📌 Cada módulo abre una nueva página con material detallado. Explora también el Quiz, Videojuego e Infografía desde el menú superior.</p>
+</footer>
+
+</body>
+</html>
