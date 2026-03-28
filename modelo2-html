@@ -2,8 +2,10 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo 2 - Magnitud de los Ataques con Agentes Químicos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Módulo 2 | Magnitud de los Ataques con Agentes Químicos | Diplomado Virtual</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -12,408 +14,777 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7fc;
-            color: #1e2a3e;
+            font-family: 'Inter', sans-serif;
+            background: #f6f9fc;
+            color: #1a2c3e;
             line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        .hero-module {
+            background: linear-gradient(135deg, #1e3a4d 0%, #2c5a6e 100%);
+            color: white;
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-module::before {
+            content: "⚖️";
+            font-size: 12rem;
+            opacity: 0.05;
+            position: absolute;
+            bottom: -2rem;
+            right: -1rem;
+            pointer-events: none;
+        }
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+        .hero-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 700px;
+        }
+        .badge-module {
+            background: rgba(255,255,240,0.2);
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 1rem;
         }
 
         .container {
-            max-width: 1300px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 2rem 1.5rem;
         }
 
-        /* Encabezado */
-        .header-modulo {
-            background: linear-gradient(135deg, #0b3b3f, #1c5a6a);
-            color: white;
+        .competencia-card {
+            background: white;
+            border-radius: 1.5rem;
             padding: 2rem;
-            border-radius: 28px;
             margin-bottom: 2rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-left: 6px solid #e67e22;
         }
-
-        .header-modulo h1 {
-            font-size: 2.2rem;
+        .competencia-card h2 {
+            color: #e67e22;
             margin-bottom: 0.5rem;
-            font-weight: 700;
         }
 
-        .header-modulo p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.7rem 1.3rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 2rem;
+            transition: all 0.2s;
+            color: #4a627a;
+        }
+        .tab-btn i { margin-right: 8px; }
+        .tab-btn:hover {
+            background: #eef2f6;
+        }
+        .tab-btn.active {
+            background: #154c5e;
+            color: white;
         }
 
-        /* Tarjetas generales */
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .card {
             background: white;
-            border-radius: 24px;
+            border-radius: 1.2rem;
             padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid #e0e7ed;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #e2edf2;
         }
-
-        .card:hover {
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-            transform: translateY(-2px);
-        }
-
         .card-title {
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             font-weight: 700;
-            color: #1c5a6a;
-            border-left: 6px solid #e67e22;
-            padding-left: 1rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .card-subtitle {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #2c3e4e;
-            margin: 1rem 0 0.8rem 0;
-            padding-bottom: 0.3rem;
-            border-bottom: 2px solid #e0e7ed;
-        }
-
-        /* cuadrícula de temas */
-        .grid-temas {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .tema-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: all 0.2s;
-            border: 1px solid #e2e8f0;
-        }
-
-        .tema-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
-        }
-
-        .tema-header {
-            background: #eef2f5;
-            padding: 1rem;
-            font-weight: bold;
-            font-size: 1.3rem;
-            color: #1e5a6a;
-            border-bottom: 1px solid #d0dbe6;
-        }
-
-        .tema-body {
-            padding: 1.2rem;
-        }
-
-        /* tablas responsivas */
-        .table-wrapper {
-            overflow-x: auto;
-            margin: 1rem 0;
-        }
-
-        .tabla-procesos {
-            width: 100%;
-            border-collapse: collapse;
-            background: #fff;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .tabla-procesos th, .tabla-procesos td {
-            border: 1px solid #dce5ec;
-            padding: 12px 10px;
-            text-align: left;
-            vertical-align: top;
-        }
-
-        .tabla-procesos th {
-            background-color: #1c5a6a;
-            color: white;
-            font-weight: 600;
-        }
-
-        .tabla-procesos tr:nth-child(even) {
-            background-color: #f9fafb;
-        }
-
-        /* badges y etiquetas */
-        .badge-ley {
-            background-color: #e67e22;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 0.5rem;
-        }
-
-        .icon-text {
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin: 8px 0;
+            gap: 10px;
+            color: #154c5e;
+            border-left: 4px solid #e67e22;
+            padding-left: 1rem;
         }
 
-        /* fases / timeline */
-        .fases-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
+        /* Tarjetas colapsables */
+        .collapsible-card {
+            background: #fefcf5;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
         }
-
-        .fase-item {
-            background: #fef5e8;
-            border-radius: 20px;
+        .collapsible-header {
             padding: 1rem;
-            border-left: 6px solid #e67e22;
-        }
-
-        .fase-item h4 {
             font-weight: 700;
-            color: #a4511c;
+            background: #f8fafc;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.2s;
+        }
+        .collapsible-header:hover {
+            background: #f1f5f9;
+        }
+        .collapsible-header i {
+            transition: transform 0.2s;
+        }
+        .collapsible-content {
+            padding: 1rem;
+            border-top: 1px solid #e2e8f0;
+            display: none;
+        }
+        .collapsible-card.open .collapsible-content {
+            display: block;
+        }
+        .collapsible-card.open .collapsible-header i {
+            transform: rotate(180deg);
         }
 
-        /* citas */
-        .cita {
-            background: #eef2fa;
-            padding: 1.2rem;
-            border-radius: 20px;
-            font-style: italic;
+        /* Grid de tarjetas horizontales */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin-top: 0.5rem;
+        }
+        .norm-card, .respons-card, .symptom-card, .phase-card, .duel-card, .social-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1rem;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .norm-card h4, .respons-card h4, .symptom-card h4, .phase-card h4, .duel-card h4, .social-card h4 {
+            color: #e67e22;
+            font-size: 1rem;
+            margin-bottom: 0.6rem;
+            border-left: 3px solid #e67e22;
+            padding-left: 0.6rem;
+        }
+        .norm-card p, .respons-card p, .symptom-card p, .phase-card p, .duel-card p, .social-card p {
+            font-size: 0.85rem;
+            color: #2c5a6e;
+            line-height: 1.4;
+        }
+
+        /* Grid de conceptos (tema 2) */
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
             margin: 1rem 0;
-            border-left: 5px solid #2c7a6e;
+        }
+        .concept-card {
+            background: #fefcf5;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1.2rem;
+            transition: all 0.2s;
+        }
+        .concept-card h3 {
+            color: #e67e22;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            border-left: 3px solid #e67e22;
+            padding-left: 0.8rem;
+        }
+        .concept-card p {
+            font-size: 0.9rem;
+            color: #2c5a6e;
+        }
+        .highlight-box {
+            background: #eaf7e6;
+            border-left: 4px solid #2c9b6e;
+            padding: 1rem;
+            border-radius: 0.8rem;
+            margin: 1rem 0;
         }
 
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #cbd5e0;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -0.8rem;
+            top: 0.2rem;
+            width: 0.8rem;
+            height: 0.8rem;
+            border-radius: 50%;
+            background: #e67e22;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px #e67e22;
+        }
+        .route-step {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+        .route-icon {
+            width: 40px;
+            height: 40px;
+            background: #154c5e;
+            color: white;
+            border-radius: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .quiz-question {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f9fbfd;
+            border-radius: 1rem;
+        }
+        .btn-primary {
+            background: #154c5e;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .feedback {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            border-radius: 0.8rem;
+            background: #eaf7e6;
+        }
+        textarea {
+            width: 100%;
+            border: 1px solid #cbd5e0;
+            border-radius: 0.8rem;
+            padding: 0.8rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
         footer {
+            background: #0a2a36;
+            color: #cfdfe8;
             text-align: center;
-            margin-top: 2rem;
-            font-size: 0.8rem;
-            color: #5f7d95;
+            padding: 2rem;
+            margin-top: 3rem;
         }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
+        @media (max-width: 900px) {
+            .concepts-grid, .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
             }
-            .card-title {
-                font-size: 1.3rem;
-            }
+            .hero-content h1 { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <!-- MÓDULO 2 CABECERA -->
-    <div class="header-modulo">
-        <h1>📘 Módulo 2: Magnitud de los Ataques con Agentes Químicos</h1>
-        <p>Imagen: Freepik · Competencia específica: Comprender la dimensión de un ataque con agentes químicos desde lo legal, lo psicológico y lo familiar.</p>
+
+<div class="hero-module">
+    <div class="hero-content">
+        <h1><i class="fas fa-chart-line"></i> Magnitud de los Ataques con Agentes Químicos</h1>
+        <p>Módulo 2 – Diplomado Virtual: Atención Integral en Salud a Víctimas de Ataques con Agentes Químicos</p>
+        <div class="badge-module"><i class="fas fa-gavel"></i> Ámbito normativo • Violencias de género • Impacto psicosocial</div>
     </div>
-
-    <!-- TARJETA COMPETENCIA Y TEMAS PRINCIPALES -->
-    <div class="card">
-        <div class="card-title">🎯 Competencia del módulo</div>
-        <p>Se espera que, con los temas abordados en la guía didáctica del módulo 2, el estudiante logre <strong>comprender la dimensión de un ataque con agentes químicos desde lo legal, lo psicológico y lo familiar</strong>.</p>
-        <div style="margin-top: 1rem; background: #eef2f5; border-radius: 16px; padding: 0.8rem 1.2rem;">
-            <strong>📚 Contenidos temáticos:</strong><br>
-            1. Ámbito normativo &nbsp;|&nbsp; 2. Violencias de género &nbsp;|&nbsp; 3. Impactos psicológico y sociofamiliar
-        </div>
-    </div>
-
-    <!-- TEMA 1: ÁMBITO NORMATIVO (cuadros y procesos) -->
-    <div class="card">
-        <div class="card-title">⚖️ 1. Ámbito Normativo – Marco legal integral</div>
-        <p>Los ataques con agentes químicos constituyen un <strong>crimen de género</strong> y se enmarcan en instrumentos internacionales, leyes nacionales y protocolos específicos.</p>
-
-        <!-- Instrumentos internacionales: cuadro -->
-        <div class="card-subtitle">📜 Instrumentos internacionales (prevalencia en el orden interno)</div>
-        <div class="table-wrapper">
-            <table class="tabla-procesos">
-                <thead>
-                    <tr><th>Año / Instrumento</th><th>Contenido / Obligación</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>1980 – Programa de Acción (Copenhague)</td><td>Violencia en la familia, mujer maltratada.</td></tr>
-                    <tr><td>Ley 51 de 1981 – CEDAW</td><td>Eliminación de toda forma de discriminación contra la mujer.</td></tr>
-                    <tr><td>1993 – Declaración sobre Eliminación de Violencia contra la Mujer</td><td>Violencia contra la mujer como violación de DDHH.</td></tr>
-                    <tr><td>1995 – Beijing (Plataforma de Acción)</td><td>Bienestar mental, enfoque integrado contra violencia.</td></tr>
-                    <tr><td>Ley 248 de 1995 – Belém do Pará</td><td>Servicios especializados, derecho a una vida libre de violencia.</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Normas nacionales destacadas con tarjetas internas -->
-        <div class="card-subtitle">🇨🇴 Marco nacional – Leyes y resoluciones clave</div>
-        <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem;">
-            <div style="flex:1; min-width: 220px; background: #f9f3ea; border-radius: 18px; padding: 1rem;">
-                <div class="badge-ley">Ley 1257 de 2008</div>
-                <p><strong>Vida libre de violencia para las mujeres.</strong> Derechos: atención integral, asesoría jurídica gratuita, medidas de protección y restablecimiento.</p>
-            </div>
-            <div style="flex:1; min-width: 220px; background: #f9f3ea; border-radius: 18px; padding: 1rem;">
-                <div class="badge-ley">Ley 1639 de 2013</div>
-                <p>Fortalecimiento medidas para víctimas de crímenes con ácido. Aumento de penas, control de sustancias, atención gratuita a cargo del Estado.</p>
-            </div>
-            <div style="flex:1; min-width: 220px; background: #f9f3ea; border-radius: 18px; padding: 1rem;">
-                <div class="badge-ley">Resolución 4568 de 2014</div>
-                <p><strong>Protocolo de Atención de Urgencias a Víctimas de Ataques con Agentes Químicos.</strong> Garantiza atención oportuna, reduce daño físico/mental y acceso a justicia.</p>
-            </div>
-        </div>
-
-        <!-- TABLA DE RESPONSABILIDADES (implementación SGSSS) -->
-        <div class="card-subtitle">🏥 Implementación del Protocolo – Responsabilidades en el SGSSS</div>
-        <div class="table-wrapper">
-            <table class="tabla-procesos">
-                <thead><tr><th>Integrante</th><th>Responsabilidades clave</th></tr></thead>
-                <tbody>
-                    <tr><td>Ministerio de Salud</td><td>Rectoría, lineamientos, protocolos integrales.</td></tr>
-                    <tr><td>Superintendencia Nacional de Salud</td><td>Inspección, vigilancia y control a EPS e IPS.</td></tr>
-                    <tr><td>EAPB (EPS)</td><td>Red de urgencias, transporte, garantía de servicios UPC, monitoreo casos, activación ruta intersectorial.</td></tr>
-                    <tr><td>IPS</td><td>Talento humano capacitado, kit de emergencias, referencia a unidades especializadas, notificación SIVIGILA.</td></tr>
-                    <tr><td>Direcciones Territoriales</td><td>Inspección, socialización protocolos, verificación de rutas de atención.</td></tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="cita">
-            📌 “Los ataques con agentes químicos no son un evento aislado sino una de las manifestaciones de las violencias de género ejercidas contra las mujeres como mecanismo de control, venganza o castigo” (Minsalud, 2020).
-        </div>
-    </div>
-
-    <!-- TEMA 2: VIOLENCIAS DE GÉNERO - tarjetas y contexto epidemiológico -->
-    <div class="card">
-        <div class="card-title">🚺 2. Violencias de Género – Conceptualización y cifras</div>
-        <div class="grid-temas">
-            <div class="tema-card">
-                <div class="tema-header">📖 Conceptos básicos</div>
-                <div class="tema-body">
-                    <p><strong>Violencia (OMS):</strong> Uso intencional de la fuerza o poder físico que cause lesiones, muerte o daño psicológico.</p>
-                    <p><strong>Violencia de Género (VG):</strong> Acciones basadas en relaciones asimétricas de poder que subvaloran lo femenino.</p>
-                    <p><strong>Violencia contra las mujeres (VBG):</strong> Ley 1257 – cualquier acción u omisión que cause daño físico, psicológico, sexual o patrimonial por su condición de mujer.</p>
-                </div>
-            </div>
-            <div class="tema-card">
-                <div class="tema-header">📊 Situación epidemiológica</div>
-                <div class="tema-body">
-                    <p>▪ Colombia: entre 2004-2016 más de <strong>1.100 víctimas</strong> por ataques con agentes químicos.</p>
-                    <p>▪ En 2012 primer lugar per cápita mundial. 722 casos solo en 2013-2014.</p>
-                    <p>▪ En 2022 se notificaron al SIVIGILA <strong>140.694 casos sospechosos</strong> de violencia de género e intrafamiliar (promedio semanal 2.706 casos).</p>
-                    <p>▪ Aumento del 20,9% frente a 2021.</p>
-                </div>
-            </div>
-            <div class="tema-card">
-                <div class="tema-header">⚡ Características del ataque</div>
-                <div class="tema-body">
-                    <ul style="margin-left: 1.2rem;">
-                        <li>Víctimas: mujeres jóvenes, baja escolaridad, dependencia económica.</li>
-                        <li>Agresor: pareja o expareja, antecedentes de maltrato.</li>
-                        <li>Intención: desfigurar, mutilar, torturar, castigar.</li>
-                        <li>Atacadas en la calle de forma inesperada, a veces con terceros contratados.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="cita">
-            🔍 “Los ataques con agentes químicos son un mecanismo de tortura. Dejan una marca para que siempre se recuerde el mensaje.” — Chaves, 2017.
-        </div>
-    </div>
-
-    <!-- TEMA 3: IMPACTOS PSICOLÓGICO Y SOCIOFAMILIAR (cuadros procesos emocionales, fases) -->
-    <div class="card">
-        <div class="card-title">🧠 3. Impactos Psicológico y Sociofamiliar</div>
-        <p>Las víctimas enfrentan cambios corporales permanentes, alteración de la imagen corporal, depresión, ideación suicida, aislamiento y estigmatización social.</p>
-
-        <!-- Cuadro de síntomas psicológicos -->
-        <div class="card-subtitle">🔻 Síntomas asociados a la crisis psicológica</div>
-        <div class="table-wrapper">
-            <table class="tabla-procesos">
-                <thead><tr><th>Área</th><th>Síntomas frecuentes</th></tr></thead>
-                <tbody>
-                    <tr><td>Emocional</td><td>Miedo, rabia, tristeza, ansiedad anticipatoria, pánico, depresión, sensación de perder el control.</td></tr>
-                    <tr><td>Cognitiva</td><td>Confusión, bloqueo mental, amnesia, culpa, negación, desorientación tiempo-espacio.</td></tr>
-                    <tr><td>Conductual</td><td>Aislamiento, agresividad, trastornos alimentación y sueño, llanto, abuso de sustancias.</td></tr>
-                    <tr><td>Fisiológica</td><td>Taquicardia, hiperventilación, cefalea, mareos, tensión muscular, temblores.</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- FASES DE REACCIÓN (proceso visual) -->
-        <div class="card-subtitle">⏳ Fases de reacción ante el trauma por agresión química</div>
-        <div class="fases-grid">
-            <div class="fase-item"><h4>1. Fase aguda</h4>Inmediata, preocupación por supervivencia, confusión, despersonalización, irritabilidad. Dura semanas.</div>
-            <div class="fase-item"><h4>2. Fase de reacción</h4>Hacia la 6ª semana. Reconoce el daño, sentimientos negados emergen, ansiedad y depresión.</div>
-            <div class="fase-item"><h4>3. Fase de reparación</h4>Últimas semanas hospitalarias y post-alta. Reacciones menos intensas, interés por hechos cotidianos.</div>
-            <div class="fase-item"><h4>4. Fase de reorientación</h4>Recaídas depresivas, asimilación del trauma puede tomar años. Redes de apoyo esenciales.</div>
-        </div>
-
-        <!-- Proceso de duelo -->
-        <div class="card-subtitle">🕊️ Proceso de duelo por pérdida de la integridad corporal</div>
-        <div style="display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: space-between; background: #fdf8f0; border-radius: 28px; padding: 1.2rem; margin: 1rem 0;">
-            <span style="background:#fff2e0; padding: 6px 14px; border-radius: 40px;">Negación</span>
-            <span style="background:#fff2e0; padding: 6px 14px; border-radius: 40px;">Enfado</span>
-            <span style="background:#fff2e0; padding: 6px 14px; border-radius: 40px;">Negociación</span>
-            <span style="background:#fff2e0; padding: 6px 14px; border-radius: 40px;">Dolor emocional</span>
-            <span style="background:#fff2e0; padding: 6px 14px; border-radius: 40px;">Aceptación</span>
-        </div>
-
-        <!-- Impacto sociofamiliar (cuadro de condiciones) -->
-        <div class="card-subtitle">🏡 Impacto sociofamiliar – Consecuencias en el entorno</div>
-        <div class="grid-temas">
-            <div class="tema-card">
-                <div class="tema-header">Reestructuración familiar</div>
-                <div class="tema-body">Fragmentación del tejido familiar, sobrecarga de cuidado, ruptura de redes de apoyo. Hijas e hijos se convierten en víctimas indirectas.</div>
-            </div>
-            <div class="tema-card">
-                <div class="tema-header">Dificultades laborales</div>
-                <div class="tema-body">Mujeres atacadas en edad productiva, baja experiencia laboral, inasistencias reiteradas a citas médicas y judiciales, inestabilidad y dependencia económica.</div>
-            </div>
-            <div class="tema-card">
-                <div class="tema-header">Estigmatización social</div>
-                <div class="tema-body">Sobrevivientes enfrentan discriminación, aislamiento y culpabilización. Sus cicatrices generan reacciones constantes de rechazo.</div>
-            </div>
-        </div>
-        <div class="cita">
-            💔 “Las familias de las mujeres víctimas se reestructuran y desintegran dejándolas sin redes de apoyo fortalecidas […] desconexión con hijas e hijos” (Alcaldía Mayor de Bogotá, 2021).
-        </div>
-    </div>
-
-    <!-- CUADRO DE PROCESOS INTEGRAL (resumen ruta de atención) -->
-    <div class="card">
-        <div class="card-title">🔄 Cuadro de procesos clave – Ruta de atención integral</div>
-        <div class="table-wrapper">
-            <table class="tabla-procesos">
-                <thead><tr><th>Proceso</th><th>Objetivo</th><th>Responsable</th><th>Tiempo / prioridad</th></tr></thead>
-                <tbody>
-                    <tr><td>Activación y recepción</td><td>Identificar ataque con agente químico y activar ruta prioritaria.</td><td>Triage, admisiones</td><td>Inmediato</td></tr>
-                    <tr><td>Atención inicial urgencias</td><td>Estabilización, descontaminación, manejo del dolor agudo.</td><td>Urgencias, toxicología</td><td>Primeras 24-72h</td></tr>
-                    <tr><td>Atención especializada</td><td>Valoración por cirugía plástica, salud mental, rehabilitación funcional.</td><td>IPS con nivel III-IV, unidades de quemados</td><td>Durante hospitalización y seguimiento</td></tr>
-                    <tr><td>Salud mental y acompañamiento psicosocial</td><td>Manejo de crisis, duelo, prevención de trastornos mentales.</td><td>Psicología, psiquiatría, trabajo social</td><td>Desde urgencias hasta fase de reorientación</td></tr>
-                    <tr><td>Activación ruta intersectorial</td><td>Acceso a justicia, protección, medidas de seguridad.</td><td>IPS, EPS, comisarías de familia</td><td>Inmediato + seguimiento</td></tr>
-                </tbody>
-            </table>
-        </div>
-        <p style="margin-top: 1rem;"><strong>✔️ Garantías según Ley 1257:</strong> atención integral gratuita, información clara, trato confidencial, medidas de protección, estabilización, acceso a la verdad y justicia.</p>
-    </div>
-
-    <!-- CIERRE Y REFLEXIÓN -->
-    <div class="card" style="background: linear-gradient(120deg, #eaf4f0, #ffffff);">
-        <div class="card-title">📌 Reflexión final – Hacia una atención con enfoque integral</div>
-        <p>Los ataques con agentes químicos trascienden lo físico: implican un daño psicosocial profundo, ruptura de proyectos de vida y un mensaje de control hacia todas las mujeres. La implementación del <strong>Protocolo Resolución 4568 de 2014</strong> y la activación oportuna de la <strong>Ruta Intersectorial</strong> son herramientas centrales para garantizar derechos, restablecimiento y no repetición.</p>
-        <div class="icon-text">📎 <strong>Te invitamos a consultar</strong> en tu institución el sistema de referencia y contrarreferencia de servicios de salud mental para víctimas de ataques con agentes químicos: conoce especialidades, duración de la atención y rutas locales.</div>
-        <hr style="margin: 1rem 0;">
-        <p style="font-size: 0.85rem; color: #2c6979;">Fuentes: Resolución 4568 de 2014, Minsalud (2020), Ley 1257/2008, Ley 1639/2013, Instituto Nacional de Salud – SIVIGILA, Alcaldía Mayor de Bogotá (2021).</p>
-    </div>
-
-    <footer>
-        Módulo 2 - Magnitud de los ataques con agentes químicos | Enfoque legal, psicológico y familiar | Imágenes: Freepik
-    </footer>
 </div>
+
+<div class="container">
+    <div class="competencia-card">
+        <h2><i class="fas fa-bullseye"></i> Competencia específica</h2>
+        <p>Comprender la dimensión de un ataque con agentes químicos desde lo legal, lo psicológico y lo familiar, con base en la normativa colombiana (Resolución 4568 de 2014, Ley 1257 de 2008, Ley 1639 de 2013) y el enfoque de género.</p>
+    </div>
+
+    <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="contenido"><i class="fas fa-book-open"></i> Contenido temático</button>
+        <button class="tab-btn" data-tab="normativa"><i class="fas fa-gavel"></i> Línea de tiempo normativa</button>
+        <button class="tab-btn" data-tab="ruta"><i class="fas fa-route"></i> Ruta de atención</button>
+        <button class="tab-btn" data-tab="quiz"><i class="fas fa-question-circle"></i> Evaluación formativa</button>
+        <button class="tab-btn" data-tab="notas"><i class="fas fa-pen"></i> Mis notas</button>
+    </div>
+
+    <!-- PANEL 1: CONTENIDO TEMÁTICO -->
+    <div id="contenido" class="tab-pane active">
+        <!-- Tema 1: Ámbito normativo -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-gavel"></i> Tema 1: Ámbito normativo</div>
+            <div class="collapsible-card">
+                <div class="collapsible-header">
+                    <span><i class="fas fa-globe-americas"></i> Instrumentos internacionales</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="collapsible-content">
+                    <div class="cards-grid">
+                        <div class="norm-card">
+                            <h4>CEDAW (Ley 51 de 1981)</h4>
+                            <p><strong>Convención sobre la Eliminación de Todas las Formas de Discriminación contra la Mujer.</strong> Los Estados condenan la discriminación contra la mujer en todas sus formas.</p>
+                        </div>
+                        <div class="norm-card">
+                            <h4>Declaración sobre la Eliminación de la Violencia contra la Mujer (1993)</h4>
+                            <p>Establece que la violencia contra las mujeres constituye una violación de los derechos humanos y las libertades fundamentales.</p>
+                        </div>
+                        <div class="norm-card">
+                            <h4>Convención de Belém do Pará (Ley 248 de 1995)</h4>
+                            <p>Obliga a los Estados a suministrar servicios especializados para la atención necesaria a la mujer objeto de violencia.</p>
+                        </div>
+                        <div class="norm-card">
+                            <h4>Convención Interamericana para Prevenir y Sancionar la Tortura</h4>
+                            <p>Define la tortura como todo acto realizado intencionalmente por el cual se inflijan a una persona penas o sufrimientos físicos o mentales.</p>
+                        </div>
+                        <div class="norm-card">
+                            <h4>Conferencia Mundial de Beijing (1995)</h4>
+                            <p>Promueve un enfoque integrado para responder a todas las formas de violencia y abusos contra las niñas y mujeres.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="collapsible-card">
+                <div class="collapsible-header">
+                    <span><i class="fas fa-flag-checkered"></i> Normativa nacional</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="collapsible-content">
+                    <div class="cards-grid">
+                        <div class="norm-card">
+                            <h4>Ley 1257 de 2008</h4>
+                            <p>Dicta normas de sensibilización, prevención y sanción de formas de violencia contra las mujeres. Establece los derechos de las víctimas: atención integral, información clara, reserva de identidad, medidas de protección, acceso a justicia y reparación.</p>
+                        </div>
+                        <div class="norm-card">
+                            <h4>Ley 1639 de 2013</h4>
+                            <p>Fortalece medidas de protección a víctimas de crímenes con ácido, álcalis o sustancias corrosivas. Aumenta penas para el delito de lesiones personales con agentes químicos y regula control de comercialización.</p>
+                        </div>
+                        <div class="norm-card">
+                            <h4>Ley 1971 de 2019</h4>
+                            <p>Modifica la Ley 1639, ampliando medidas de protección.</p>
+                        </div>
+                        <div class="norm-card">
+                            <h4>Resolución 4568 de 2014</h4>
+                            <p>Adopta el Protocolo de Atención de Urgencias a Víctimas de Ataques con Agentes Químicos. Define responsabilidades del SGSSS, garantiza atención oportuna e integral.</p>
+                        </div>
+                        <div class="norm-card">
+                            <h4>Resolución 205 de 2020</h4>
+                            <p>Establece disposiciones sobre financiación de servicios de salud no cubiertos por la UPC, incluyendo atención a víctimas.</p>
+                        </div>
+                        <div class="norm-card">
+                            <h4>Circular 016 de 2014</h4>
+                            <p>Exención de cuotas moderadoras y copagos por leyes especiales.</p>
+                        </div>
+                        <div class="norm-card">
+                            <h4>Decreto 1033 de 2014</h4>
+                            <p>Reglamenta la Ley 1639.</p>
+                        </div>
+                        <div class="norm-card">
+                            <h4>Derechos de las víctimas (Ley 1257)</h4>
+                            <p>Atención integral, orientación jurídica gratuita, consentimiento informado, trato reservado, asistencia médica y psicológica especializada, acceso a medidas de protección, verdad, justicia, reparación.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="collapsible-card">
+                <div class="collapsible-header">
+                    <span><i class="fas fa-hospital-user"></i> Responsabilidades en el SGSSS</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="collapsible-content">
+                    <div class="cards-grid">
+                        <div class="respons-card">
+                            <h4>Ministerio de Salud</h4>
+                            <p>Rectoría, lineamientos, protocolos.</p>
+                        </div>
+                        <div class="respons-card">
+                            <h4>Instituto Nacional de Salud</h4>
+                            <p>Vigilancia en salud pública (Violencias de género e intrafamiliar).</p>
+                        </div>
+                        <div class="respons-card">
+                            <h4>Superintendencia Nacional de Salud</h4>
+                            <p>Inspección, vigilancia y control a EPS e IPS.</p>
+                        </div>
+                        <div class="respons-card">
+                            <h4>Direcciones Territoriales de Salud</h4>
+                            <p>Inspección, vigilancia, socialización de protocolos, activación de rutas.</p>
+                        </div>
+                        <div class="respons-card">
+                            <h4>EPS (EAPB)</h4>
+                            <p>Red de urgencias, transporte, garantía de servicios integrales, monitoreo de casos.</p>
+                        </div>
+                        <div class="respons-card">
+                            <h4>IPS</h4>
+                            <p>Talento humano capacitado, kit de emergencias, referencia a unidades de quemados, notificación al SIVIGILA, activación de ruta intersectorial.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tema 2: Violencias de género -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-female"></i> Tema 2: Violencias de género</div>
+            <div class="concepts-grid">
+                <div class="concept-card">
+                    <h3>Violencia (OMS)</h3>
+                    <p>«El uso intencional de la fuerza o el poder físico, de hecho o como amenaza, contra uno mismo, otra persona o un grupo o comunidad, que cause o tenga muchas probabilidades de causar lesiones, muerte, daños psicológicos, trastornos del desarrollo o privaciones».</p>
+                </div>
+                <div class="concept-card">
+                    <h3>Violencias de género (VG)</h3>
+                    <p>Acciones o conductas que se desarrollan a partir de relaciones de poder asimétricas basadas en el género, que sobrevaloran lo relacionado con lo masculino y subvaloran lo relacionado con lo femenino.</p>
+                </div>
+                <div class="concept-card">
+                    <h3>Violencias basadas en género contra las mujeres (VBG)</h3>
+                    <p>«Cualquier acción u omisión, que le cause muerte, daño o sufrimiento físico, sexual, psicológico, económico o patrimonial por su condición de mujer, así como las amenazas de tales actos, la coacción o la privación arbitraria de la libertad, bien sea que se presente en el ámbito público o en el privado» (Ley 1257 de 2008, art. 2).</p>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <i class="fas fa-exclamation-triangle" style="color:#e67e22; margin-right:10px;"></i> 
+                <strong>Los ataques con agentes químicos son una expresión de VBG</strong>, ejercida principalmente por parejas o exparejas, con antecedentes de maltrato físico y psicológico, con la intención de desfigurar, mutilar o torturar como castigo por ejercer autonomía y salirse de los roles de género impuestos.
+            </div>
+            <div class="collapsible-card">
+                <div class="collapsible-header">
+                    <span><i class="fas fa-chart-line"></i> Situación epidemiológica</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="collapsible-content">
+                    <ul>
+                        <li>Primer caso registrado en Colombia: 1997 en Cundinamarca.</li>
+                        <li>Entre 2004 y 2016: más de 1100 víctimas reportadas por Medicina Legal e INS.</li>
+                        <li>En 2012, Colombia fue el país con más víctimas per cápita en el mundo.</li>
+                        <li>En 2022 se notificaron 140.694 casos sospechosos de violencia de género e intrafamiliar (incluye ataques con agentes químicos).</li>
+                        <li>Aumento del 20.9% respecto a 2021 y 36.2% frente a 2020.</li>
+                    </ul>
+                    <p>Las víctimas principales son mujeres jóvenes, baja escolaridad, dependencia económica y emocional. El agresor principal es la pareja o expareja, con antecedentes de maltrato.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tema 3: Impactos psicológico y sociofamiliar (totalmente rediseñado en tarjetas) -->
+        <div class="card">
+            <div class="card-title"><i class="fas fa-heart-broken"></i> Tema 3: Impactos psicológico y sociofamiliar</div>
+            <div class="collapsible-card">
+                <div class="collapsible-header">
+                    <span><i class="fas fa-brain"></i> Impacto psicológico</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="collapsible-content">
+                    <!-- Síntomas por áreas en tarjetas -->
+                    <h4 style="margin: 1rem 0 0.5rem 0; color: #154c5e;">Síntomas por áreas afectadas</h4>
+                    <div class="cards-grid">
+                        <div class="symptom-card">
+                            <h4><i class="fas fa-heart"></i> Emocional</h4>
+                            <p>Miedo, rabia, rencor, tristeza, desesperación, ansiedad anticipatoria, ansiedad generalizada, reacciones de pánico, sensación de perder el control, depresión.</p>
+                        </div>
+                        <div class="symptom-card">
+                            <h4><i class="fas fa-brain"></i> Cognitiva</h4>
+                            <p>Confusión, bloqueo mental, amnesia, negación, culpa, alteraciones de conciencia, inhibición, desconfianza, dificultades de atención y concentración, desorientación.</p>
+                        </div>
+                        <div class="symptom-card">
+                            <h4><i class="fas fa-running"></i> Conductual</h4>
+                            <p>Aislamiento, fatiga, agresividad, sentimientos de culpa e impotencia, sensación de irrealidad, hiper o hipoactividad, verborrea o mutismo, trastornos de alimentación y sueño, abuso de tóxicos, llanto, gritos.</p>
+                        </div>
+                        <div class="symptom-card">
+                            <h4><i class="fas fa-heartbeat"></i> Fisiológica</h4>
+                            <p>Hipersudoración, palpitaciones, taquicardia, hiperventilación, opresión torácica, tensión muscular, cefalea, midriasis, sensación de ahogo, mareos, náuseas, parestesias, escalofríos y temblores.</p>
+                        </div>
+                    </div>
+                    <!-- Fases de reacción en tarjetas -->
+                    <h4 style="margin: 1.5rem 0 0.5rem 0; color: #154c5e;">Fases de reacción ante el trauma</h4>
+                    <div class="cards-grid">
+                        <div class="phase-card">
+                            <h4>Fase aguda</h4>
+                            <p>Inmediata. Principal preocupación: supervivencia. Confusión, delirio, fenómenos de despersonalización, trastornos del sueño, irritabilidad, hiperalertamiento. Dura varias semanas.</p>
+                        </div>
+                        <div class="phase-card">
+                            <h4>Fase de reacción</h4>
+                            <p>Comienza hacia la 6ª semana. Reconocimiento del daño, sentimientos reprimidos salen a flote. Ansiedad, depresión, dificultad para adaptarse a la hospitalización. Puede durar meses.</p>
+                        </div>
+                        <div class="phase-card">
+                            <h4>Fase de reparación</h4>
+                            <p>Últimas semanas de hospitalización y post-alta (1-6 meses). Reacciones menos intensas, interés por hechos cotidianos, preparación para enfrentar el mundo exterior.</p>
+                        </div>
+                        <div class="phase-card">
+                            <h4>Fase de reorientación</h4>
+                            <p>Posibles recaídas depresivas y ansiosas. Algunas víctimas asimilan el trauma a los 6 meses; otras pueden tardar años según la intensidad del daño y el apoyo recibido.</p>
+                        </div>
+                    </div>
+                    <!-- Proceso de duelo en tarjetas -->
+                    <h4 style="margin: 1.5rem 0 0.5rem 0; color: #154c5e;">Proceso de duelo por pérdida de la integridad corporal</h4>
+                    <div class="cards-grid">
+                        <div class="duel-card"><h4>Negación</h4><p>Incredulidad, rechazo a aceptar la magnitud del daño.</p></div>
+                        <div class="duel-card"><h4>Enfado</h4><p>Ira hacia el agresor, el sistema o hacia sí misma.</p></div>
+                        <div class="duel-card"><h4>Negociación</h4><p>Intentos de “pactar” con la situación o con promesas.</p></div>
+                        <div class="duel-card"><h4>Dolor emocional</h4><p>Tristeza profunda, llanto, desesperanza.</p></div>
+                        <div class="duel-card"><h4>Aceptación</h4><p>Reintegración de la nueva imagen corporal y reconstrucción de identidad.</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="collapsible-card">
+                <div class="collapsible-header">
+                    <span><i class="fas fa-users"></i> Impacto sociofamiliar</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="collapsible-content">
+                    <div class="cards-grid">
+                        <div class="social-card">
+                            <h4>Fragmentación familiar</h4>
+                            <p>Sobrecarga de cuidado, ausencia de la víctima en labores cotidianas, ruptura del tejido familiar.</p>
+                        </div>
+                        <div class="social-card">
+                            <h4>Desconexión con hijas e hijos</h4>
+                            <p>Las hijas e hijos se convierten en víctimas indirectas por la incapacidad de la madre para ejercer su rol.</p>
+                        </div>
+                        <div class="social-card">
+                            <h4>Dificultades laborales</h4>
+                            <p>La mayoría atacadas en edades productivas, baja formación, acceso limitado a empleos cualificados tras la recuperación.</p>
+                        </div>
+                        <div class="social-card">
+                            <h4>Dependencia económica</h4>
+                            <p>Pérdida de autonomía, exacerbación de vulnerabilidad, riesgo de pobreza y exclusión.</p>
+                        </div>
+                        <div class="social-card">
+                            <h4>Estigmatización social</h4>
+                            <p>Rechazo, discriminación y culpabilización por las cicatrices físicas visibles.</p>
+                        </div>
+                        <div class="social-card">
+                            <h4>Apoyo familiar crucial</h4>
+                            <p>La respuesta de la familia y redes de apoyo es determinante para la recuperación. También requieren acompañamiento emocional.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL 2: LÍNEA DE TIEMPO NORMATIVA -->
+    <div id="normativa" class="tab-pane">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-history"></i> Línea de tiempo: hitos normativos en protección a víctimas</div>
+            <div class="timeline">
+                <div class="timeline-item"><div class="timeline-year">1980</div><div>Programa de Acción de la Segunda Conferencia Mundial sobre la Mujer (Copenhague): La Mujer Maltratada y la Violencia en la Familia.</div></div>
+                <div class="timeline-item"><div class="timeline-year">1981</div><div>Ley 51: aprueba la CEDAW (Convención sobre la Eliminación de Todas las Formas de Discriminación contra la Mujer).</div></div>
+                <div class="timeline-item"><div class="timeline-year">1993</div><div>Declaración sobre la Eliminación de la Violencia contra la Mujer (ONU).</div></div>
+                <div class="timeline-item"><div class="timeline-year">1995</div><div>Ley 248: aprueba la Convención de Belém do Pará.</div></div>
+                <div class="timeline-item"><div class="timeline-year">2008</div><div>Ley 1257: normas de sensibilización, prevención y sanción de violencias contra las mujeres.</div></div>
+                <div class="timeline-item"><div class="timeline-year">2013</div><div>Ley 1639: fortalece medidas de protección a víctimas de crímenes con ácido y aumenta penas.</div></div>
+                <div class="timeline-item"><div class="timeline-year">2014</div><div>Resolución 4568: adopta el Protocolo de Atención de Urgencias a Víctimas de Ataques con Agentes Químicos.</div></div>
+                <div class="timeline-item"><div class="timeline-year">2016</div><div>Ley 1773: modifica artículos del Código Penal relacionados con lesiones con agentes químicos.</div></div>
+                <div class="timeline-item"><div class="timeline-year">2019</div><div>Ley 1971: modifica la Ley 1639, amplía medidas de protección.</div></div>
+                <div class="timeline-item"><div class="timeline-year">2020</div><div>Resolución 205: establece financiación de servicios no financiados con UPC (incluye atención a víctimas).</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL 3: RUTA DE ATENCIÓN -->
+    <div id="ruta" class="tab-pane">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-route"></i> Ruta de atención integral para víctimas de ataques con agentes químicos</div>
+            <p>Conoce las responsabilidades de cada actor en el Sistema General de Seguridad Social en Salud (SGSSS) y la ruta intersectorial.</p>
+            <div class="route-step">
+                <div class="route-icon">1</div>
+                <div class="route-content"><strong>Urgencias (IPS)</strong><br>Activación del código de atención a víctimas de ataques con agentes químicos. Lavado profuso con agua, estabilización, notificación al SIVIGILA y a las autoridades (ICBF, Fiscalía, Comisaría de Familia).</div>
+            </div>
+            <div class="route-step">
+                <div class="route-icon">2</div>
+                <div class="route-content"><strong>Remisión a unidad de quemados</strong><br>La IPS debe referir a la víctima a una unidad especializada según nivel de complejidad, garantizando transporte.</div>
+            </div>
+            <div class="route-step">
+                <div class="route-icon">3</div>
+                <div class="route-content"><strong>Gestión con EPS</strong><br>La EPS autoriza y garantiza servicios hospitalarios, quirúrgicos, rehabilitación, insumos y medicamentos (incluyendo materiales de curación y dispositivos).</div>
+            </div>
+            <div class="route-step">
+                <div class="route-icon">4</div>
+                <div class="route-content"><strong>Atención en salud mental</strong><br>Abordaje psicosocial desde la fase aguda: contención emocional, manejo de crisis, seguimiento con psicología y psiquiatría según fases de reacción.</div>
+            </div>
+            <div class="route-step">
+                <div class="route-icon">5</div>
+                <div class="route-content"><strong>Activación de ruta intersectorial</strong><br>Coordinación con Comisarías de Familia, Secretarías de la Mujer, Personería, Fiscalía para medidas de protección, acceso a justicia y restablecimiento de derechos.</div>
+            </div>
+            <div class="route-step">
+                <div class="route-icon">6</div>
+                <div class="route-content"><strong>Seguimiento y rehabilitación integral</strong><br>Cirugías reconstructivas, terapia ocupacional, apoyo para inclusión laboral, acompañamiento a la familia, garantía de no repetición.</div>
+            </div>
+            <p class="feedback"><i class="fas fa-info-circle"></i> Todos los servicios deben ser prestados de manera gratuita, sin barreras administrativas (Circular 016 de 2014, Resolución 205 de 2020).</p>
+        </div>
+    </div>
+
+    <!-- PANEL 4: EVALUACIÓN FORMATIVA -->
+    <div id="quiz" class="tab-pane">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-question"></i> Evaluación formativa – Módulo 2</div>
+            <div id="quizContainer">
+                <div class="quiz-question">
+                    <p><strong>1.</strong> ¿Cuál es el principal instrumento internacional que obliga a Colombia a prevenir y sancionar la violencia contra las mujeres y que fue aprobado mediante la Ley 248 de 1995?</p>
+                    <div class="quiz-option"><input type="radio" name="q1" value="a"> CEDAW</div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="b"> Convención de Belém do Pará</div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="c"> Declaración de Viena</div>
+                    <div class="quiz-option"><input type="radio" name="q1" value="d"> Protocolo de San Salvador</div>
+                </div>
+                <div class="quiz-question">
+                    <p><strong>2.</strong> Según la Ley 1257 de 2008, ¿cuál es uno de los derechos de las mujeres víctimas de violencia?</p>
+                    <div class="quiz-option"><input type="radio" name="q2" value="a"> Pagar cuotas moderadoras por su atención</div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="b"> Recibir orientación jurídica gratuita e inmediata</div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="c"> Ser confrontada con el agresor en todos los espacios de atención</div>
+                    <div class="quiz-option"><input type="radio" name="q2" value="d"> No recibir información sobre su caso para proteger su intimidad</div>
+                </div>
+                <div class="quiz-question">
+                    <p><strong>3.</strong> La Ley 1639 de 2013 establece, entre otras medidas, el aumento de penas para el delito de lesiones personales cuando se cometen con ácidos, álcalis o sustancias corrosivas. ¿Qué otro aspecto regula?</p>
+                    <div class="quiz-option"><input type="radio" name="q3" value="a"> La creación de un fondo de indemnización para víctimas</div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="b"> El control de comercialización de estas sustancias y medidas de protección integral</div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="c"> La obligación de las víctimas de pagar sus tratamientos</div>
+                    <div class="quiz-option"><input type="radio" name="q3" value="d"> La exclusión de estos casos del Sistema de Vigilancia en Salud Pública</div>
+                </div>
+                <div class="quiz-question">
+                    <p><strong>4.</strong> Durante la fase de reacción (segunda fase) tras un ataque con agente químico, la víctima suele presentar:</p>
+                    <div class="quiz-option"><input type="radio" name="q4" value="a"> Solo síntomas físicos, sin afectación emocional</div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="b"> Reconocimiento del daño y alteraciones emocionales como ansiedad y depresión</div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="c"> Negación total de lo ocurrido y rechazo al tratamiento</div>
+                    <div class="quiz-option"><input type="radio" name="q4" value="d"> Interés exclusivo por su reincorporación laboral</div>
+                </div>
+                <div class="quiz-question">
+                    <p><strong>5.</strong> ¿Qué actor del SGSSS tiene la responsabilidad de notificar los eventos de agresión por ácidos, álcalis o sustancias corrosivas al Sistema de Vigilancia en Salud Pública (SIVIGILA)?</p>
+                    <div class="quiz-option"><input type="radio" name="q5" value="a"> La EPS</div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="b"> La IPS</div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="c"> El Ministerio de Salud</div>
+                    <div class="quiz-option"><input type="radio" name="q5" value="d"> La Superintendencia Nacional de Salud</div>
+                </div>
+                <button id="submitQuiz2" class="btn-primary">Enviar respuestas</button>
+                <div id="quizResult2" class="feedback" style="margin-top:1rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PANEL 5: NOTAS PERSONALES -->
+    <div id="notas" class="tab-pane">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-sticky-note"></i> Mis apuntes del módulo 2</div>
+            <textarea id="studentNotes2" rows="8" placeholder="Escribe aquí tus notas personales, reflexiones o dudas sobre el contenido... Se guardarán automáticamente en tu navegador."></textarea>
+            <button id="saveNotes2" class="btn-primary" style="margin-top:0.5rem;">Guardar notas</button>
+            <div id="notesFeedback2" class="feedback" style="margin-top:0.5rem;"></div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>Diplomado Virtual – Atención Integral en Salud a Víctimas de Ataques con Agentes Químicos</p>
+    <p>Basado en Resolución 4568 de 2014, Ley 1257 de 2008, Ley 1639 de 2013, y demás normativa colombiana.</p>
+</footer>
+
+<script>
+    // Tabs
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panes = document.querySelectorAll('.tab-pane');
+    tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+            tabs.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            panes.forEach(pane => {
+                pane.classList.remove('active');
+                if (pane.id === tabId) pane.classList.add('active');
+            });
+        });
+    });
+
+    // Colapsables
+    document.querySelectorAll('.collapsible-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const card = header.closest('.collapsible-card');
+            card.classList.toggle('open');
+        });
+    });
+
+    // Quiz Módulo 2
+    document.getElementById('submitQuiz2').addEventListener('click', () => {
+        const answers = {
+            q1: 'b',   // Convención de Belém do Pará
+            q2: 'b',   // Orientación jurídica gratuita
+            q3: 'b',   // Control de comercialización y medidas de protección
+            q4: 'b',   // Reconocimiento del daño y alteraciones emocionales
+            q5: 'b'    // IPS notifica al SIVIGILA
+        };
+        let score = 0;
+        let feedback = '';
+        for (let i = 1; i <= 5; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            if (selected && selected.value === answers[`q${i}`]) {
+                score++;
+            } else {
+                switch(i) {
+                    case 1: feedback += '❌ 1. La respuesta correcta es Convención de Belém do Pará (Ley 248 de 1995).<br>'; break;
+                    case 2: feedback += '❌ 2. La Ley 1257 garantiza orientación jurídica gratuita e inmediata.<br>'; break;
+                    case 3: feedback += '❌ 3. La Ley 1639 establece control de comercialización y medidas de protección integral.<br>'; break;
+                    case 4: feedback += '❌ 4. En la fase de reacción se reconoce el daño y aparecen alteraciones emocionales.<br>'; break;
+                    case 5: feedback += '❌ 5. La IPS es la responsable de notificar al SIVIGILA.<br>'; break;
+                }
+            }
+        }
+        if (score === 5) feedback = '✅ ¡Excelente! Has respondido correctamente todas las preguntas.';
+        else feedback = `📊 Obtuviste ${score}/5. Revisa los conceptos: <br>${feedback}`;
+        document.getElementById('quizResult2').innerHTML = feedback;
+    });
+
+    // Notas módulo 2
+    const notesTextarea2 = document.getElementById('studentNotes2');
+    const savedNotes2 = localStorage.getItem('modulo2_notas');
+    if (savedNotes2) notesTextarea2.value = savedNotes2;
+    document.getElementById('saveNotes2').addEventListener('click', () => {
+        localStorage.setItem('modulo2_notas', notesTextarea2.value);
+        document.getElementById('notesFeedback2').innerHTML = '<i class="fas fa-check"></i> Notas guardadas correctamente.';
+        setTimeout(() => document.getElementById('notesFeedback2').innerHTML = '', 2000);
+    });
+</script>
 </body>
 </html>
