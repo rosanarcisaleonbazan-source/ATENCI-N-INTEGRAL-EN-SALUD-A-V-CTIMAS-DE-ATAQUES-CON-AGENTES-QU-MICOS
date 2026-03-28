@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Módulo 5: Referencia a Unidad de Quemados - Agentes Químicos</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f4f9;
+            color: #1e293b;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        .hero {
+            background: linear-gradient(135deg, #0f2c33 0%, #1c4e5e 100%);
+            color: white;
+            border-radius: 2rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .hero h1 i {
+            background: #ff8c42;
+            padding: 10px;
+            border-radius: 50%;
+            color: #1e2a3e;
+        }
+        .badge-mod {
+            background: #ff8c42;
+            color: #1e2a3e;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .comp-card {
+            background: rgba(255,255,240,0.1);
+            backdrop-filter: blur(4px);
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            border-left: 5px solid #ff8c42;
+        }
+        .temas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0;
+        }
+        .card-tema {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .card-tema:hover {
+            transform: translateY(-4px);
+        }
+        .card-header {
+            background: #1f5e6e;
+            color: white;
+            padding: 1rem 1.5rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        .simulador {
+            background: #ffffff;
+            border-radius: 1.2rem;
+            margin: 2rem 0;
+            border: 1px solid #dce5ef;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+        .simulador h3 {
+            color: #1f5e6e;
+            border-left: 5px solid #ff8c42;
+            padding-left: 15px;
+            margin-bottom: 1rem;
+        }
+        .btn-sim {
+            background: #2c7a4d;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.9rem;
+        }
+        .btn-sim:hover {
+            background: #1e5f3a;
+            transform: scale(1.02);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #2c7a4d;
+            color: #2c7a4d;
+        }
+        .result-area {
+            background: #eef3fc;
+            padding: 1rem;
+            border-radius: 1rem;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            border-left: 3px solid #ff8c42;
+        }
+        .quote {
+            background: #fef7e0;
+            padding: 1rem;
+            border-radius: 1rem;
+            border-left: 5px solid #ff914d;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .accordion-content.show {
+            max-height: 800px;
+        }
+        .btn-accordion {
+            background: none;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0.8rem 0;
+            color: #1f5e6e;
+        }
+        .imagen-ref {
+            background: #f1f5f9;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.7rem 1rem;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+        }
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            border-top: 1px solid #cbd5e1;
+            font-size: 0.8rem;
+            color: #4b5563;
+        }
+        .badge-crit {
+            background: #dc2626;
+            color: white;
+            border-radius: 30px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: inline-block;
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.6rem; }
+            .container { padding: 1rem; }
+        }
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        @media (max-width: 700px) {
+            .grid-2col { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Header Módulo 5 -->
+    <div class="hero">
+        <h1><i class="fas fa-ambulance"></i> Módulo 5: Referencia a Unidad de Quemados</h1>
+        <div class="badge-mod">Ruta de atención especializada para lesionados por agentes químicos</div>
+        <div class="comp-card">
+            <i class="fas fa-bullseye"></i> <strong>Competencia específica:</strong> Describir la ruta de referencia a los servicios especializados para la atención del lesionado por ataque con agentes químicos.
+            <div style="font-size:0.85rem; margin-top:8px;"><i class="fas fa-image"></i> Imagen: Freepik | Resolución 4568 de 2014</div>
+        </div>
+    </div>
+
+    <!-- Contenidos temáticos en cards -->
+    <div class="temas-grid">
+        <div class="card-tema">
+            <div class="card-header"><i class="fas fa-exchange-alt"></i> Tema 1: Protocolo de Referencia</div>
+            <div class="card-body">
+                <p><strong>Criterios de remisión inmediata:</strong> Sospecha de lesión vía aérea, quemadura extensa, alteración electrolítica refractaria, síntomas tóxicos sistémicos.</p>
+                <button class="btn-sim" id="simReferenciaBtn"><i class="fas fa-phone-alt"></i> Simular solicitud de referencia</button>
+                <div id="referenciaOut" class="result-area" style="display: none;"></div>
+                <hr>
+                <button class="btn-accordion" id="btnTrasladoInfo"><span><i class="fas fa-truck-medical"></i> Documentos y cuidados durante traslado</span> <i class="fas fa-chevron-down"></i></button>
+                <div id="trasladoInfo" class="accordion-content">
+                    <ul style="margin-left: 1.2rem; font-size: 0.9rem;">
+                        <li><strong>Documentos:</strong> Aceptación IPS receptora, comprobador de derechos, copia carné, resumen HC con descripción de hechos, procedimientos.</li>
+                        <li><strong>Cuidados:</strong> Cabecera 30°, gasas húmedas con lactato Ringer, extremidades elevadas, evitar hipotermia, monitoreo diuresis >0.5ml/kg/h, dos vías periféricas.</li>
+                        <li><strong>Normatividad:</strong> Resolución 5521/2013, Sentencia T-760/2008 (traslado continuo).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-tema">
+            <div class="card-header"><i class="fas fa-hospital-user"></i> Tema 2: Unidad de Quemados</div>
+            <div class="card-body">
+                <p>Evaluación multidisciplinaria, reevaluación ABCDE, clasificación de quemaduras, definición de hospitalización vs ambulatorio.</p>
+                <button class="btn-sim" id="criteriosHospitalizacionBtn"><i class="fas fa-clinic-medical"></i> Criterios de hospitalización / ambulatorio</button>
+                <div id="criteriosOut" class="result-area" style="display: none;"></div>
+                <div class="quote" style="margin-top: 12px;">
+                    <i class="fas fa-users"></i> Equipo multidisciplinario: Cirugía plástica, oftalmología, psiquiatría, trabajo social, fisiatría, pediatría, etc.
+                </div>
+            </div>
+        </div>
+
+        <div class="card-tema">
+            <div class="card-header"><i class="fas fa-calendar-check"></i> Tema 3: Manejo Ambulatorio</div>
+            <div class="card-body">
+                <p>Controles por cirugía plástica, seguimiento psicológico, rehabilitación física, atención sociofamiliar. Continuidad ininterrumpida.</p>
+                <button class="btn-sim" id="simAmbulatorioBtn"><i class="fas fa-hand-holding-heart"></i> Simular plan de seguimiento ambulatorio</button>
+                <div id="ambulatorioOut" class="result-area" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simulador: Decisión de referencia y estabilidad -->
+    <div class="simulador">
+        <h3><i class="fas fa-stethoscope"></i> Simulador clínico: ¿Referir a unidad de quemados? Criterios de traslado</h3>
+        <p>Evalúe al paciente y decida si requiere referencia inmediata a unidad especializada.</p>
+        <div class="grid-2col">
+            <div>
+                <label><input type="checkbox" id="critViaAerea"> Sospecha lesión vía aérea / estridor</label><br>
+                <label><input type="checkbox" id="critQuemaduraExt"> Quemadura extensa (>20% SCQ o áreas especiales)</label><br>
+                <label><input type="checkbox" id="critToxSist"> Síntomas tóxicos sistémicos</label><br>
+                <label><input type="checkbox" id="critElectrolitos"> Alteración electrolítica refractaria</label>
+            </div>
+            <div>
+                <label><input type="checkbox" id="critHemodinamica"> Estabilidad hemodinámica (para traslado seguro)</label><br>
+                <label><input type="checkbox" id="critViaAsegurada"> Vía aérea asegurada / intubación si necesario</label>
+            </div>
+        </div>
+        <button class="btn-sim" id="evaluarReferencia">Evaluar indicación de referencia</button>
+        <div id="resultadoReferencia" class="result-area"></div>
+        <div class="imagen-ref"><i class="fas fa-notes-medical"></i> Según Resolución 4568: Toda víctima con compromiso de vía aérea, quemadura extensa, o tóxicos sistémicos debe ser trasladada a unidad de quemados.</div>
+    </div>
+
+    <!-- Simulador: Acciones en unidad de quemados + manejo interdisciplinario -->
+    <div class="simulador">
+        <h3><i class="fas fa-handshake"></i> Simulador: Abordaje interdisciplinario en unidad de quemados</h3>
+        <p>Seleccione las especialidades requeridas según el caso (víctima con quemadura química facial + ojo + sospecha de ingestión)</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+            <label><input type="checkbox" class="especialidad" value="Oftalmología"> Oftalmología</label>
+            <label><input type="checkbox" class="especialidad" value="Cirugía plástica"> Cirugía plástica</label>
+            <label><input type="checkbox" class="especialidad" value="Psiquiatría"> Psiquiatría</label>
+            <label><input type="checkbox" class="especialidad" value="Cirugía general"> Cirugía general (ingesta)</label>
+            <label><input type="checkbox" class="especialidad" value="Trabajo social"> Trabajo social</label>
+            <label><input type="checkbox" class="especialidad" value="Fisiatría"> Fisiatría / rehabilitación</label>
+        </div>
+        <button class="btn-sim" id="generarEquipo">Generar equipo recomendado</button>
+        <div id="equipoOut" class="result-area"></div>
+        <div class="quote"><i class="fas fa-brain"></i> Salud mental: valoración por psiquiatría para prevenir depresión mayor, TEPT, ansiedad. Evitar revictimización y etiquetas.</div>
+    </div>
+
+    <!-- Simulador: rehabilitación física y órtesis -->
+    <div class="simulador">
+        <h3><i class="fas fa-walking"></i> Rehabilitación física y cuidados post-quemadura</h3>
+        <p>Seleccione las intervenciones recomendadas en fase de rehabilitación temprana:</p>
+        <div>
+            <label><input type="checkbox" id="rehabEjercicio"> Ejercicio y rango de movimiento</label><br>
+            <label><input type="checkbox" id="rehabEdema"> Control de edema (elevación, compresión)</label><br>
+            <label><input type="checkbox" id="rehabOrtesis"> Uso de órtesis / férulas</label><br>
+            <label><input type="checkbox" id="rehabMental"> Apoyo psicológico continuo</label>
+        </div>
+        <button class="btn-sim" id="generarRehab">Generar plan de rehabilitación inicial</button>
+        <div id="rehabOut" class="result-area"></div>
+        <div class="imagen-ref"><i class="fas fa-sun"></i> Protección solar permanente, manejo de cicatrices, seguimiento por cirugía plástica por años.</div>
+    </div>
+
+    <!-- Simulador de referencia: aspectos normativos y documentos -->
+    <div class="simulador">
+        <h3><i class="fas fa-file-alt"></i> Documentación para referencia efectiva (simulación de reporte)</h3>
+        <div class="grid-2col">
+            <input type="text" id="nombrePacienteRef" placeholder="Nombre víctima" value="Ana María Suárez">
+            <input type="text" id="epsRef" placeholder="EPS / aseguradora" value="Nueva EPS">
+            <input type="text" id="centroOrigen" placeholder="IPS origen" value="Hospital Local de Urgencias">
+            <input type="text" id="unidadDestino" placeholder="Unidad quemados destino" value="Unidad de Quemados - Alta Complejidad">
+        </div>
+        <button class="btn-sim" id="generarDocumentoRef">Generar resumen de referencia y documentos adjuntos</button>
+        <div id="documentosRefOut" class="result-area"></div>
+        <div class="quote"><i class="fas fa-gavel"></i> Base legal: Resolución 5521 de 2013 (art.28), Circular 008 Supersalud, Sentencia T-760: El traslado no puede ser interrumpido sin garantizar continuidad.</div>
+    </div>
+
+    <!-- Intervención terciaria: definición y ejemplos -->
+    <div class="simulador">
+        <h3><i class="fas fa-chart-line"></i> Intervención terciaria para víctimas de ataques con químicos</h3>
+        <p><strong>Concepto:</strong> Intervención terciaria busca atenuar efectos del trauma, recuperar desempeño comunitario y reparar daño psicosocial. Incluye psicoterapia, reinserción social, rehabilitación física y acompañamiento legal.</p>
+        <button class="btn-sim" id="mostrarIntervencionTerciaria">Mostrar acciones de intervención terciaria</button>
+        <div id="terciariaOut" class="result-area" style="display: none;"></div>
+        <div class="imagen-ref"><i class="fas fa-hand-holding-heart"></i> Según Resolución 4568: seguimiento por salud mental hasta 60 sesiones anuales para mujeres víctimas de violencia (Res. 5521 arts. 66,68).</div>
+    </div>
+
+    <footer>
+        <i class="fas fa-book"></i> Basado en Resolución 4568 de 2014, Resolución 5521/2013, Circular 008 de 2017, Sentencia T-760. <br>
+        Módulo 5: Referencia a unidad de quemados – Simuladores interactivos para la ruta de atención especializada.
+    </footer>
+</div>
+
+<script>
+    // Referencia simulación
+    const simRefBtn = document.getElementById('simReferenciaBtn');
+    const referenciaOut = document.getElementById('referenciaOut');
+    simRefBtn.addEventListener('click', () => {
+        referenciaOut.style.display = 'block';
+        referenciaOut.innerHTML = `📞 <strong>Solicitud de remisión a unidad de quemados</strong><br>
+        • Central de referencia contacta aseguradora / DTS si no afiliada.<br>
+        • Información requerida: edad, sexo, %SCQ, estado general, mecanismo.<br>
+        • Aceptación: institución receptora confirma, hora y funcionario registrado.<br>
+        • <i class="fas fa-check-circle"></i> Traslado solo si hemodinamia estable y vía aérea asegurada.`;
+    });
+
+    // Acordeón traslado
+    const btnTraslado = document.getElementById('btnTrasladoInfo');
+    const trasladoDiv = document.getElementById('trasladoInfo');
+    btnTraslado.addEventListener('click', () => {
+        trasladoDiv.classList.toggle('show');
+        const icon = btnTraslado.querySelector('.fa-chevron-down');
+        if(trasladoDiv.classList.contains('show')) icon.style.transform = 'rotate(180deg)';
+        else icon.style.transform = 'rotate(0deg)';
+    });
+
+    // Criterios hospitalización
+    const critBtn = document.getElementById('criteriosHospitalizacionBtn');
+    const criteriosOut = document.getElementById('criteriosOut');
+    critBtn.addEventListener('click', () => {
+        criteriosOut.style.display = 'block';
+        criteriosOut.innerHTML = `🏥 <strong>Criterios de hospitalización en unidad de quemados:</strong><br>
+        • Quemadura en cara, cuello, manos, pies, genitales, pliegues.<br>
+        • Toxicidad sistémica, compromiso vía aérea.<br>
+        • Quemadura grado II profundo o III, patrón continuo.<br>
+        • Extremos de edad, comorbilidades, riesgo de nueva agresión.<br>
+        🏡 <strong>Criterios de manejo ambulatorio:</strong> Patrón salpicadura, GI o GII superficial, sin áreas especiales, estable.`;
+    });
+
+    // Simulador ambulatorio
+    const ambBtn = document.getElementById('simAmbulatorioBtn');
+    const ambOut = document.getElementById('ambulatorioOut');
+    ambBtn.addEventListener('click', () => {
+        ambOut.style.display = 'block';
+        ambOut.innerHTML = `📅 <strong>Plan de manejo ambulatorio (Res.4568)</strong><br>
+        • Controles por cirugía plástica: primeras 3 meses semanales/quincenales, luego mensuales.<br>
+        • Seguimiento por salud mental: psicoterapia individual/grupal según necesidad.<br>
+        • Atención sociofamiliar: trabajo social para reintegración laboral y social.<br>
+        • Protección solar, rehabilitación física continúa.`;
+    });
+
+    // Evaluación de referencia (criterios)
+    const evaluarRefBtn = document.getElementById('evaluarReferencia');
+    const resultadoRef = document.getElementById('resultadoReferencia');
+    evaluarRefBtn.addEventListener('click', () => {
+        const viaAerea = document.getElementById('critViaAerea').checked;
+        const quemExt = document.getElementById('critQuemaduraExt').checked;
+        const toxSist = document.getElementById('critToxSist').checked;
+        const electrolitos = document.getElementById('critElectrolitos').checked;
+        const estable = document.getElementById('critHemodinamica').checked;
+        const viaSegura = document.getElementById('critViaAsegurada').checked;
+
+        let indicacion = false;
+        if(viaAerea || quemExt || toxSist || electrolitos) indicacion = true;
+        if(indicacion) {
+            let advertencia = "";
+            if(!estable || (!viaSegura && viaAerea)) advertencia = " ⚠️ Asegurar estabilidad y vía aérea antes del traslado.";
+            resultadoRef.innerHTML = `✅ <strong>Indicación de referencia a unidad de quemados CONFIRMADA.</strong> ${advertencia}<br>• Criterios positivos: ${viaAerea?'lesión vía aérea, ':''}${quemExt?'quemadura extensa, ':''}${toxSist?'toxicidad sistémica, ':''}${electrolitos?'alteración electrolítica, ':''}<br>• Asegurar documento de aceptación y monitoreo durante traslado.`;
+        } else {
+            resultadoRef.innerHTML = `ℹ️ No se identifican criterios mayores de referencia inmediata. Puede manejarse en institución actual con seguimiento ambulatorio según evaluación.`;
+        }
+    });
+
+    // Equipo multidisciplinario
+    const generarEquipoBtn = document.getElementById('generarEquipo');
+    const equipoOut = document.getElementById('equipoOut');
+    generarEquipoBtn.addEventListener('click', () => {
+        const especialidadesSeleccionadas = Array.from(document.querySelectorAll('.especialidad:checked')).map(cb => cb.value);
+        if(especialidadesSeleccionadas.length === 0) {
+            equipoOut.innerHTML = '❌ Seleccione al menos una especialidad para recomendar equipo.';
+        } else {
+            equipoOut.innerHTML = `👩‍⚕️ <strong>Equipo interdisciplinario recomendado:</strong> ${especialidadesSeleccionadas.join(', ')}.<br>
+            • Evaluación integral: reevaluar ABCDE, diagrama corporal, manejo del dolor y soporte psicológico.<br>
+            • Importante: evitar revictimización, garantizar privacidad y primeros auxilios psicológicos.`;
+        }
+    });
+
+    // Plan de rehabilitación
+    const generarRehab = document.getElementById('generarRehab');
+    const rehabOut = document.getElementById('rehabOut');
+    generarRehab.addEventListener('click', () => {
+        const ejerc = document.getElementById('rehabEjercicio').checked;
+        const edema = document.getElementById('rehabEdema').checked;
+        const ortesis = document.getElementById('rehabOrtesis').checked;
+        const mental = document.getElementById('rehabMental').checked;
+        let lista = [];
+        if(ejerc) lista.push('Ejercicios de rango de movimiento y fortalecimiento');
+        if(edema) lista.push('Control de edema con elevación y prendas compresivas');
+        if(ortesis) lista.push('Férulas/órtesis para prevenir contracturas');
+        if(mental) lista.push('Atención psicológica continua y psiquiatría si requiere');
+        if(lista.length===0) lista.push('No se seleccionaron intervenciones. Seleccione al menos una.');
+        rehabOut.innerHTML = `🩺 <strong>Plan de rehabilitación física y funcional:</strong><br>• ${lista.join('<br>• ')}<br>🔁 Seguimiento por fisiatría y terapia ocupacional, proceso puede prolongarse años.`;
+    });
+
+    // Documentos de referencia
+    const genDocBtn = document.getElementById('generarDocumentoRef');
+    const docOut = document.getElementById('documentosRefOut');
+    genDocBtn.addEventListener('click', () => {
+        const nombre = document.getElementById('nombrePacienteRef').value || "No especificado";
+        const eps = document.getElementById('epsRef').value || "No registrada";
+        const origen = document.getElementById('centroOrigen').value;
+        const destino = document.getElementById('unidadDestino').value;
+        const fechaHora = new Date().toLocaleString();
+        docOut.innerHTML = `📄 <strong>RESUMEN DE REFERENCIA - UNIDAD DE QUEMADOS</strong><br>
+        • Paciente: ${nombre}<br>
+        • Aseguradora: ${eps}<br>
+        • IPS Origen: ${origen} | IPS Destino: ${destino}<br>
+        • Fecha/hora solicitud: ${fechaHora}<br>
+        • Documentos anexos: comprobador de derechos, copia identidad, resumen HC (descripción agresión, procedimientos, %SCQ), aceptación receptora.<br>
+        • <i class="fas fa-ambulance"></i> Traslado con monitorización: dos vías periféricas, sonda vesical si requiere diuresis, cabecera 30°, extremidades elevadas.`;
+    });
+
+    // Intervención terciaria
+    const terBtn = document.getElementById('mostrarIntervencionTerciaria');
+    const terOut = document.getElementById('terciariaOut');
+    terBtn.addEventListener('click', () => {
+        terOut.style.display = 'block';
+        terOut.innerHTML = `🔄 <strong>INTERVENCIÓN TERCIARIA para víctimas de ataques con agentes químicos</strong><br>
+        • Objetivo: atenuar efectos del trauma, recuperar desempeño en comunidad, reparar daño.<br>
+        • Acciones: psicoterapia individual/grupal (hasta 60 sesiones/año según Res.5521), acompañamiento por trabajo social para reinserción laboral, grupos de apoyo.<br>
+        • Rehabilitación física prolongada, seguimiento por cirugía plástica para reconstrucción.<br>
+        • Garantizar medidas de protección si existe riesgo de nueva agresión (Ley 1257, Decreto 2734).<br>
+        • La intervención terciaria fortalece redes sociales y autonomía.`;
+    });
+</script>
+</body>
+</html>
