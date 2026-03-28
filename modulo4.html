@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Módulo 4: Atención en Urgencias - Agentes Químicos</title>
+    <!-- Font Awesome 6 (gratuito) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #eef2f7;
+            color: #1e2a3e;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        /* header hero */
+        .hero {
+            background: linear-gradient(135deg, #0b2b40 0%, #1a4d5f 100%);
+            color: white;
+            border-radius: 2rem;
+            padding: 2rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .hero h1 i {
+            background: #ffb347;
+            padding: 10px;
+            border-radius: 50%;
+            color: #1e2a3e;
+        }
+        .badge-mod {
+            background: #ffb347;
+            color: #1e2a3e;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .comp-card {
+            background: rgba(255,255,240,0.1);
+            backdrop-filter: blur(4px);
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            border-left: 5px solid #ffb347;
+        }
+        /* grid cards */
+        .temas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0;
+        }
+        .card-tema {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+        .card-tema:hover {
+            transform: translateY(-5px);
+        }
+        .card-header {
+            background: #1e4a62;
+            color: white;
+            padding: 1rem 1.5rem;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        .simulador {
+            background: #f8fafc;
+            border-radius: 1.2rem;
+            margin: 2rem 0;
+            border: 1px solid #cbd5e1;
+            padding: 1.5rem;
+        }
+        .simulador h3 {
+            color: #0f3b4c;
+            border-left: 5px solid #ff914d;
+            padding-left: 15px;
+            margin-bottom: 1rem;
+        }
+        .btn-sim {
+            background: #2c6e46;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-sim:hover {
+            background: #1e593a;
+            transform: scale(1.02);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #2c6e46;
+            color: #2c6e46;
+        }
+        .triage-sim, .lavado-sim, .ph-sim {
+            background: #ffffffdd;
+            padding: 1rem;
+            border-radius: 1rem;
+            margin-top: 1rem;
+            border: 1px solid #e2e8f0;
+        }
+        .result-area {
+            background: #e9f0f5;
+            padding: 1rem;
+            border-radius: 1rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        .quote {
+            font-style: italic;
+            background: #f1f9fe;
+            padding: 1rem;
+            border-radius: 1rem;
+            border-left: 4px solid #ff914d;
+            margin: 1rem 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            border-top: 1px solid #cbd5e1;
+            font-size: 0.8rem;
+            color: #4b5563;
+        }
+        .imagen-ref {
+            background: #f1f5f9;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .accordion-content.show {
+            max-height: 1000px;
+            transition: max-height 0.5s ease-in;
+        }
+        .btn-accordion {
+            background: none;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0.8rem 0;
+        }
+        hr {
+            margin: 1rem 0;
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.6rem; }
+            .container { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Header principal -->
+    <div class="hero">
+        <h1><i class="fas fa-hospital-user"></i> Módulo 4: Atención en el Servicio de Urgencias</h1>
+        <div class="badge-mod">Atención especial al lesionado por ataque con agentes químicos</div>
+        <div class="comp-card">
+            <i class="fas fa-bullseye" style="margin-right: 10px;"></i> 
+            <strong>Competencia específica:</strong> Conocer los elementos de la atención especial en urgencias del lesionado por ataque con agentes químicos.
+            <div style="font-size:0.85rem; margin-top:8px;"><i class="fas fa-image"></i> Imagen: Freepik</div>
+        </div>
+        <div class="imagen-ref" style="background: rgba(255,255,245,0.2); margin-top: 1rem;">
+            <i class="fas fa-gavel"></i> Resolución 4568 de 2014 | Protocolo de Atención de Urgencias a Víctimas de Ataques con Agentes Químicos
+        </div>
+    </div>
+
+    <!-- Contenidos temáticos grid -->
+    <div class="temas-grid">
+        <div class="card-tema">
+            <div class="card-header"><i class="fas fa-hand-holding-medical"></i> Tema 1: Asistencia al Lesionado</div>
+            <div class="card-body">
+                <p><strong>Procedimientos iniciales:</strong> Triage I (máxima prioridad), evaluación ABCDE, irrigación inmediata, manejo de quemaduras, apoyo sociofamiliar.</p>
+                <div class="quote">"Las víctimas de ataques con agentes químicos deben ser clasificadas como de MÁXIMA PRIORIDAD (triage I)" – Res. 4568.</div>
+                <button class="btn-sim btn-outline" style="width:100%; margin-top: 8px;" id="btnTriageSim"><i class="fas fa-chart-line"></i> Simulador: Triage y evaluación inicial</button>
+                <div id="triageSimPanel" class="triage-sim" style="display: none; margin-top: 12px;">
+                    <p><strong>🔍 Simulador de priorización</strong></p>
+                    <p>Paciente con quemaduras faciales, agente químico en ojos y dificultad respiratoria leve.</p>
+                    <button class="btn-sim" id="decidirTriage">Asignar prioridad según protocolo</button>
+                    <div id="triageResultado" class="result-area" style="margin-top: 10px;"></div>
+                </div>
+                <hr>
+                <button class="btn-accordion" id="btnABCDE"><span><i class="fas fa-lungs"></i> Evaluación ABCDE + manejo</span> <i class="fas fa-chevron-down"></i></button>
+                <div id="abcdeContent" class="accordion-content">
+                    <ul style="margin-left: 1.2rem; font-size: 0.9rem;">
+                        <li><strong>A (Airway):</strong> Sospechar edema, intubación si compromiso.</li>
+                        <li><strong>B (Breathing):</strong> Escarotomía si tórax restrictivo.</li>
+                        <li><strong>C (Circulation):</strong> 2 vías periféricas, Fórmula de Parkland (4cc x kg x %SCQ).</li>
+                        <li><strong>D (Disability):</strong> Evaluar conciencia, déficit neurológico.</li>
+                        <li><strong>E (Exposure):</strong> Retirar ropa, irrigación abundante, control hipotermia.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-tema">
+            <div class="card-header"><i class="fas fa-flask"></i> Tema 2: Recolección de Evidencia Forense</div>
+            <div class="card-body">
+                <p>Desde primer contacto: embalaje de ropa contaminada, fragmento patrón, cadena de custodia.</p>
+                <button class="btn-sim" id="btnSimEvidencia"><i class="fas fa-box"></i> Simular embalaje y cadena de custodia</button>
+                <div id="evidenciaOutput" class="result-area" style="margin-top: 12px; display: none;"></div>
+                <div class="imagen-ref" style="margin-top: 1rem;">
+                    <i class="fas fa-gavel"></i> <strong>Rótulo EMP:</strong> Nombre víctima, ID, HC, fecha, médico que embala.
+                </div>
+            </div>
+        </div>
+
+        <div class="card-tema">
+            <div class="card-header"><i class="fas fa-chart-line"></i> Tema 3: Reporte SIVIGILA y RIPS</div>
+            <div class="card-body">
+                <p>Notificación obligatoria al SIVIGILA (ficha INS:875). Registro RIPS con causa externa "Lesión por agresión" y códigos CIE-10 Y08.-</p>
+                <button class="btn-sim" id="btnSimSivigila"><i class="fas fa-flag-checkered"></i> Simular diligenciamiento RIPS/SIVIGILA</button>
+                <div id="sivigilaOut" class="result-area" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simulador avanzado de lavado y neutralización ocular -->
+    <div class="simulador">
+        <h3><i class="fas fa-eye"></i> Simulador interactivo: Manejo ocular y lavado con agente químico</h3>
+        <p>Simula la irrigación continua con Lactato de Ringer, control de pH y analgesia.</p>
+        <div class="lavado-sim">
+            <label><i class="fas fa-tint"></i> Seleccione tiempo de irrigación: </label>
+            <select id="tiempoLavado">
+                <option value="15">15 minutos</option>
+                <option value="30" selected>30 minutos (recomendado)</option>
+                <option value="45">45 minutos</option>
+            </select>
+            <button class="btn-sim" id="iniciarLavado">Iniciar irrigación</button>
+            <div id="lavadoStatus" class="result-area" style="margin-top: 12px;">⏳ Esperando simulación...</div>
+        </div>
+        <div class="ph-sim">
+            <p><strong>📏 Medición pH con tiras reactivas (simulación)</strong></p>
+            <button class="btn-sim" id="medirPH">Medir pH después de lavado</button>
+            <div id="phResultado" class="result-area">pH aún no medido.</div>
+        </div>
+        <div class="quote">
+            <i class="fas fa-syringe"></i> Analgesia recomendada: Morfina 0.05-0.1 mg/kg. No usar yodopovidona, usar clorhexidina acuosa al 0.2%.
+        </div>
+    </div>
+
+    <!-- Simulador de cálculo de líquidos (Parkland) -->
+    <div class="simulador">
+        <h3><i class="fas fa-calculator"></i> Simulador de reanimación hídrica: Fórmula de Parkland</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-end;">
+            <div><label>Peso (kg):</label><br><input type="number" id="peso" value="70" step="1" style="padding: 6px; width: 100px;"></div>
+            <div><label>Superficie quemada (% SCQ):</label><br><input type="number" id="scq" value="20" step="1" min="0" max="100" style="padding: 6px; width: 100px;"></div>
+            <button class="btn-sim" id="calcularLiquidos">Calcular volumen total (Parkland)</button>
+        </div>
+        <div id="resultadoLiquidos" class="result-area" style="margin-top: 15px;">Resultado aparecerá aquí.</div>
+        <p class="imagen-ref"><i class="fas fa-chart-simple"></i> Fórmula: 4 ml x kg x % SCQ. Mitad en primeras 8h, resto en 16h.</p>
+    </div>
+
+    <!-- Simulador de grados de quemadura (profundidad) -->
+    <div class="simulador">
+        <h3><i class="fas fa-burn"></i> Evaluación del grado de quemadura química (simulación clínica)</h3>
+        <p>Seleccione tipo de agente para ver características de la lesión y profundidad sugerida:</p>
+        <select id="agenteQuimico">
+            <option value="acido sulfurico">Ácido Sulfúrico (escara negra, profunda)</option>
+            <option value="acido nitrico">Ácido Nítrico (escara amarillo-naranja)</option>
+            <option value="acido formico">Ácido Fórmico (escara café oscura)</option>
+            <option value="alcali">Álcali / soda cáustica (lesión licuefacción)</option>
+        </select>
+        <button class="btn-sim" id="evaluarQuemadura" style="margin-top: 12px;">Evaluar características</button>
+        <div id="resultadoGrado" class="result-area" style="margin-top: 12px;"></div>
+        <div class="quote"><i class="fas fa-clinic-medical"></i> Recordar: Quemaduras por álcalis suelen ser más profundas y de difícil neutralización.</div>
+    </div>
+
+    <!-- Formulario simulado de Rótulo / Cadena de custodia -->
+    <div class="simulador">
+        <h3><i class="fas fa-file-signature"></i> Práctica: Rótulo para embalaje y registro de cadena de custodia (simulación)</h3>
+        <p>Diligencie los campos para generar el rótulo y registro de cadena de custodia (caso hipotético).</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <input type="text" id="nombreVictima" placeholder="Nombre víctima" value="María López García">
+            <input type="text" id="idVictima" placeholder="Cédula / ID" value="1234567890">
+            <input type="text" id="historiaClinica" placeholder="Historia clínica #" value="HC-2409-01">
+            <input type="text" id="medicoEmbala" placeholder="Médico(a) que embala" value="Dr. Carlos Méndez">
+        </div>
+        <button class="btn-sim" id="generarRotulo">Generar Rótulo EMP y registro cadena de custodia</button>
+        <div id="rotuloOutput" class="result-area" style="margin-top: 12px;"></div>
+        <div class="imagen-ref"><i class="fas fa-balance-scale"></i> Cadena de custodia: garantiza autenticidad de la evidencia física.</div>
+    </div>
+
+    <!-- Ficha de notificación SIVIGILA hipotética -->
+    <div class="simulador">
+        <h3><i class="fas fa-notes-medical"></i> Caso hipotético + Diligenciamiento SIVIGILA (INS:875) y RIPS</h3>
+        <p><strong>Caso:</strong> Paciente femenina de 32 años, agredida en vía pública con ácido sulfúrico en rostro, tórax y ojo izquierdo. Ingresa a urgencias con dolor intenso, quemaduras II/III en 12% SCQ. Se activa ruta de atención y se recolecta evidencia.</p>
+        <button class="btn-sim" id="llenarSivigilaRips">Generar notificación SIVIGILA / RIPS simulada</button>
+        <div id="reporteFinal" class="result-area" style="margin-top: 12px; display: none;"></div>
+    </div>
+
+    <!-- Derechos y lineamientos extra -->
+    <div class="quote">
+        <i class="fas fa-gavel"></i> <strong>Lineamientos Resolución 4568 / Circular 008 Supersalud:</strong> Atención de urgencias, hospitalización, rehabilitación física y mental, suministro de dispositivos, remisión a unidad de quemados. <br>
+        <i class="fas fa-female"></i> Derechos: atención integral, reserva de identidad, acceso a justicia y medidas de protección.
+    </div>
+    <footer>
+        <i class="fas fa-book-open"></i> Basado en la Resolución 4568 de 2014, Circular 008 Supersalud 2017, ABECÉ Minsalud. Imágenes: Freepik. <br>
+        Módulo educativo interactivo - Simuladores para la atención en urgencias por agentes químicos.
+    </footer>
+</div>
+
+<script>
+    // Helper: mostrar/ocultar
+    const btnTriage = document.getElementById('btnTriageSim');
+    const triagePanel = document.getElementById('triageSimPanel');
+    btnTriage.addEventListener('click', () => {
+        if (triagePanel.style.display === 'none') triagePanel.style.display = 'block';
+        else triagePanel.style.display = 'none';
+    });
+    document.getElementById('decidirTriage').addEventListener('click', () => {
+        document.getElementById('triageResultado').innerHTML = '✅ CLASIFICACIÓN: TRIAGE I (Máxima prioridad). <br>• Ingreso inmediato para lavado y evaluación ABCDE. <br>• Primeros auxilios psicológicos, informar derechos.';
+    });
+    // ABCDE accordion
+    const btnAbc = document.getElementById('btnABCDE');
+    const abcContent = document.getElementById('abcdeContent');
+    btnAbc.addEventListener('click', () => {
+        abcContent.classList.toggle('show');
+        const icon = btnAbc.querySelector('.fa-chevron-down');
+        if(abcContent.classList.contains('show')) icon.style.transform = 'rotate(180deg)';
+        else icon.style.transform = 'rotate(0deg)';
+    });
+    // Evidencia forense simulación
+    const btnEvid = document.getElementById('btnSimEvidencia');
+    const evidOut = document.getElementById('evidenciaOutput');
+    btnEvid.addEventListener('click', () => {
+        evidOut.style.display = 'block';
+        evidOut.innerHTML = '📦 <strong>Evidencia recolectada:</strong><br>• Ropa contaminada embalada en papel kraft, bolsa plástica sellada.<br>• Fragmento control de 3x3 cm de zona no impregnada.<br>• Cadena de custodia iniciada: entregado a policía judicial, remisión a laboratorio de evidencia traza.<br>🔖 Rótulo: Nombre, ID, fecha, médico que embala.';
+    });
+    // SIVIGILA RIPS simulación
+    const btnSivi = document.getElementById('btnSimSivigila');
+    const siviOut = document.getElementById('sivigilaOut');
+    btnSivi.addEventListener('click', () => {
+        siviOut.style.display = 'block';
+        siviOut.innerHTML = '📋 <strong>Notificación SIVIGILA (INS:875):</strong> Evento: Violencia química - género. <br> <strong>RIPS:</strong> Causa externa: 09 (Lesión por agresión). Diagnóstico principal: T26.1 (Quemadura química de ojo y anexos). Diagnóstico secundario: Y089 (Agresión por otros medios, lugar no especificado). <br> ⚠️ Aviso inmediato a Fiscalía / URI.';
+    });
+    // Simulador lavado ocular
+    let irrigacionActiva = false;
+    const iniciarLavadoBtn = document.getElementById('iniciarLavado');
+    const lavadoStatus = document.getElementById('lavadoStatus');
+    const tiempoSelect = document.getElementById('tiempoLavado');
+    iniciarLavadoBtn.addEventListener('click', () => {
+        const minutos = parseInt(tiempoSelect.value);
+        lavadoStatus.innerHTML = `💧 Irrigando con Lactato de Ringer / solución salina... (${minutos} minutos continuos).<br>✔ Evite hipotermia: agua a 28-31°C, ambiente cálido. Se recomienda clorhexidina 0.2% para piel.`;
+        setTimeout(() => {
+            lavadoStatus.innerHTML = `✅ Irrigación completada (${minutos} minutos). Se continúa monitoreo de pH y se gestiona remisión a oftalmología/unidad de quemados.`;
+        }, 500);
+    });
+    // medir pH
+    const medirPhBtn = document.getElementById('medirPH');
+    const phResult = document.getElementById('phResultado');
+    medirPhBtn.addEventListener('click', () => {
+        const randomPh = (6.5 + Math.random() * 2).toFixed(1);
+        if(randomPh >= 7.0 && randomPh <= 7.5) phResult.innerHTML = `🧪 pH medido: ${randomPh} (neutro). Puede suspender lavado según criterio.`;
+        else phResult.innerHTML = `🧪 pH medido: ${randomPh} (ácido/alcalino). Continuar irrigación hasta neutralización.`;
+    });
+    // Parkland
+    const calcularLiq = document.getElementById('calcularLiquidos');
+    const resLiq = document.getElementById('resultadoLiquidos');
+    calcularLiq.addEventListener('click', () => {
+        let peso = parseFloat(document.getElementById('peso').value);
+        let scq = parseFloat(document.getElementById('scq').value);
+        if(isNaN(peso) || isNaN(scq) || peso<=0 || scq<0) { resLiq.innerHTML = '❌ Ingrese valores válidos'; return; }
+        let total = 4 * peso * scq;
+        let primeraMitad = total / 2;
+        resLiq.innerHTML = `📊 Volumen total (Parkland): ${total.toFixed(0)} mL de Lactato Ringer. <br>➡️ Administrar ${primeraMitad.toFixed(0)} mL en las primeras 8 horas postquemadura, el resto en las siguientes 16 horas. <br>Control de diuresis: 0.5-1 mL/kg/hora.`;
+    });
+    // Evaluación quemadura por agente
+    const evaluarBtn = document.getElementById('evaluarQuemadura');
+    const gradoOut = document.getElementById('resultadoGrado');
+    evaluarBtn.addEventListener('click', () => {
+        const agente = document.getElementById('agenteQuimico').value;
+        let desc = '';
+        if(agente === 'acido sulfurico') desc = 'Ácido sulfúrico: escara negra, seca, muy adherida. Quemadura profunda (grado III). Dolor intenso, riesgo de lesión térmica asociada.';
+        else if(agente === 'acido nitrico') desc = 'Ácido nítrico: escara amarillo-naranja, quemadura muy profunda (III/IV).';
+        else if(agente === 'acido formico') desc = 'Ácido fórmico: escara café oscura, alta toxicidad sistémica, riesgo de necrosis.';
+        else desc = 'Álcali (soda cáustica): lesión por licuefacción, mayor penetración tisular, riesgo de daño progresivo. Grado variable.';
+        gradoOut.innerHTML = `🧪 <strong>Agente químico:</strong> ${agente.replace(/_/g,' ')}<br>${desc}<br>🔍 Evaluar extensión con regla de los 9, palma = 1% SCQ.`;
+    });
+    // Rótulo y cadena custodia
+    const generarRotulo = document.getElementById('generarRotulo');
+    const rotuloOut = document.getElementById('rotuloOutput');
+    generarRotulo.addEventListener('click', () => {
+        const nombre = document.getElementById('nombreVictima').value || "No especificado";
+        const id = document.getElementById('idVictima').value || "---";
+        const hc = document.getElementById('historiaClinica').value || "---";
+        const medico = document.getElementById('medicoEmbala').value || "---";
+        const fechaHora = new Date().toLocaleString();
+        rotuloOut.innerHTML = `🔖 <strong>RÓTULO PARA EMP / EVIDENCIA FÍSICA</strong><br>
+        • Nombre víctima: ${nombre}<br>
+        • ID: ${id}<br>
+        • Historia Clínica: ${hc}<br>
+        • Fecha/Hora: ${fechaHora}<br>
+        • Médico que embala: ${medico}<br>
+        • Descripción: Prendas contaminadas + fragmento control 3x3 cm en papel kraft, bolsa sellada.<br>
+        📋 <strong>REGISTRO CADENA DE CUSTODIA (simulación)</strong><br>
+        N° de elemento: EMP-001, Remitido a Instituto de Medicina Legal. Firma recibido: Agente policía judicial. Observaciones: Evidencia de ataque con agente químico, preservar refrigeración.`;
+    });
+    // Reporte final SIVIGILA caso hipotético
+    const llenarFinal = document.getElementById('llenarSivigilaRips');
+    const reporteFinalDiv = document.getElementById('reporteFinal');
+    llenarFinal.addEventListener('click', () => {
+        reporteFinalDiv.style.display = 'block';
+        reporteFinalDiv.innerHTML = `📢 <strong>NOTIFICACIÓN SIVIGILA INS:875</strong> (Caso hipotético)<br>
+        • Tipo de violencia: Ataque con agente químico - violencia basada en género.<br>
+        • Datos: Mujer de 32 años, agredida en vía pública, agente: ácido sulfúrico. Quemaduras cara, tórax, ojo izquierdo. <br>
+        • Diagnósticos CIE-10: T26.1 (quemadura química ojo), T20.5 (quemadura química cara), Y089 (Agresión lugar no especificado).<br>
+        • Reporte RIPS: Causa externa 09, diagnóstico principal T54.2 (efecto tóxico de ácido corrosivo).<br>
+        • Aviso a URI y Comisaría de Familia según circular. <br>
+        ✅ Se garantiza atención integral, lavado continuo, apoyo psicológico y cadena de custodia.`;
+    });
+    // Funcionalidades adicionales para mostrar paneles iniciales
+    triagePanel.style.display = 'none';
+    abcContent.classList.remove('show');
+    // Tooltips implícitos
+    console.log("Módulo interactivo cargado: simuladores de atención por agentes químicos");
+</script>
+</body>
+</html>
