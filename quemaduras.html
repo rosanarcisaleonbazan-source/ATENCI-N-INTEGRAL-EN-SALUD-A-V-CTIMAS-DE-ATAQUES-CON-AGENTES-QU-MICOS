@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Quemaduras por Agentes Químicos | Módulo Interactivo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f4f8;
+            color: #1a2c3e;
+            line-height: 1.5;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #1e3a4d 0%, #2c5a6e 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Tabs */
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.7rem 1.3rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 2rem;
+            transition: all 0.2s;
+            color: #4a627a;
+        }
+        .tab-btn i { margin-right: 8px; }
+        .tab-btn:hover {
+            background: #eef2f6;
+        }
+        .tab-btn.active {
+            background: #154c5e;
+            color: white;
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tarjetas y colapsables */
+        .card {
+            background: white;
+            border-radius: 1.2rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #e2edf2;
+        }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #154c5e;
+            border-left: 4px solid #e67e22;
+            padding-left: 1rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Tarjetas colapsables (details) */
+        details {
+            background: #fefcf5;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            transition: all 0.2s;
+        }
+        details summary {
+            font-weight: 700;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            color: #154c5e;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        details summary i {
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+            color: #e67e22;
+        }
+        details[open] summary i {
+            transform: rotate(90deg);
+        }
+        .detail-content {
+            padding: 0.8rem 0 0.8rem 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 0.5rem;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1rem;
+            transition: all 0.2s;
+        }
+        .info-card h4 {
+            color: #e67e22;
+            margin-bottom: 0.6rem;
+            border-left: 3px solid #e67e22;
+            padding-left: 0.6rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 0.6rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background: #eef2f8;
+        }
+
+        footer {
+            background: #0a2a36;
+            color: #cfdfe8;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="hero">
+    <h1><i class="fas fa-burn"></i> Quemaduras por Agentes Químicos</h1>
+    <p>Módulo interactivo: clasificación, fisiopatología, agentes específicos y manejo clínico</p>
+</div>
+
+<div class="container">
+    <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="intro"><i class="fas fa-book-open"></i> Introducción y Fisiopatología</button>
+        <button class="tab-btn" data-tab="clasificacion"><i class="fas fa-layer-group"></i> Clasificación de Agentes</button>
+        <button class="tab-btn" data-tab="agentes"><i class="fas fa-flask"></i> Agentes Específicos</button>
+        <button class="tab-btn" data-tab="tratamiento"><i class="fas fa-hand-holding-heart"></i> Tratamiento</button>
+        <button class="tab-btn" data-tab="ocular"><i class="fas fa-eye"></i> Lesiones Oculares</button>
+    </div>
+
+    <!-- PESTAÑA 1: INTRODUCCIÓN Y FISIOPATOLOGÍA -->
+    <div id="intro" class="tab-pane active">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-info-circle"></i> Introducción</div>
+            <p>En la vida diaria doméstica, del transporte, durante la recreación y en la actividad laboral, el hombre está permanentemente expuesto al contacto con compuestos tóxicos, irritantes, corrosivos, inflamables, cancerígenos o explosivos, cuyo efecto en el organismo humano produce lesiones de grado variable, desde simples inflamaciones tisulares hasta lesiones tan graves que producen la muerte. Los mecanismos más frecuentes de lesiones cutáneas por agentes químicos son: derrame o ruptura de un contenedor inadecuado, transferencia desde su envase original, dilución inadecuada y uso inadecuado de productos.</p>
+            <p>El Manual Merck identifica más de 510 productos peligrosos. El objetivo de esta revisión es describir los principales compuestos que producen lesiones por contacto externo y presentar las medidas generalmente aceptadas para tratarlas.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-title"><i class="fas fa-microscope"></i> Fisiopatología</div>
+            <p>Todas las proteínas tienen una estructura primaria (secuencia de aminoácidos), secundaria (helicoidal) y terciaria (enrollado espacial), mantenidas por enlaces hidrógeno. El contacto con ácidos y álcalis altera el pH tisular, rompe los enlaces iónicos y produce el “desplegamiento” irreversible de la proteína, con destrucción de su actividad biológica (desnaturalización o coagulación).</p>
+            <p>Los agentes químicos producen daño tisular por un tiempo mayor que la exposición efectiva. El aspecto inicial suele ser superficial, subestimándose la severidad. El efecto corrosivo puede continuar hasta una semana después, generando lesión profunda. La severidad depende del mecanismo de acción, concentración, cantidad, duración de exposición y resistencia tisular.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-title"><i class="fas fa-chart-line"></i> Datos clave</div>
+            <ul>
+                <li><strong>Mecanismos frecuentes:</strong> Derrame de contenedor, transferencia inadecuada, dilución inapropiada, uso incorrecto.</li>
+                <li><strong>pH peligroso:</strong> Ácidos con pH ≤ 3.5; álcalis con pH ≥ 11.5.</li>
+                <li><strong>Daño prolongado:</strong> Los químicos pueden seguir actuando hasta 7 días después del contacto.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- PESTAÑA 2: CLASIFICACIÓN DE AGENTES -->
+    <div id="clasificacion" class="tab-pane">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-tag"></i> Clasificación general</div>
+            <div class="grid-2">
+                <div class="info-card"><h4><i class="fas fa-vial"></i> Ácidos inorgánicos</h4><p>Clorhídrico, sulfúrico, fluorhídrico, nítrico, selénico, crómico, etc. Producen necrosis por coagulación con escara dura.</p></div>
+                <div class="info-card"><h4><i class="fas fa-tint"></i> Ácidos orgánicos</h4><p>Fórmico, acético, tioglicólico, ftálico, fénico (fenol). Muy utilizados en laboratorios e industria.</p></div>
+                <div class="info-card"><h4><i class="fas fa-skull"></i> Álcalis cáusticos</h4><p>Hidróxido de sodio (sosa cáustica), hidróxido de calcio, óxido de calcio, cemento. Producen necrosis de licuefacción con escara blanda y penetración profunda.</p></div>
+                <div class="info-card"><h4><i class="fas fa-oil-can"></i> Otros</h4><p>Fenol, hidrocarburos (bencina, kerosene), asfalto, lubricantes, fósforo, cloruro de titanio, litio.</p></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title"><i class="fas fa-table"></i> Agentes corrosivos frecuentes</div>
+            <table>
+                <thead><tr><th>Categoría</th><th>Ejemplos</th></tr></thead>
+                <tbody>
+                    <tr><td>Ácidos inorgánicos</td><td>HCl, H₂SO₄, HF, HNO₃, H₂CrO₄</td></tr>
+                    <tr><td>Ácidos orgánicos</td><td>Fórmico, acético, fenol</td></tr>
+                    <tr><td>Álcalis</td><td>NaOH, KOH, Ca(OH)₂, cemento</td></tr>
+                    <tr><td>Otros</td><td>Fósforo blanco, cloruro de titanio, litio, hidrocarburos</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- PESTAÑA 3: AGENTES ESPECÍFICOS (detallado) -->
+    <div id="agentes" class="tab-pane">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-biohazard"></i> Descripción de agentes específicos</div>
+            <details>
+                <summary><i class="fas fa-chevron-right"></i> <strong>Ácido fluorhídrico (HF)</strong></summary>
+                <div class="detail-content">
+                    <p><strong>Características:</strong> Ácido inorgánico débil, altamente liposoluble. Presente en removedores de óxido, abrillantadores, grabado de vidrio.</p>
+                    <p><strong>Mecanismo:</strong> Doble efecto: desnaturalización por H⁺ y acción retardada del ion F⁻, que se une a Ca⁺⁺ y Mg⁺⁺ tisular, causando necrosis progresiva hasta 7 días, descalcificación ósea e hipocalcemia severa.</p>
+                    <p><strong>Clínica:</strong> Dolor intenso, hipocalcemia, necrosis profunda. Quemadura de 1% SCQ puede causar hipocalcemia grave.</p>
+                    <p><strong>Tratamiento específico:</strong> Lavado copioso, aplicación tópica de gluconato de calcio al 2.5-10% en gel o infiltración subcutánea, cloruro de benzalconio, monitoreo cardíaco y calcemia.</p>
+                </div>
+            </details>
+            <details>
+                <summary><i class="fas fa-chevron-right"></i> <strong>Ácido crómico (Cr⁺⁶)</strong></summary>
+                <div class="detail-content">
+                    <p><strong>Características:</strong> Oxidante potente, se usa en electro refinación, tinturas. Forma hexavalente atraviesa membranas, produce coagulación celular.</p>
+                    <p><strong>Clínica:</strong> Anestesia local inicial, quemadura profunda. Absorción sistémica causa daño renal, hepático, hemólisis. 1% SCQ puede generar insuficiencia renal; 10% SCQ es mortal.</p>
+                    <p><strong>Tratamiento:</strong> Lavado copioso, buffer fosfato o tiosulfato de sodio al 5% tópico. Quelantes (BAL), diuresis forzada (>3 L/día). Escarectomía precoz.</p>
+                </div>
+            </details>
+            <details>
+                <summary><i class="fas fa-chevron-right"></i> <strong>Fenol (ácido carbólico)</strong></summary>
+                <div class="detail-content">
+                    <p><strong>Características:</strong> Antiguo desinfectante, actualmente en resinas, plásticos, aspirina. Altamente tóxico por vía cutánea.</p>
+                    <p><strong>Clínica:</strong> Quemadura + intoxicación sistémica grave. Falla renal aguda en >50% de casos, mortalidad elevada.</p>
+                    <p><strong>Tratamiento:</strong> Lavado profuso, neutralización con polietilenglicol (lavados repetidos). Diuresis forzada, hemodiálisis ante signos de falla renal.</p>
+                </div>
+            </details>
+            <details>
+                <summary><i class="fas fa-chevron-right"></i> <strong>Hidróxido de sodio (sosa cáustica)</strong></summary>
+                <div class="detail-content">
+                    <p><strong>Características:</strong> Álcali cáustico, en limpiadores de hornos, industrias. Saponifica grasas, disuelve proteínas, necrosis por licuefacción.</p>
+                    <p><strong>Clínica:</strong> Escara blanda, húmeda, dolor intenso, penetración profunda. En ojos: opacidad corneal, ulceración, alopecia temporal en cuero cabelludo.</p>
+                    <p><strong>Tratamiento:</strong> Lavado prolongado >30 min. Escarectomía diferida (4-6 días). Injertos si es necesario.</p>
+                </div>
+            </details>
+            <details>
+                <summary><i class="fas fa-chevron-right"></i> <strong>Hidrocarburos (bencina, kerosene, trementina)</strong></summary>
+                <div class="detail-content">
+                    <p><strong>Mecanismo:</strong> Efecto vesicante por contacto prolongado con ropa contaminada. Pueden causar absorción sistémica por piel intacta e inhalación.</p>
+                    <p><strong>Clínica:</strong> Quemadura química de espesor variable, riesgo de neumonitis química por aspiración.</p>
+                    <p><strong>Tratamiento:</strong> Retirar ropa, lavado con agua y jabón. Manejo respiratorio si hay inhalación.</p>
+                </div>
+            </details>
+            <details>
+                <summary><i class="fas fa-chevron-right"></i> <strong>Amoníaco (NH₃)</strong></summary>
+                <div class="detail-content">
+                    <p><strong>Características:</strong> Gas incoloro, almacenado como líquido a baja temperatura. Produce lesión química + térmica por frío.</p>
+                    <p><strong>Mecanismo:</strong> Forma hidróxido de amonio (álcali) y produce congelamiento (T fusión -77°C).</p>
+                    <p><strong>Tratamiento:</strong> Lavado con abundante agua, frotado suave cada 6 h para reducir pH. Escarectomías repetidas, injertos.</p>
+                </div>
+            </details>
+            <details>
+                <summary><i class="fas fa-chevron-right"></i> <strong>Fósforo blanco</strong></summary>
+                <div class="detail-content">
+                    <p><strong>Características:</strong> Se inflama espontáneamente en contacto con aire. Utilizado en municiones e industria.</p>
+                    <p><strong>Mecanismo:</strong> Lesión térmica por ignición + corrosión por ácido fosfórico. Toxicidad sistémica (hemólisis, falla hepática y renal).</p>
+                    <p><strong>Tratamiento:</strong> Lavado copioso, extraer partículas visibles (mantener bajo agua para evitar ignición). No usar sulfato de cobre sin supervisión. Vigilar toxicidad sistémica.</p>
+                </div>
+            </details>
+            <details>
+                <summary><i class="fas fa-chevron-right"></i> <strong>Cloruro de titanio (TiCl₄)</strong></summary>
+                <div class="detail-content">
+                    <p><strong>Características:</strong> Líquido amarillo, reacciona con agua generando calor y HCl. Produce humo blanco corrosivo.</p>
+                    <p><strong>Mecanismo:</strong> Reacción exotérmica con humedad corporal, libera ácido clorhídrico y calor, ampliando la lesión.</p>
+                    <p><strong>Tratamiento:</strong> Secar la zona con toallas antes de irrigar (para evitar reacción exotérmica), luego lavado copioso. Vigilar lesión pulmonar por inhalación.</p>
+                </div>
+            </details>
+            <details>
+                <summary><i class="fas fa-chevron-right"></i> <strong>Litio y derivados</strong></summary>
+                <div class="detail-content">
+                    <p><strong>Características:</strong> Metal alcalino muy reactivo, se corroe en contacto con aire. Usado en aleaciones, baterías.</p>
+                    <p><strong>Mecanismo:</strong> Quemadura química por sales corrosivas.</p>
+                    <p><strong>Tratamiento:</strong> Lavado profuso, remover partículas metálicas con pinzas (no agua si aún está el metal sin reaccionar, pero si ya ha reaccionado, irrigación).</p>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <!-- PESTAÑA 4: TRATAMIENTO -->
+    <div id="tratamiento" class="tab-pane">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-first-aid"></i> Tratamiento inicial general</div>
+            <div class="grid-2">
+                <div class="info-card"><h4><i class="fas fa-user-shield"></i> Protección personal</h4><p>Guantes de nitrilo, bata, gafas, botas. Evitar contaminación secundaria.</p></div>
+                <div class="info-card"><h4><i class="fas fa-tshirt"></i> Retirar ropa contaminada</h4><p>Cortar prendas, evitar esparcir el químico. Guardar en bolsa para cadena de custodia.</p></div>
+                <div class="info-card"><h4><i class="fas fa-water"></i> Lavado continuo</h4><p>Irrigar con agua corriente abundante 20-30 min (ácidos) y 30-60 min (álcalis). Mantener hasta alivio del dolor.</p></div>
+                <div class="info-card"><h4><i class="fas fa-blister"></i> Ampollas</h4><p>Drenar y desbridar para eliminar restos de corrosivo.</p></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title"><i class="fas fa-syringe"></i> Antídotos y manejo específico</div>
+            <details>
+                <summary><i class="fas fa-chevron-right"></i> Ácido fluorhídrico</summary>
+                <div class="detail-content">Gluconato de calcio tópico (gel 2.5-10%) o infiltración subcutánea, cloruro de benzalconio, acetato de calcio. Monitoreo cardíaco, calcemia.</div>
+            </details>
+            <details>
+                <summary><i class="fas fa-chevron-right"></i> Ácido crómico</summary>
+                <div class="detail-content">Buffer fosfato o tiosulfato de sodio al 5% tópico. Quelantes (BAL). Diuresis forzada. Escarectomía precoz.</div>
+            </details>
+            <details>
+                <summary><i class="fas fa-chevron-right"></i> Fenol</summary>
+                <div class="detail-content">Lavado con polietilenglicol, diuresis forzada, hemodiálisis.</div>
+            </details>
+            <details>
+                <summary><i class="fas fa-chevron-right"></i> Fósforo</summary>
+                <div class="detail-content">Extraer partículas, mantener bajo agua. Lavado copioso. Vigilar hemólisis, falla hepática y renal.</div>
+            </details>
+            <details>
+                <summary><i class="fas fa-chevron-right"></i> Cloruro de titanio</summary>
+                <div class="detail-content">Secar antes de irrigar para evitar reacción exotérmica. Luego lavado abundante.</div>
+            </details>
+        </div>
+        <div class="card">
+            <div class="card-title"><i class="fas fa-cut"></i> Tratamiento quirúrgico</div>
+            <ul>
+                <li><strong>Escarectomía:</strong> Entre el 4° y 6° día (excepto en ácido crómico, que es precoz).</li>
+                <li><strong>Cierre:</strong> Injertos dermoepidérmicos inmediatos o diferidos según vitalidad del lecho.</li>
+                <li><strong>Cobertura antimicrobiana:</strong> Sulfadiazina de plata o nitrofurazona hasta la cirugía.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- PESTAÑA 5: LESIONES OCULARES -->
+    <div id="ocular" class="tab-pane">
+        <div class="card">
+            <div class="card-title"><i class="fas fa-eye-dropper"></i> Clasificación de lesiones oculares por cáusticos</div>
+            <table>
+                <thead><tr><th>Grado</th><th>Hallazgos</th></tr></thead>
+                <tbody>
+                    <tr><td>Grado I</td><td>Lesión del epitelio corneal, conjuntiva no isquémica</td></tr>
+                    <tr><td>Grado II</td><td>Córnea deslustrada, iris visible, isquemia limbo &lt;33%</td></tr>
+                    <tr><td>Grado III</td><td>Pérdida epitelial total, estroma borroso, isquemia 33-50%</td></tr>
+                    <tr><td>Grado IV</td><td>Opacidad corneal total, isquemia &gt;50%</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card">
+            <div class="card-title"><i class="fas fa-hand-holding-medical"></i> Manejo inicial de quemadura ocular</div>
+            <div class="grid-2">
+                <div class="info-card"><h4><i class="fas fa-tint"></i> Lavado inmediato</h4><p>Agua o solución salina 20-30 min (álcalis hasta 1 h). Usar anestésico tópico (proparacaína) para facilitar apertura palpebral.</p></div>
+                <div class="info-card"><h4><i class="fas fa-chart-line"></i> Control de pH</h4><p>Verificar pH neutro con papel tornasol cada 30 min. Continuar lavado si persiste alcalinidad/acidez.</p></div>
+                <div class="info-card"><h4><i class="fas fa-pills"></i> Terapia farmacológica</h4><p>Antibióticos tópicos (tetraciclina), ciclopléjicos (atropina 1%), corticoides tópicos (dexametasona) según grado. Tetraciclina oral 500 mg c/6h por 7 días.</p></div>
+                <div class="info-card"><h4><i class="fas fa-eye"></i> Seguimiento oftalmológico</h4><p>Evaluación a las 24 h, manejo especializado para prevenir sinequias, simbléfaron, opacidad corneal.</p></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title"><i class="fas fa-exclamation-triangle"></i> Complicaciones</div>
+            <ul>
+                <li>Opacidad corneal, ceguera</li>
+                <li>Simbléfaron, entropión, ectropión</li>
+                <li>Catarata, glaucoma secundario</li>
+                <li>Estafiloma corneal</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>Contenido basado en la revisión “Quemaduras por agentes químicos” (O. Iribarren et al.) y el Protocolo de Atención de Urgencias (Resolución 4568). Material educativo para profesionales de la salud.</p>
+</footer>
+
+<script>
+    // Tabs
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panes = document.querySelectorAll('.tab-pane');
+    tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabId = btn.getAttribute('data-tab');
+            tabs.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            panes.forEach(pane => {
+                pane.classList.remove('active');
+                if (pane.id === tabId) pane.classList.add('active');
+            });
+        });
+    });
+</script>
+</body>
+</html>
